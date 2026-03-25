@@ -1,10 +1,4 @@
----
-layout: default
-title: FacultyHack@Gateways 2026
----
-
-# Faculty Hackathon 2026  
-## FacultyHack@Gateways 2026
+# FacultyHack@Gateways 2026
 
 ### Build HPC Skills. Transform Your Curriculum. Empower Your Students.
 
@@ -89,7 +83,7 @@ Explore previous years’ work:
 ## 📢 Applications Open Now
 
 👉 **Apply Here:**  
-[Faculty Hackathon Application Form](#)
+[Faculty Hackathon Application Form](https://docs.google.com/forms/d/e/1FAIpQLSducBQNafvUc-47hgo8BV0G5ClUYtedZmHYvF5DBHvAPnCbHw/viewform?usp=publish-editor)
 
 🗓️ **Selection Begins:** June 8, 2026  
 Applications will be reviewed on a rolling basis until all slots are filled.
