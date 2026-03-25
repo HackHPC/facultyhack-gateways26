@@ -9,7 +9,12 @@ title: FacultyHack@Gateways 2026
 ### Build HPC Skills. Transform Your Curriculum. Empower Your Students.
 
 📍 **Virtual Event**  
-📅 **August 3 – 14, 2026**
+📅 August 3 – 14, 2026
+
+📍 **In-Person Event** <br>
+📅 September 25-35, 2026 in Washington, D.C  <br>
+[Gateways 2026](https://sciencegateways.org/gateways2026) 
+ 
 
 ---
 
