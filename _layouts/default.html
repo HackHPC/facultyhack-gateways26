@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% seo %}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrapper">
+      <p class="site-header__brand">
+        <a href="{{ '/' | relative_url }}">FacultyHack<span aria-hidden="true">@</span>Gateways 2026</a>
+      </p>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="site-nav__menu">
+          <li><a href="{{ '/#overview' | relative_url }}">Overview</a></li>
+          <li><a href="{{ '/#challenges' | relative_url }}">Challenges</a></li>
+          <li><a href="{{ '/#apply' | relative_url }}" class="site-nav__cta">Apply</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+
+      <section class="footer-section" aria-labelledby="footer-archives-heading">
+        <h2 id="footer-archives-heading">Faculty Hackathon Archives</h2>
+        <ul class="footer-links">
+          <li><a href="https://hackhpc.github.io/FacultyHack-Gateways22/">2022 Faculty Hackathon Repository</a></li>
+          <li><a href="https://hackhpc.github.io/facultyhack-gateways23/">2023 Faculty Hackathon Repository</a></li>
+          <li><a href="https://hackhpc.github.io/facultyhack-gateways24/">2024 Faculty Hackathon Repository</a></li>
+          <li><a href="https://hackhpc.github.io/facultyhack-gateways25">2025 Faculty Hackathon Repository</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-section" aria-labelledby="footer-source-heading">
+        <h2 id="footer-source-heading">Site Source</h2>
+        <ul class="footer-links">
+          <li><a href="https://github.com/HackHPC/facultyhack-gateways26">View this site&rsquo;s source code on GitHub</a></li>
+        </ul>
+      </section>
+
+      <section class="footer-section" aria-labelledby="footer-sponsors-heading">
+        <h2 id="footer-sponsors-heading">Sponsors</h2>
+        <ul class="footer-sponsors">
+          <li>SGX3</li>
+          <li>Oak Ridge National Laboratory</li>
+          <li>Omnibond Systems</li>
+          <li>Texas Advanced Computing Center</li>
+          <li>HackHPC.org</li>
+        </ul>
+      </section>
+
+      <p class="footer-acknowledgment">
+        SGX3 is funded by the National Science Foundation under award number 2231406.
+      </p>
+
+    </div>
+  </footer>
+</body>
+</html>

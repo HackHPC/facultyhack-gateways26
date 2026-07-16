@@ -1,0 +1,36 @@
+title: "FacultyHack@Gateways 2026"
+tagline: "Build HPC Skills. Transform Your Curriculum. Empower Your Students."
+description: >-
+  A hands-on virtual program for faculty across disciplines to integrate
+  High Performance Computing (HPC) into their courses, in partnership with
+  the Gateways 2026 Conference.
+author: "SGX3 / HackHPC"
+
+# GitHub Pages routing for https://github.com/HackHPC/facultyhack-gateways26
+url: "https://hackhpc.github.io"
+baseurl: "/facultyhack-gateways26"
+
+repository: "HackHPC/facultyhack-gateways26"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+sass:
+  style: compressed
+
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - README.md
+  - PICKUP_AND_GO.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
