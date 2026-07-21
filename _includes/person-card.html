@@ -13,6 +13,9 @@
     <div>
       <h2 class="mentor-card__name">{{ include.person.name }}</h2>
       <p class="mentor-card__affiliation">
+        {% if include.person.affiliation_icon %}
+        {% include icon.html icon=include.person.affiliation_icon %}
+        {% endif %}
         {% if include.person.affiliation_url %}
         <a href="{{ include.person.affiliation_url }}">{{ include.person.affiliation }}</a>
         {% else %}
@@ -34,10 +37,23 @@
   {% if include.person.history %}
   {% assign sorted_history = include.person.history | sort: "year" | reverse %}
   <div class="mentor-card__history">
-    <h3 class="mentor-card__history-heading">Experience</h3>
+    <h3 class="mentor-card__history-heading">FacultyHack History</h3>
     <ul class="mentor-card__history-list">
       {% for entry in sorted_history %}
-      <li>{{ entry.year }} &mdash; {{ entry.role }}</li>
+      {% assign archive_url = nil %}
+      {% for archive in site.data.archives %}
+        {% if archive.year == entry.year %}
+        {% assign archive_url = archive.url %}
+        {% endif %}
+      {% endfor %}
+      <li>
+        {% if archive_url %}
+        <a href="{{ archive_url }}">{{ entry.year }}</a>
+        {% else %}
+        {{ entry.year }}
+        {% endif %}
+        &mdash; {{ entry.role }}
+      </li>
       {% endfor %}
     </ul>
   </div>

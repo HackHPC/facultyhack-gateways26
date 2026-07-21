@@ -1,0 +1,11 @@
+# FacultyHack per-year archive repositories, linked from the footer
+# ("Faculty Hackathon Archives") and from each mentor's FacultyHack
+# History years on the Mentors page.
+- year: 2022
+  url: "https://hackhpc.github.io/FacultyHack-Gateways22/"
+- year: 2023
+  url: "https://hackhpc.github.io/facultyhack-gateways23/"
+- year: 2024
+  url: "https://hackhpc.github.io/facultyhack-gateways24/"
+- year: 2025
+  url: "https://hackhpc.github.io/facultyhack-gateways25"

@@ -11,6 +11,7 @@
 - name: "Amy Cannon"
   affiliation: "Omnibond"
   affiliation_url: "http://www.omnibond.com/"
+  affiliation_icon: "custom:favicons/omnibond-com"
   photo: "/assets/images/organizers/amy-cannon.png"
   bio: >-
     Amy Cannon has worked at Omnibond for 10 years, where her Business
@@ -29,6 +30,7 @@
 - name: "Dr. Linda Hayden"
   affiliation: "Science Gateways Community Institute"
   affiliation_url: "https://sciencegateways.org/"
+  affiliation_icon: "custom:favicons/sciencegateways-org"
   photo: "/assets/images/organizers/linda-hayden.jpeg"
   bio: >-
     Dr. Linda Hayden holds a Ph.D. in Mathematics and Education. She leads
@@ -48,6 +50,7 @@
 - name: "Charlie Dey"
   affiliation: "Texas Advanced Computing Center"
   affiliation_url: "https://www.tacc.utexas.edu/about/directory/charlie-dey"
+  affiliation_icon: "custom:favicons/tacc-utexas-edu"
   photo: "/assets/images/organizers/charlie-dey.jpeg"
   bio: >-
     Charlie Dey (he/him) is the Director of Training and Professional
@@ -80,17 +83,18 @@
       icon: "brands:github"
 
 - name: "Alexander Nolte"
-  affiliation: "University of Tartu"
-  affiliation_url: "https://alexandernolte.github.io/"
+  affiliation: "Eindhoven University of Technology"
+  affiliation_url: "https://www.tue.nl"
+  affiliation_icon: "custom:favicons/tue-nl"
   photo: "/assets/images/organizers/alexander-nolte.jpeg"
   bio: >-
-    Alex is an Associate Professor at the University of Tartu and an
-    Adjunct Associate Professor at Carnegie Mellon University working in
-    the area of human computer interaction. He is an avid hackathon
-    enthusiast and has participated in, co-organized, served as a mentor
-    and studied countless hackathons over the past years with no end in
-    sight. Outside of work he fiddles with any gadget he can get his hand
-    on, plays video games, cooks and does BBQ.
+    Alex is an Associate Professor at Eindhoven University of Technology
+    and an Adjunct Associate Professor at Carnegie Mellon University
+    working in the area of human computer interaction. He is an avid
+    hackathon enthusiast and has participated in, co-organized, served as
+    a mentor and studied countless hackathons over the past years with no
+    end in sight. Outside of work he fiddles with any gadget he can get
+    his hand on, plays video games, cooks and does BBQ.
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/alexandernolte/"
@@ -111,6 +115,7 @@
 - name: "Je'aime Powell"
   affiliation: "Omnibond"
   affiliation_url: "http://www.omnibond.com"
+  affiliation_icon: "custom:favicons/omnibond-com"
   photo: "/assets/images/organizers/jeaime-powell.png"
   bio: >-
     Je'aime Powell currently works as a Senior Systems Administrator and
@@ -146,6 +151,7 @@
 - name: "Boyd Wilson"
   affiliation: "Omnibond"
   affiliation_url: "http://www.omnibond.com/"
+  affiliation_icon: "custom:favicons/omnibond-com"
   photo: "/assets/images/organizers/boyd-wilson.png"
   bio: >-
     Boyd Wilson, CEO of Omnibond Systems, has extensive experience and

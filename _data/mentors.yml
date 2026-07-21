@@ -15,6 +15,7 @@
 - name: "Ahmad Al-Omari"
   affiliation: "Our Lady of the Lake University"
   affiliation_url: "https://www.ollusa.edu/"
+  affiliation_icon: "custom:favicons/ollusa-edu"
   specialty: ["Cybersecurity", "Digital Forensics"]
   bio: >-
     Dr. Ahmad Al-Omari is an Assistant Professor of Computer Information
@@ -36,7 +37,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ollusa.edu/sbl/profiles/ahmad-al-omari.html"
-      icon: "solid:link"
+      icon: "custom:favicons/ollusa-edu"
     - label: "Facebook"
       url: "https://www.facebook.com/ahmad.alomari.102"
       icon: "brands:facebook"
@@ -44,6 +45,7 @@
 - name: "Anas AlSobeh"
   affiliation: "Utah Valley University"
   affiliation_url: "https://www.uvu.edu/"
+  affiliation_icon: "custom:favicons/uvu-edu"
   specialty: ["AI-Driven Cybersecurity", "Cloud Computing"]
   bio: >-
     Dr. Anas AlSobeh is an Assistant Professor of Applied AI in the
@@ -67,7 +69,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.uvu.edu/directory/employee/?id=WGlTY2Z3K2xFTGhKVDh3cE9Ec2tYUT09"
-      icon: "solid:link"
+      icon: "custom:favicons/uvu-edu"
     - label: "Personal Website"
       url: "https://aalosbeh.github.io/"
       icon: "solid:link"
@@ -78,6 +80,7 @@
 - name: "Felicia Doswell"
   affiliation: "Norfolk State University"
   affiliation_url: "https://www.nsu.edu/"
+  affiliation_icon: "custom:favicons/nsu-edu"
   specialty: ["Information Assurance", "Human-Computer Interaction"]
   photo: "assets/images/mentors/Felicia-Doswell.jpg"
   history:
@@ -101,7 +104,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.nsu.edu/Academics/Faculty-and-Academic-Divisions/Schools-and-Colleges/College-of-Science-Engineering-and-Technology/Departments/Computer-Science/Faculty-and-Staff/Felicia-Doswell"
-      icon: "solid:link"
+      icon: "custom:favicons/nsu-edu"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/felicia-doswell-3b77701b"
       icon: "brands:linkedin"
@@ -109,6 +112,7 @@
 - name: "Mohamed Elbakary"
   affiliation: "Elizabeth City State University"
   affiliation_url: "https://www.ecsu.edu/"
+  affiliation_icon: "custom:favicons/ecsu-edu"
   specialty: ["Electrical & Computer Engineering"]
   photo: "assets/images/mentors/elbakary.JPG"
   history:
@@ -133,7 +137,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ecsu.edu/directory/mohamed-elbakary.php"
-      icon: "solid:link"
+      icon: "custom:favicons/ecsu-edu"
     - label: "Department Page"
       url: "https://www.ecsu.edu/academics/undergrad/engineering-technology.php"
       icon: "solid:link"
@@ -141,6 +145,7 @@
 - name: "Mohammed Elmellouki"
   affiliation: "Mississippi Valley State University"
   affiliation_url: "https://www.mvsu.edu/"
+  affiliation_icon: "custom:favicons/mvsu-edu"
   specialty: ["Computational Fluid Dynamics", "Heat Transfer"]
   history:
     - year: 2024
@@ -172,6 +177,7 @@
 - name: "Sajida Faiyaz"
   affiliation: "Austin Community College"
   affiliation_url: "https://www.austincc.edu/"
+  affiliation_icon: "custom:favicons/austincc-edu"
   specialty: ["Software Engineering", "Databases"]
   history:
     - year: 2025
@@ -193,6 +199,7 @@
 - name: "John Holmen"
   affiliation: "Oak Ridge National Laboratory"
   affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
   specialty: ["High Performance Computing", "Exascale Computing"]
   photo: "assets/images/mentors/john_holmen.jpg"
   history:
@@ -223,7 +230,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ornl.gov/staff-profile/john-k-holmen"
-      icon: "solid:link"
+      icon: "custom:favicons/ornl-gov"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/jholmen/"
       icon: "brands:linkedin"
@@ -231,6 +238,7 @@
 - name: "Elijah MacCarthy"
   affiliation: "Oak Ridge National Laboratory"
   affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
   specialty: ["GPU Computing", "Parallel Computing"]
   photo: "assets/images/mentors/elijah_maccarthy.jpg"
   history:
@@ -256,11 +264,12 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ornl.gov/staff-profile/elijah-maccarthy"
-      icon: "solid:link"
+      icon: "custom:favicons/ornl-gov"
 
 - name: "Olabisi Ojo"
   affiliation: "Albany State University"
   affiliation_url: "https://www.asurams.edu/"
+  affiliation_icon: "custom:favicons/asurams-edu"
   specialty: ["Microbial Genomics", "Computational Biology"]
   photo: "assets/images/mentors/olabisi_ojo.jpeg"
   history:
@@ -290,6 +299,7 @@
 - name: "Sabrina Perry"
   affiliation: "Austin Peay State University"
   affiliation_url: "https://www.apsu.edu/"
+  affiliation_icon: "custom:favicons/apsu-edu"
   specialty: ["Computer Science Education", "Engineering Technology"]
   photo: "assets/images/mentors/sabrina_perry.png"
   history:

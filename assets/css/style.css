@@ -517,6 +517,9 @@ main:focus-visible {
 }
 
 .mentor-card__affiliation {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
   margin-bottom: var(--space-2);
   color: #495057;
 }
@@ -684,6 +687,12 @@ svg.mentor-card__link-icon {
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   background-color: var(--color-bg);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.resource-item:hover {
+  background-color: var(--color-bg-alt);
+  border-color: var(--color-accent);
 }
 
 .resource-item__name {

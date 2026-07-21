@@ -350,9 +350,9 @@ knowing the layers if you're adding more:
 
 1. **Base set**: hand-curated by this project across Science Gateways, HPC,
    Cloud Computing, Programming, Web Development, Data Science, UX, and
-   Organizations & Communities. One entry (Northwestern State University)
-   has no URL — the user never provided one, so it renders as unlinked
-   plain text rather than a guessed link.
+   Organizations & Communities. (Northwestern State University originally
+   had no URL and was left unlinked rather than guessed — later removed
+   entirely by request instead of ever getting one.)
 2. **Merged in from `HackHPC/admi26`** (`_data/resources.yml` there) —
    AI Platforms and a large "Free AI Credits for Students" set. That
    source had richer per-entry fields (`what_you_get`, `signup`,
@@ -533,23 +533,51 @@ deliberately non-monochrome exception to everything above.
   category's default icon, same "don't guess" rule used everywhere else
   in this file. Breakdown of the failures:
   - **7 domains didn't resolve at all** (dead/parked, not a fetch bug —
-    confirmed with `dig`): `hpc-ed.org`, `blackinhpc.org`, `sc.ed.gov`,
-    `acmhpdc.org`, `hpccampus.com`, `pearc.utulsa.edu`, and (at the time)
-    `projecteureka.org` — that last one turned out to be a stale URL, not
-    a dead resource: the user later confirmed the real domain is
-    `projecteureka.ai`, which is live. `_data/resources.yml` and
-    `_includes/icons/favicons/projecteureka-ai.svg` are updated. The other
-    6 are still unconfirmed — worth the same treatment if the real
-    current URLs turn up.
-  - **`ippdps.org` (IEEE IPDPS) looks like a typo** — `ipdps.org` (one
-    fewer `p`) resolves fine and is almost certainly the real domain.
-    Not corrected here since fixing resource URLs was out of scope for
-    "add icons" — flagged for whoever picks this up next.
+    confirmed with `dig`): `hpc-ed.org`, `sc.ed.gov`, `acmhpdc.org`,
+    `hpccampus.com`, `pearc.utulsa.edu`, and (at the time) `projecteureka.org`
+    and `blackinhpc.org` — three later resolved by the user, each
+    differently: `projecteureka.org` turned out to be a stale URL for the
+    same resource, corrected to `projecteureka.ai` (live), and
+    projectEUREKA! ended up reusing the `hackhpc-org` icon by later
+    request instead of its own fetched favicon (that file was deleted).
+    `blackinhpc.org` turned out to be a dead org entirely — the
+    "Black in/HPC" entry was replaced outright with a different,
+    unrelated organization, "Black in AI"
+    (`https://www.blackinai.org/`), with its own fetched favicon,
+    `_includes/icons/favicons/blackinai-org.svg`. `hpccampus.com`'s
+    "HPC Campus" entry was removed from `_data/resources.yml` outright.
+    `hpc-ed.org`'s "HPC-ED" entry got a corrected URL too —
+    `https://hpc-ed.github.io` — plus an updated description (confirmed
+    via WebFetch: "CyberTraining" in its tagline refers to NSF's
+    CyberTraining program, not literal cybersecurity — it's an HPC
+    training-materials federated repository, same subject as before, just
+    phrased more precisely) and its own fetched favicon,
+    `_includes/icons/favicons/hpc-ed-github-io.svg`. All 7 of the
+    originally-dead domains are now resolved: a later full link-check
+    (below) plus user-supplied corrected URLs fixed the remaining 3 —
+    `sc.ed.gov` → DOE CSGF now points to `https://www.krellinst.org/csgf/`,
+    `acmhpdc.org` → HPDC now points to `https://hpdc.sci.utah.edu`, and
+    `ippdps.org` (the typo) → IEEE IPDPS now points to the correct
+    `https://www.ipdps.org`. All three got refreshed descriptions (sourced
+    via WebFetch from the real sites) and their own favicons, except
+    DOE CSGF and IPDPS which fetched cleanly — HPDC too. `pearc.utulsa.edu`
+    → PEARC now points to `https://pearc.acm.org/`, but that subdomain is
+    Cloudflare-blocked the same way `acm.org` is (confirmed via both curl
+    and WebFetch), so its description was left as-is and it reuses the
+    `custom:acm` icon rather than a fetched favicon, since it's genuinely
+    hosted under ACM's domain.
   - **3 sites (`acm.org`, `siam.org` on the first pass, `perplexity.ai`
-    on the first pass) returned HTTP 403** — bot-protected; `siam.org`
-    and `perplexity.ai` succeeded on a retry with a longer timeout,
-    `acm.org` never did. Not worth pursuing further — evading bot
-    detection wasn't attempted.
+    on the first pass) returned HTTP 403** — bot-protected (Cloudflare);
+    `siam.org` and `perplexity.ai` succeeded on a retry with a longer
+    timeout. `acm.org` never did — confirmed it's a real Cloudflare
+    challenge (even `/favicon.ico` 404s into the same block), not
+    pursued further since evading bot detection wasn't attempted. Instead
+    of a favicon, ACM's entry uses `_includes/icons/acm.svg` — the real
+    ACM diamond logo from Simple Icons (CC0, same source/precedent as
+    Jupyter's icon), referenced as `icon: "custom:acm"`. Worth remembering
+    this pattern (a hand-vendored `_includes/icons/<name>.svg` plus
+    `"custom:<name>"`, no `favicons/` subpath) for any other bot-blocked
+    site where a real logo exists in a CC0/permissive icon library.
   - **A handful of live sites still failed** despite working fine when
     tested standalone with the exact same request (`networkx.org`,
     `swcarpentry.github.io`, `openscapes.github.io`, `ncar.ucar.edu`,
@@ -761,24 +789,52 @@ item added this session.
 6. **Decide whether to fix or accept** John Holmen's duplicate "2025 —
    Mentor" line and the thin/unverified LinkedIn-only specialty tags
    (Faiyaz, Ojo, Perry) — both are documented above, neither is a bug.
-7. **Get the missing Northwestern State University URL** if it's findable,
-   or confirm it should stay unlinked — see "Resources page" section.
-   (NCAR Explorer Series is resolved: the user supplied
-   `https://edec.ucar.edu/public/ncar-explorer-series` directly.)
-8. **Check 6 domains found dead while fetching resource-icon favicons** —
-   `hpc-ed.org`, `blackinhpc.org`, `sc.ed.gov`, `acmhpdc.org`,
-   `hpccampus.com`, `pearc.utulsa.edu` — none resolve via DNS right now.
-   (`projectEUREKA!` was the 7th; the user confirmed its real domain is
-   `projecteureka.ai`, now fixed.) Also, `ippdps.org` (IEEE IPDPS entry)
-   looks like a typo for `ipdps.org`, which does resolve. None of the
-   remaining 6 have been fixed — it surfaced as a side effect of the
-   favicon fetch and is a `_data/resources.yml` content question, out of
-   scope for that task. See "Resource icons sourced from real favicons"
-   in the "Icon system" section for the full list including sites that
-   are live but couldn't supply a favicon.
-9. Not yet built: any pages beyond Home/Mentors/Organizers/Resources, a
-   real favicon (currently `<link rel="icon" href="data:,">`, i.e.
-   deliberately blank).
+7. Both no-URL resource entries are resolved now: NCAR Explorer Series got
+   its real URL (`https://edec.ucar.edu/public/ncar-explorer-series`), and
+   Northwestern State University was removed from `_data/resources.yml`
+   entirely by request rather than ever getting a URL.
+8. **All 7 originally-dead-domain resources are now resolved.** Of the
+   original 7 found while fetching resource-icon favicons:
+   `projecteureka.org` → `projecteureka.ai`, `blackinhpc.org` → replaced
+   outright with "Black in AI" (`https://www.blackinai.org/`),
+   `hpccampus.com`'s "HPC Campus" entry removed outright, `hpc-ed.org` →
+   `https://hpc-ed.github.io`, `sc.ed.gov` → DOE CSGF now points to
+   `https://www.krellinst.org/csgf/`, `acmhpdc.org` → HPDC now points to
+   `https://hpdc.sci.utah.edu`, and the `ippdps.org` typo → IEEE IPDPS now
+   points to the correct `https://www.ipdps.org`. See "Resource icons
+   sourced from real favicons" in the "Icon system" section for the full
+   history and which of these got a fetched favicon vs. reused/kept an
+   existing icon (PEARC, `https://pearc.acm.org/`, is Cloudflare-blocked
+   the same as `acm.org` and reuses the `custom:acm` icon instead).
+9. **A full link-check of all 165 resources** (DNS + live GET, done in
+   response to "check for other dead links in resources") found more
+   issues beyond the 7 above, **not yet fixed**:
+   - `lab.github.com` ("Introduction to GitHub") — dead, GitHub Learning
+     Lab was retired years ago.
+   - `sc.supercomputing.org` (SC Conference) — resolves to `1.2.3.4`, a
+     placeholder/documentation IP, not a real host. Looks like a broken
+     DNS record on their end.
+   - 7 pages that 404 even though the parent site is confirmed alive
+     (org restructured their site, page moved/removed):
+     `access-ci.org/campus-champions`, `access-ci.org/news/careers/`,
+     `access-ci.org/events/`, `carcc.org/jobs-and-careers/`,
+     `www.nasa.gov/seeds/`, `www.nsf.gov/fellowships/`,
+     `www.nsf.gov/od/oia/reu/`. None of these were guessed at or fixed —
+     each needs either a real corrected URL or a decision to remove it,
+     same as the pattern followed for the 7 dead domains above.
+   - **False positives, not real problems**: `hprc.tamu.edu` and both
+     `siam.org` conference pages 403 from automated fetches
+     (Cloudflare/WAF) but are fine for real visitors — same pattern as
+     `acm.org`/`pearc.acm.org`. `hackhpc.org`'s HTTPS was timing out
+     during the check but plain HTTP returned 200 instantly and it was
+     fetched successfully earlier in the same session (its favicon is
+     already vendored) — looks like a flaky HTTPS listener on their end
+     at that moment, not a dead link; worth a quick recheck before
+     treating it as anything more than transient.
+10. Not yet built: any pages beyond Home/Mentors/Organizers/Resources.
+    (A real favicon now exists — `favicon.ico` + `favicon.png`, both
+    user-supplied — linked from `_layouts/default.html`, replacing the
+    old deliberately-blank `data:,` placeholder.)
 
 ## Repo layout at handoff
 

@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="32x32">
+  <link rel="icon" href="{{ '/assets/images/branding/favicon.png' | relative_url }}" type="image/png" sizes="800x800">
   <link rel="stylesheet" href="{{ '/assets/fontawesome/css/fontawesome.min.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/fontawesome/css/solid.min.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/fontawesome/css/brands.min.css' | relative_url }}">
@@ -29,7 +30,6 @@
 
       <nav class="site-nav" aria-label="Primary">
         <ul class="site-nav__menu">
-          <li><a href="{{ '/#overview' | relative_url }}">Overview</a></li>
           <li><a href="{{ '/mentors/' | relative_url }}"{% if page.url contains '/mentors' %} aria-current="page"{% endif %}>Mentors</a></li>
           <li><a href="{{ '/organizers/' | relative_url }}"{% if page.url contains '/organizers' %} aria-current="page"{% endif %}>Organizers</a></li>
           <li><a href="{{ '/resources/' | relative_url }}"{% if page.url contains '/resources' %} aria-current="page"{% endif %}>Resources</a></li>
@@ -51,10 +51,9 @@
       <section class="footer-section" aria-labelledby="footer-archives-heading">
         <h2 id="footer-archives-heading">Faculty Hackathon Archives</h2>
         <ul class="footer-links">
-          <li><a href="https://hackhpc.github.io/FacultyHack-Gateways22/">2022 Faculty Hackathon Repository</a></li>
-          <li><a href="https://hackhpc.github.io/facultyhack-gateways23/">2023 Faculty Hackathon Repository</a></li>
-          <li><a href="https://hackhpc.github.io/facultyhack-gateways24/">2024 Faculty Hackathon Repository</a></li>
-          <li><a href="https://hackhpc.github.io/facultyhack-gateways25">2025 Faculty Hackathon Repository</a></li>
+          {% for archive in site.data.archives %}
+          <li><a href="{{ archive.url }}">{{ archive.year }} Faculty Hackathon Repository</a></li>
+          {% endfor %}
         </ul>
       </section>
 
