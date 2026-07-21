@@ -15,19 +15,31 @@
                                 text, links, or smaller headings like mentor/
                                 organizer card names)
 
-   --color-footer-bg is intentionally its own variable, NOT tied to
-   --color-text, even though before this palette existed the footer reused
-   --color-text for its background. Root Brown (L≈0.082) is much lighter
-   than the old charcoal (L≈0.018) was, and there's no single flat color
-   that clears 3:1 against both the near-white Ivory body AND a
-   medium-dark footer at the same time — so the footer keeps the original
-   dark neutral, keeping the existing amber focus ring (#B45309) valid
-   everywhere without needing dark/light-context-specific focus styles.
+   --color-header-bg is Forest Olive (#55661A) and --color-footer-bg is
+   Root Brown (#6B4A2A) — two different brand colors, deliberately not the
+   same, each its own variable. Both are dark/medium enough that they use
+   Ivory text (var(--color-text-inverse)) rather than the body's Root
+   Brown text color: Ivory clears ~6.1:1 on Forest Olive and ~7.6:1 on
+   Root Brown, comfortably past the 4.5:1 minimum for normal-size text.
+   (Olive Green, the other brand green, was NOT used here even though
+   it's also "green" — at this size Ivory-on-Olive-Green only reaches
+   ~4.35:1, just short of 4.5:1; Olive Green is reserved for page h1s,
+   which are large enough that its lower ratio still clears the 3:1
+   large-text minimum. See its own note below.)
+
+   Root Brown and Forest Olive (L≈0.082 and L≈0.115) are both too light
+   for the main amber focus ring (#B45309, L≈0.159) to clear 3:1 against —
+   no single flat color clears 3:1 against both the near-white Ivory body
+   AND a medium-dark bar at the same time (the achievable luminance
+   windows don't overlap; verified by direct calculation). So header/
+   footer links get a context-specific focus override to Ivory instead of
+   amber — see ".site-header a:focus-visible, .site-footer a:focus-visible"
+   below. The rest of the page keeps the amber ring.
 
    Note: the focus ring uses #B45309 (accessible amber) rather than a pure
    gold such as #FFD700 — #FFD700 fails the 3:1 non-text-contrast minimum
    (SC 1.4.11) against this site's background (~1.3:1); #B45309 clears 3:1
-   against every surface the ring appears on (Ivory, white, and the footer).
+   against Ivory and white.
    ========================================================================== */
 
 :root {
@@ -42,7 +54,8 @@
   --color-accent-text: #FFFFFF;
   --color-border: #CED4DA;
   --color-focus: #B45309;
-  --color-footer-bg: #212529;
+  --color-header-bg: #55661A;
+  --color-footer-bg: #6B4A2A;
 
   --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-size-base: 1rem;
@@ -169,6 +182,7 @@ a:hover {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
+select:focus-visible,
 [tabindex]:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
@@ -178,13 +192,20 @@ main:focus-visible {
   outline: none; /* programmatic focus target after skip link; not user navigation */
 }
 
+/* The main amber focus ring doesn't clear 3:1 against Root Brown (see the
+   palette note at the top of this file), so header/footer links get a
+   light-colored ring instead — still ≥3:1, just for this dark context. */
+.site-header a:focus-visible,
+.site-footer a:focus-visible {
+  outline-color: var(--color-text-inverse);
+}
+
 /* --------------------------------------------------------------------------
    Header & primary navigation
    -------------------------------------------------------------------------- */
 
 .site-header {
-  background-color: var(--color-bg-alt);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-header-bg);
   padding-block: var(--space-2);
 }
 
@@ -196,14 +217,27 @@ main:focus-visible {
 }
 
 .site-header__brand a {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--color-text);
-  text-decoration: none;
+  display: inline-block;
+  /* Logo has dark brand-colored artwork (black/browns/olive), so it needs
+     a light backdrop to stay legible now that the bar itself is dark. */
+  background-color: var(--color-bg-alt);
+  padding: 0.375rem 0.75rem;
+  border: 4px solid var(--color-text); /* Root Brown */
+  border-radius: 0.5rem;
 }
 
-.site-header__brand a:hover {
-  text-decoration: underline;
+.site-header__logo {
+  display: block;
+  height: 2.75rem;
+  max-height: 4rem;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (min-width: 40em) {
+  .site-header__logo {
+    height: 3.5rem;
+  }
 }
 
 .site-nav {
@@ -216,18 +250,28 @@ main:focus-visible {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 0.25rem;
 }
 
 .site-nav__menu a {
-  display: inline-block;
-  padding: var(--space-1) 0;
+  display: block;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.375rem 0.375rem 0 0;
+  border-bottom: 3px solid transparent;
   font-weight: 600;
+  color: var(--color-text-inverse);
   text-decoration: none;
 }
 
 .site-nav__menu a:hover {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.site-nav__menu a[aria-current="page"] {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--color-text-inverse);
+  font-weight: 700;
 }
 
 .site-nav__cta {
@@ -246,8 +290,8 @@ main:focus-visible {
 
   .site-nav__menu {
     flex-direction: row;
-    align-items: center;
-    gap: var(--space-3);
+    align-items: stretch;
+    gap: 0.25rem;
   }
 }
 
@@ -256,32 +300,16 @@ main:focus-visible {
    -------------------------------------------------------------------------- */
 
 .hero {
-  position: relative;
-  overflow: hidden;
   padding-block: var(--space-5);
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Decorative watermark, not an <img> — no accessible-name loss since the
-   h1 already states "FacultyHack@Gateways 2026" in text. Low opacity and
-   left-aligned so it never competes with the foreground text's contrast;
-   .hero .wrapper is stacked above it via z-index regardless. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--hero-logo);
-  background-repeat: no-repeat;
-  background-position: left -8% center;
-  background-size: min(75%, 30rem);
-  opacity: 0.08;
-  pointer-events: none;
-}
-
-.hero .wrapper {
-  position: relative;
-  z-index: 1;
+.hero__logo {
+  width: 70%;
+  height: auto;
+  max-width: 100%;
+  margin-bottom: var(--space-2);
 }
 
 .page-hero__top {
@@ -389,7 +417,33 @@ main:focus-visible {
 }
 
 .overview {
+  position: relative;
+  overflow: hidden;
   background-color: var(--color-bg-alt);
+}
+
+/* Same decorative-watermark technique as .hero::before — logo is dark
+   artwork on a light background here too, so no invert filter needed. */
+.overview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--overview-logo);
+  background-repeat: no-repeat;
+  /* left, not right: transform: scaleX(-1) below mirrors this whole box
+     (it spans the full section via inset: 0), which flips the apparent
+     side the background-position lands on too — this "left" is what
+     actually renders on the right after the mirror. */
+  background-position: left -8% center;
+  background-size: min(60%, 22rem);
+  transform: scaleX(-1);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.overview .wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 .apply {
@@ -531,6 +585,119 @@ main:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
+   Resources
+   -------------------------------------------------------------------------- */
+
+.resource-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+.resource-toolbar__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.resource-toolbar__field label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.resource-toolbar__field input,
+.resource-toolbar__field select {
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.resource-toolbar__status {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #495057;
+  min-height: 1.25rem;
+}
+
+@media (min-width: 40em) {
+  .resource-toolbar {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .resource-toolbar__field {
+    flex: 1 1 16rem;
+  }
+
+  .resource-toolbar__status {
+    flex-basis: 100%;
+  }
+}
+
+.resource-category {
+  margin-top: var(--space-5);
+}
+
+.resource-category h2 {
+  margin-top: 0;
+}
+
+.resource-list {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.resource-item {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg);
+}
+
+.resource-item__name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.resource-item__name .mentor-card__link-icon {
+  width: 1.375rem;
+  height: 1.375rem;
+  flex-shrink: 0;
+}
+
+.resource-item__name .mentor-card__link-icon--generic {
+  color: var(--color-link);
+}
+
+.resource-item__description {
+  font-size: 0.9375rem;
+  color: #495057;
+  margin-bottom: 0;
+}
+
+@media (min-width: 48em) {
+  .resource-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
    Footer
    -------------------------------------------------------------------------- */
 
@@ -619,7 +786,10 @@ main:focus-visible {
 .footer-acknowledgment {
   margin-top: var(--space-4);
   padding-top: var(--space-3);
-  border-top: 1px solid #495057;
+  /* #495057 (the old divider color) is nearly the same luminance as Root
+     Brown and would be almost invisible here — a translucent light
+     overlay stays visible against any dark background instead. */
+  border-top: 1px solid rgba(250, 250, 247, 0.25);
   font-size: 0.9375rem;
   max-width: 40rem;
   display: flex;

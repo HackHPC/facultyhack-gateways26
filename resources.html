@@ -1,0 +1,72 @@
+---
+layout: default
+title: Resources
+description: >-
+  Curated Science Gateways, HPC, cloud, programming, web development, data
+  science, UX, and community resources for FacultyHack@Gateways 2026
+  participants.
+---
+
+<section class="mentors" aria-labelledby="resources-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="resources-heading">Resources</h1>
+        <p>
+          A curated set of external resources for FacultyHack@Gateways 2026
+          participants, spanning Science Gateways, high performance
+          computing, cloud platforms, programming, web development, data
+          science, UX design, and community organizations.
+        </p>
+      </div>
+    </div>
+
+    <div class="resource-toolbar">
+      <div class="resource-toolbar__field">
+        <label for="resource-search">Search resources</label>
+        <input
+          type="search"
+          id="resource-search"
+          name="q"
+          placeholder="e.g. Jupyter, HPC, GitHub&hellip;"
+          autocomplete="off"
+        >
+      </div>
+      <div class="resource-toolbar__field">
+        <label for="resource-jump">Jump to category</label>
+        <select id="resource-jump">
+          <option value="">Choose a category&hellip;</option>
+          {% for group in site.data.resources %}
+          <option value="resources-{{ group.category | slugify }}">{{ group.category }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <p id="resource-count" class="resource-toolbar__status" aria-live="polite"></p>
+    </div>
+
+    {% for group in site.data.resources %}
+    <section class="resource-category" aria-labelledby="resources-{{ group.category | slugify }}">
+      <h2 id="resources-{{ group.category | slugify }}">{{ group.category }}</h2>
+      <ul class="resource-list">
+        {% for resource in group.resources %}
+        {% assign resource_icon = resource.icon | default: group.icon %}
+        <li class="resource-item">
+          <p class="resource-item__name">
+            {% include icons/{{ resource_icon }}.svg %}
+            {% if resource.url %}
+            <a href="{{ resource.url }}">{{ resource.name }}</a>
+            {% else %}
+            {{ resource.name }}
+            {% endif %}
+          </p>
+          <p class="resource-item__description">{{ resource.description }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  </div>
+</section>
+
+<script src="{{ '/assets/js/resources.js' | relative_url }}" defer></script>

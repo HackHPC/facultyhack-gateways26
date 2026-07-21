@@ -1,0 +1,7 @@
+<svg class="mentor-card__link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <rect width="24" height="24" rx="4" fill="#1E1E1E"/>
+  <circle cx="9" cy="7" r="3" fill="#F24E1E"/>
+  <circle cx="9" cy="12" r="3" fill="#A259FF"/>
+  <circle cx="9" cy="17" r="2.4" fill="#0ACF83"/>
+  <circle cx="15" cy="9.5" r="2.6" fill="#1ABCFE"/>
+</svg>
