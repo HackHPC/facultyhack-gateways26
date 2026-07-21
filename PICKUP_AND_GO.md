@@ -681,6 +681,70 @@ custom widgets), focus order matching DOM/visual order, and link-purpose
 clarity. Full ratio table and reasoning is in the conversation history if
 needed again; the essentials are captured below.
 
+## Follow-up audit (2026-07-21) — after the icon system, Resources JS, and sort/hover work
+
+A lot changed since the first audit (self-hosted Font Awesome + 117
+favicon-based resource icons, the Resources share-menu JS, resource
+sorting, a new hover state), so this was a full re-pass, not just a diff.
+Same methodology as before — no real browser, structural checks via
+Python's `html.parser`, contrast via the WCAG relative-luminance formula
+— across all 4 pages' built HTML.
+
+**Passed clean**: tag balance, no duplicate `id`s, heading hierarchy (no
+skips on any page — Mentors/Organizers legitimately jump between h2→h2
+where a person has no `history`/`specialty`, which is not a skip), every
+`<img>` has `alt` (empty for decorative/redundant-with-adjacent-text
+images, descriptive for sponsor logos), every `<svg>` and `<i class="fa-
+...">` icon has `aria-hidden="true"`, every button has a real accessible
+name (visible text, a `.visually-hidden` span, or `aria-label`), the
+share-menu JS toggles `aria-expanded` correctly and manages focus
+correctly (moves focus into the menu on open, returns it to the trigger
+button on close via Escape or outside-click), `outline: none` still only
+appears once, on the intentional `main:focus-visible` skip-link target
+(SC 2.4.11 exception, unchanged from the first audit).
+
+Two real, previously-unflagged issues found and fixed:
+
+1. **Resources page search box and category dropdown had a border well
+   below the SC 1.4.11 non-text-contrast minimum.** `.resource-toolbar__field
+   input`/`select` used `--color-border` (`#CED4DA`), which is only
+   ~1.4:1 against both the input's own ivory background and the white
+   toolbar it sits in — far short of the required 3:1 for identifying a
+   form control's boundary. Fixed by adding a new variable,
+   **`--color-border-strong: #767268`** (~4.6:1 against ivory/white,
+   still a warm neutral gray that fits the palette rather than a jarring
+   brand color), and switching just that one selector to it.
+   `--color-border` itself is unchanged and still fine — every other
+   place it's used (`.hero__dates`, `.mentor-card`, `.mentor-card__photo`,
+   `.mentor-card__specialty` badges, `.resource-item`, `.resource-toolbar`
+   wrapper, `.share-menu` wrapper, section dividers) is a decorative
+   container/divider/badge border, not a control boundary, so SC 1.4.11
+   doesn't apply there — checked each one individually before deciding
+   the fix should be scoped to just the two form controls.
+2. **The new `.resource-item:hover` card highlight (background + border
+   color change) had no keyboard-focus equivalent.** Mouse users hovering
+   a resource card see the whole card highlight; keyboard users tabbing
+   to the link/share-button inside it only got the link's own focus ring
+   (still fully compliant on its own — SC 2.4.11 was never actually
+   violated), but lost the parity/context cue mouse users get. Not a
+   strict violation, just an equity gap in a feature added this session.
+   Fixed by adding `.resource-item:focus-within` alongside `:hover` so
+   both get the same treatment.
+
+Everything else re-verified and still holds from the first audit: the
+full palette contrast table (body text, links, h1 — large text so its
+~4.35:1 passes the 3:1 large-text threshold, not a bug — accent pills,
+header/footer inverse text, the two different focus-ring colors, the
+muted `#495057` secondary text, the footer's `#9EC8FF` sponsor-link
+text). The new hover/focus border color, `var(--color-accent)` at
+~5.48:1 against white, was checked when that feature was first added and
+re-confirmed here.
+
+**Still unverified, same gap as always**: no real browser, so actual
+screen-reader output, 400% zoom reflow, and touch-target sizing on the
+171-resource list have never been checked by hand. This keeps being the
+single biggest remaining risk before calling any of this "done."
+
 ## Key decisions worth knowing before you touch this
 
 - **Focus ring color deviates from a literal `#FFD700` gold.** `#FFD700`
