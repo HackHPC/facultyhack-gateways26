@@ -29,6 +29,7 @@ plugins:
 exclude:
   - README.md
   - PICKUP_AND_GO.md
+  - assets/images/mentors/README.md
   - Gemfile
   - Gemfile.lock
   - node_modules

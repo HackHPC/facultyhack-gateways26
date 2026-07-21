@@ -1,0 +1,316 @@
+# Program mentors for FacultyHack@Gateways 2026.
+# Only publicly-appropriate fields are stored here: name, affiliation, and
+# public profile links the mentors themselves shared for this purpose. Do
+# not add phone numbers, mailing addresses, or personal email addresses to
+# this file.
+#
+# link.icon must match a file in _includes/icons/ (linkedin, facebook,
+# scholar, link).
+#
+# photo (optional): path to a headshot under assets/images/mentors/, only
+# ever added once the mentor's explicit permission (or a photo they
+# submitted directly) exists for that specific file — see the README in
+# that directory. Never populate this by downloading images from LinkedIn,
+# Facebook, or institutional staff pages without that permission.
+- name: "Ahmad Al-Omari"
+  affiliation: "Our Lady of the Lake University"
+  affiliation_url: "https://www.ollusa.edu/"
+  specialty: ["Cybersecurity", "Digital Forensics"]
+  bio: >-
+    Dr. Ahmad Al-Omari is an Assistant Professor of Computer Information
+    Systems and Security at Our Lady of the Lake University. He holds a
+    Doctor of Science in Information Assurance and Computer Security and a
+    Master of Science in Information Systems, both from Dakota State
+    University, along with an MBA and a B.A. in Banking and Finance from
+    Yarmouk University. His work focuses on information security policy
+    compliance, cybersecurity ethics, security awareness, insider threats,
+    data privacy, security informatics, and digital forensics. In the
+    classroom, he combines lectures, discussion sections, and hands-on
+    projects to build an interactive learning environment, and he is an
+    active member of the Association for Computing Machinery (ACM) and the
+    Association for Information Systems (AIS).
+  photo: "assets/images/mentors/ahmad-al-omari.jpg"
+  history:
+    - year: 2024
+      role: "Faculty Participant"
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ollusa.edu/sbl/profiles/ahmad-al-omari.html"
+      icon: "link"
+    - label: "Facebook"
+      url: "https://www.facebook.com/ahmad.alomari.102"
+      icon: "facebook"
+
+- name: "Anas AlSobeh"
+  affiliation: "Utah Valley University"
+  affiliation_url: "https://www.uvu.edu/"
+  specialty: ["AI-Driven Cybersecurity", "Cloud Computing"]
+  bio: >-
+    Dr. Anas AlSobeh is an Assistant Professor of Applied AI in the
+    Department of Information Systems & Technology at Utah Valley
+    University, which he joined in January 2026 after serving as Assistant
+    Professor and Program Coordinator of Information Technology &
+    Cybersecurity at Southern Illinois University Carbondale. He earned his
+    Ph.D. in Computer Science from Utah State University and both his M.Sc.
+    and B.Sc. in Computer Information Systems from Yarmouk University in
+    Jordan. His research spans AI-driven cybersecurity, trustworthy and
+    explainable AI, software engineering, cloud computing, and data
+    science, with applications including malware detection and deepfake
+    analysis. He currently leads a USDA-funded project developing AI- and
+    microscopic-imaging-based Salmonella detection methods for food safety,
+    has authored more than 50 peer-reviewed publications, received the
+    IACIS 2024 Best Paper Award, and holds Senior Member status with IEEE.
+  photo: "assets/images/mentors/anas_alsobeh.jpg"
+  history:
+    - year: 2025
+      role: "Mentor"
+  links:
+    - label: "Staff Profile"
+      url: "https://www.uvu.edu/directory/employee/?id=WGlTY2Z3K2xFTGhKVDh3cE9Ec2tYUT09"
+      icon: "link"
+    - label: "Personal Website"
+      url: "https://aalosbeh.github.io/"
+      icon: "link"
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/anas-alsobeh-b79474125/"
+      icon: "linkedin"
+
+- name: "Felicia Doswell"
+  affiliation: "Norfolk State University"
+  affiliation_url: "https://www.nsu.edu/"
+  specialty: ["Information Assurance", "Human-Computer Interaction"]
+  photo: "assets/images/mentors/Felicia-Doswell.jpg"
+  history:
+    - year: 2022
+      role: "Faculty Participant"
+  bio: >-
+    Dr. Felicia Doswell is an Associate Professor in the Department of
+    Computer Science at Norfolk State University, which she joined in 2005
+    after serving as an Assistant Professor at Virginia State University.
+    She holds a B.S. from Norfolk State University, an M.S. from Georgia
+    Tech, and a Ph.D. from Virginia Tech, all in computer science. Her
+    research interests include information assurance, networking, and
+    human-computer interaction, with work spanning cloud computing
+    security, forensic analysis of mobile devices, and usable security
+    solutions that protect user privacy. Dr. Doswell was Norfolk State's
+    first certified online instructor and has been recognized repeatedly
+    for her teaching, including the Distinguished Exemplary Teaching
+    Faculty award (2010-2011), the 2012 Award for Innovative Excellence in
+    Teaching, Learning and Technology, and the 2013 Computer Science
+    Teacher of the Year honor.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.nsu.edu/Academics/Faculty-and-Academic-Divisions/Schools-and-Colleges/College-of-Science-Engineering-and-Technology/Departments/Computer-Science/Faculty-and-Staff/Felicia-Doswell"
+      icon: "link"
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/felicia-doswell-3b77701b"
+      icon: "linkedin"
+
+- name: "Mohamed Elbakary"
+  affiliation: "Elizabeth City State University"
+  affiliation_url: "https://www.ecsu.edu/"
+  specialty: ["Electrical & Computer Engineering"]
+  photo: "assets/images/mentors/elbakary.JPG"
+  history:
+    - year: 2022
+      role: "Faculty Participant"
+    - year: 2023
+      role: "Mentor"
+    - year: 2024
+      role: "Mentor"
+    - year: 2024
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Mohamed Elbakary is an Associate Professor of Computer Science and
+    Engineering Technology at Elizabeth City State University, where he
+    also coordinates the university's Engineering Technology program
+    within the Department of Electrical and Computer Engineering. He
+    teaches and advises students across ECSU's engineering technology
+    curriculum and has spoken publicly about the university's ongoing
+    expansion of its STEM and data science degree offerings.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ecsu.edu/directory/mohamed-elbakary.php"
+      icon: "link"
+    - label: "Department Page"
+      url: "https://www.ecsu.edu/academics/undergrad/engineering-technology.php"
+      icon: "link"
+
+- name: "Mohammed Elmellouki"
+  affiliation: "Mississippi Valley State University"
+  affiliation_url: "https://www.mvsu.edu/"
+  specialty: ["Computational Fluid Dynamics", "Heat Transfer"]
+  history:
+    - year: 2024
+      role: "Faculty Participant"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. Mohammed Elmellouki is an Assistant Professor at Mississippi Valley
+    State University, where his research centers on computational fluid
+    dynamics, turbulence modeling, and heat transfer, including simulation
+    work using the Nek5000 spectral element solver. He holds a Ph.D. in
+    Mechanical Engineering and has published on turbulent flow and thermal
+    structures in low-Prandtl number buoyant flows using direct numerical
+    simulation. He currently serves as Principal Investigator on a
+    Mississippi Research Alliance-funded project focused on enhancing
+    research capacity and workforce development through multidisciplinary
+    simulation and experimental testing of novel ventricular shunt
+    designs. Dr. Elmellouki also served as lead faculty advisor for MVSU's
+    team at the 2024 Presidential Forum for Historically Black Colleges and
+    Universities in Atlanta, Georgia.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/mohammed-elmellouki-ph-d-89213687/"
+      icon: "linkedin"
+    - label: "Google Scholar"
+      url: "https://scholar.google.com/citations?user=LzFPoJ4AAAAJ&hl=fr"
+      icon: "scholar"
+
+- name: "Sajida Faiyaz"
+  affiliation: "Austin Community College"
+  affiliation_url: "https://www.austincc.edu/"
+  specialty: ["Software Engineering", "Databases"]
+  history:
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Sajida Faiyaz, P.Eng, PMP, M.Eng, MS, is a Professor in the Information
+    Technology & Cybersecurity program at Austin Community College, where
+    she also serves as a Faculty Senator representing Computer Science and
+    IT. She teaches courses spanning SQL and relational database design,
+    Python and Java programming, and cybersecurity fundamentals, and is a
+    licensed Professional Engineer and certified Project Management
+    Professional. Students frequently note that her industry experience and
+    clear teaching style make complex technical topics approachable.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/sajida-faiyaz-p-eng-pmp-m-eng-ms-81423327/"
+      icon: "linkedin"
+
+- name: "John Holmen"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  specialty: ["High Performance Computing", "Exascale Computing"]
+  photo: "assets/images/mentors/john_holmen.jpg"
+  history:
+    - year: 2022
+      role: "Mentor"
+    - year: 2023
+      role: "Mentor"
+    - year: 2024
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. John Holmen is an HPC Engineer in the System Acceptance and User
+    Environment Group of the National Center for Computational Sciences at
+    Oak Ridge National Laboratory. He holds a B.S. and M.S.E. in Computer
+    Engineering from Kettering University and a Ph.D. in Scientific
+    Computing from the University of Utah, where his dissertation research
+    under Dr. Martin Berzins focused on portable, scalable approaches for
+    preparing large legacy codes and asynchronous many-task runtime systems
+    for exascale computing. As a developer for the Uintah Computational
+    Framework, he tested performance across major systems including NSF
+    Frontera, DOE Lassen, DOE Summit, NSF Stampede2, DOE Theta, and DOE
+    Titan. Before graduate school, he worked as a Development Engineer at
+    R.W. Beckett Corporation designing embedded systems for safety-critical
+    combustion products, having started there as a Kettering co-op student.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/john-k-holmen"
+      icon: "link"
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/jholmen/"
+      icon: "linkedin"
+
+- name: "Elijah MacCarthy"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  specialty: ["GPU Computing", "Parallel Computing"]
+  photo: "assets/images/mentors/elijah_maccarthy.jpg"
+  history:
+    - year: 2022
+      role: "Mentor"
+    - year: 2023
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. Elijah MacCarthy is an HPC Engineer in the Systems Acceptance and
+    User Environment group of the National Center for Computational
+    Sciences at Oak Ridge National Laboratory. He holds a Ph.D. in
+    Computational Science and Engineering from North Carolina A&T State
+    University. Before joining ORNL, he was an Assistant Professor of
+    Mathematics in the Division of Natural and Physical Sciences at Lane
+    College, where he served as the XSEDE Campus Champion and led GPU
+    programming and program optimization research within high-performance
+    computing environments. His research interests include GPU programming,
+    program parallelization and optimization, and infection spread
+    modeling, work that bridges applied mathematics and large-scale
+    computational science.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/elijah-maccarthy"
+      icon: "link"
+
+- name: "Olabisi Ojo"
+  affiliation: "Albany State University"
+  affiliation_url: "https://www.asurams.edu/"
+  specialty: ["Microbial Genomics", "Computational Biology"]
+  photo: "assets/images/mentors/olabisi_ojo.jpeg"
+  history:
+    - year: 2024
+      role: "Faculty Participant"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. Olabisi Ojo is a Professor in the Department of Natural Sciences at
+    Albany State University, a position he has held since 2021. He earned
+    his Ph.D. in Microbiology from University College Cork, an M.Sc. in
+    Biochemistry from the University of Lagos, and a B.Sc. from the
+    University of Benin. His research spans microbial genomics, molecular
+    epidemiology, and the application of AI and machine learning to
+    microbiology and healthcare, and he teaches Introduction to
+    Microbiology, Introduction to Biological Sciences, and Senior Research.
+    Dr. Ojo received a Carnegie African Diaspora Fellowship Program (CADFP)
+    award to advance microbial genomics research and strengthen
+    microbiology curricula, collaborating with the Department of
+    Microbiology at Osun State University in Nigeria on curriculum
+    co-development, workshops, and graduate student mentoring.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/olabisiojo/"
+      icon: "linkedin"
+
+- name: "Sabrina Perry"
+  affiliation: "Austin Peay State University"
+  affiliation_url: "https://www.apsu.edu/"
+  specialty: ["Computer Science Education", "Engineering Technology"]
+  photo: "assets/images/mentors/sabrina_perry.png"
+  history:
+    - year: 2024
+      role: "Faculty Participant"
+    - year: 2025
+      role: "Faculty Participant"
+  bio: >-
+    Dr. Sabrina Perry is an Assistant Professor of Computer Science and
+    Information Technology at Austin Peay State University, which she
+    joined in 2025. She earned her Ph.D. in Engineering Science with a
+    concentration in Computer Science from the University of Mississippi,
+    a B.S. from Mississippi Valley State University, and an M.S. from
+    Illinois State University. Before joining Austin Peay, she spent
+    nearly a decade in the classroom as an engineering technology
+    instructor at Mississippi Valley State University beginning in 2016,
+    building extensive experience teaching computing and engineering
+    concepts to undergraduates. That combination of applied engineering
+    technology instruction and doctoral-level computer science training
+    informs her approach to computing education at Austin Peay.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/sabrina-perry22"
+      icon: "linkedin"

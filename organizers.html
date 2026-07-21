@@ -1,0 +1,28 @@
+---
+layout: default
+title: Organizers
+description: >-
+  Meet the organizing team behind FacultyHack@Gateways 2026.
+---
+
+<section class="mentors" aria-labelledby="organizers-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="organizers-heading">Program Organizers</h1>
+        <p>
+          FacultyHack@Gateways 2026 is organized by a team from across the
+          Gateways community who plan the program, coordinate mentors, and run
+          the virtual and in-person events.
+        </p>
+      </div>
+    </div>
+
+    <ul class="mentor-grid">
+      {% for organizer in site.data.organizers %}
+      {% include person-card.html person=organizer %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>

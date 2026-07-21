@@ -1,0 +1,29 @@
+# Sponsors for FacultyHack@Gateways 2026, carried over from last year's
+# active (non-commented) sponsor list at
+# https://github.com/HackHPC/facultyhack-gateways25/blob/main/_data/sponsors.yml
+- name: "SGX3"
+  url: "https://sciencegateways.org/"
+  logo: "/assets/images/sponsors/sgx3.png"
+  grant:
+    award_agency: "National Science Foundation"
+    logo: "/assets/images/sponsors/nsf.svg"
+    url: "https://www.nsf.gov/awardsearch/showAward?AWD_ID=2231406"
+    description: >-
+      SGX3 is funded by the National Science Foundation under award number
+      2231406.
+
+- name: "Oak Ridge National Laboratory"
+  url: "https://www.ornl.gov"
+  logo: "/assets/images/sponsors/ornl.png"
+
+- name: "Omnibond Systems"
+  url: "http://omnibond.com/"
+  logo: "/assets/images/sponsors/omnibond.svg"
+
+- name: "Texas Advanced Computing Center"
+  url: "https://www.tacc.utexas.edu/"
+  logo: "/assets/images/sponsors/tacc.svg"
+
+- name: "HackHPC.org"
+  url: "http://hackhpc.org/"
+  logo: "/assets/images/sponsors/hackhpc.svg"

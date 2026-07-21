@@ -15,13 +15,15 @@
   <header class="site-header">
     <div class="wrapper">
       <p class="site-header__brand">
-        <a href="{{ '/' | relative_url }}">FacultyHack<span aria-hidden="true">@</span>Gateways 2026</a>
+        <a href="{{ '/' | relative_url }}">FacultyHack@Gateways 2026</a>
       </p>
 
       <nav class="site-nav" aria-label="Primary">
         <ul class="site-nav__menu">
           <li><a href="{{ '/#overview' | relative_url }}">Overview</a></li>
           <li><a href="{{ '/#challenges' | relative_url }}">Challenges</a></li>
+          <li><a href="{{ '/mentors/' | relative_url }}"{% if page.url contains '/mentors' %} aria-current="page"{% endif %}>Mentors</a></li>
+          <li><a href="{{ '/organizers/' | relative_url }}"{% if page.url contains '/organizers' %} aria-current="page"{% endif %}>Organizers</a></li>
           <li><a href="{{ '/#apply' | relative_url }}" class="site-nav__cta">Apply</a></li>
         </ul>
       </nav>
@@ -32,7 +34,10 @@
     {{ content }}
   </main>
 
-  <footer class="site-footer">
+  <footer
+    class="site-footer"
+    style="--footer-logo: url('{{ '/assets/images/branding/FacultyHack26_logo.svg' | relative_url }}');"
+  >
     <div class="wrapper">
 
       <section class="footer-section" aria-labelledby="footer-archives-heading">
@@ -55,17 +60,34 @@
       <section class="footer-section" aria-labelledby="footer-sponsors-heading">
         <h2 id="footer-sponsors-heading">Sponsors</h2>
         <ul class="footer-sponsors">
-          <li>SGX3</li>
-          <li>Oak Ridge National Laboratory</li>
-          <li>Omnibond Systems</li>
-          <li>Texas Advanced Computing Center</li>
-          <li>HackHPC.org</li>
+          {% for sponsor in site.data.sponsors %}
+          <li>
+            <a href="{{ sponsor.url }}" class="footer-sponsors__logo-link">
+              <img
+                class="footer-sponsors__logo"
+                src="{{ sponsor.logo | relative_url }}"
+                alt="{{ sponsor.name }}"
+                loading="lazy"
+              >
+            </a>
+          </li>
+          {% endfor %}
         </ul>
       </section>
 
+      {% for sponsor in site.data.sponsors %}
+      {% if sponsor.grant %}
       <p class="footer-acknowledgment">
-        SGX3 is funded by the National Science Foundation under award number 2231406.
+        <img
+          class="footer-acknowledgment__logo"
+          src="{{ sponsor.grant.logo | relative_url }}"
+          alt="{{ sponsor.grant.award_agency }}"
+          loading="lazy"
+        >
+        <a href="{{ sponsor.grant.url }}">{{ sponsor.grant.description }}</a>
       </p>
+      {% endif %}
+      {% endfor %}
 
     </div>
   </footer>

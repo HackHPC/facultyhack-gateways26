@@ -1,0 +1,29 @@
+---
+layout: default
+title: Mentors
+description: >-
+  Meet the technical mentors from the Gateways community who work directly
+  with FacultyHack@Gateways 2026 faculty teams.
+---
+
+<section class="mentors" aria-labelledby="mentors-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="mentors-heading">Program Mentors</h1>
+        <p>
+          Each FacultyHack@Gateways 2026 faculty team is paired with a technical
+          mentor from the Gateways community who guides development and
+          implementation of their revised course materials.
+        </p>
+      </div>
+    </div>
+
+    <ul class="mentor-grid">
+      {% for mentor in site.data.mentors %}
+      {% include person-card.html person=mentor %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+<svg class="mentor-card__link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <rect width="24" height="24" rx="4" fill="#4285F4"/>
+  <path d="M12 6.2 4.5 10l7.5 3.8L19.5 10 12 6.2z" fill="#FFFFFF"/>
+  <path d="M7.2 12.3v3c0 1.1 2.15 2.1 4.8 2.1s4.8-1 4.8-2.1v-3L12 14.4l-4.8-2.1z" fill="#FFFFFF"/>
+</svg>

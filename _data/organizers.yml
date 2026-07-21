@@ -1,0 +1,173 @@
+# Organizers for FacultyHack@Gateways 2026, carried over from last year's
+# roster at
+# https://github.com/HackHPC/facultyhack-gateways25/blob/main/_data/organizers.yml
+#
+# Bios reused verbatim from that source file. Personal/work email addresses
+# from the source were intentionally dropped, consistent with mentors.yml's
+# privacy rules — do not add them back. ResearchGate links were also
+# dropped: the source only stored short profile codes (e.g. "L-Hayden"),
+# and ResearchGate profile URLs require an exact numeric suffix that can't
+# be reliably reconstructed from that alone, so a link was not guessed.
+- name: "Amy Cannon"
+  affiliation: "Omnibond"
+  affiliation_url: "http://www.omnibond.com/"
+  photo: "/assets/images/organizers/amy-cannon.png"
+  bio: >-
+    Amy Cannon has worked at Omnibond for 10 years, where her Business
+    Development skills allow her to engage with customers and partners,
+    teaching how HPC and Cloud help solve scientific problems. Outside of
+    work she enjoys spending time in nature as well as helping others grow
+    their HPC, HTC, AI, and Cloud Computing knowledge.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/amy-cannon-46230b31/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/amy__cannon"
+      icon: "twitter"
+
+- name: "Dr. Linda Hayden"
+  affiliation: "Science Gateways Community Institute"
+  affiliation_url: "https://sciencegateways.org/"
+  photo: "/assets/images/organizers/linda-hayden.jpeg"
+  bio: >-
+    Dr. Linda Hayden holds a Ph.D. in Mathematics and Education. She leads
+    workforce development activities for the NSF Science Gateways
+    Community Institute (SGCI). In that position she works to train the
+    next generation of gateway developers and users. Professor Hayden is
+    an NSF Presidential Awardee for Excellence in Science, Mathematics and
+    Engineering Mentoring.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/linda-hayden-5a8b424/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/lhaydenecsu"
+      icon: "twitter"
+
+- name: "Charlie Dey"
+  affiliation: "Texas Advanced Computing Center"
+  affiliation_url: "https://www.tacc.utexas.edu/about/directory/charlie-dey"
+  photo: "/assets/images/organizers/charlie-dey.jpeg"
+  bio: >-
+    Charlie Dey (he/him) is the Director of Training and Professional
+    Development with the User Services group at the Texas Advanced
+    Computing Center (TACC) with a background in web development and
+    scientific computing. Charlie's responsibilities at TACC include
+    organizing, developing content, and building curriculums for TACC's
+    academic course selection taught in conjunction with several
+    departments at the University of Texas at Austin, as well as for
+    TACC's professional development and educational training. Prior to
+    joining TACC, he worked as a Senior Application Developer for the
+    Carle Foundation Hospital, and as a computer science instructor at
+    Parkland College in Champaign, IL. He was also a member of a
+    specialized application development team at the University of
+    Illinois and has been a contracted research consultant for NASA Ames
+    Research Center, studying computational immunology and bioinformatics.
+    Charlie holds a Bachelor's Degree concentrating in Computer Science and
+    Biology from Eastern Illinois University, and certifications in 3D
+    programming and visualization. He is currently finishing up a Master's
+    of Science in Cybersecurity.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/charlie-dey-0031317a/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/DeyCharlie"
+      icon: "twitter"
+    - label: "GitHub"
+      url: "https://github.com/ubik10"
+      icon: "github"
+
+- name: "Alexander Nolte"
+  affiliation: "University of Tartu"
+  affiliation_url: "https://alexandernolte.github.io/"
+  photo: "/assets/images/organizers/alexander-nolte.jpeg"
+  bio: >-
+    Alex is an Associate Professor at the University of Tartu and an
+    Adjunct Associate Professor at Carnegie Mellon University working in
+    the area of human computer interaction. He is an avid hackathon
+    enthusiast and has participated in, co-organized, served as a mentor
+    and studied countless hackathons over the past years with no end in
+    sight. Outside of work he fiddles with any gadget he can get his hand
+    on, plays video games, cooks and does BBQ.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/alexandernolte/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/alexander_nolte/"
+      icon: "twitter"
+    - label: "GitHub"
+      url: "https://github.com/alexandernolte"
+      icon: "github"
+    - label: "Personal Website"
+      url: "https://alexandernolte.github.io/"
+      icon: "link"
+    - label: "Google Scholar"
+      url: "https://scholar.google.com/citations?user=0Vmn0QQAAAAJ&hl=de&oi=ao"
+      icon: "scholar"
+
+- name: "Je'aime Powell"
+  affiliation: "Omnibond"
+  affiliation_url: "http://www.omnibond.com"
+  photo: "/assets/images/organizers/jeaime-powell.png"
+  bio: >-
+    Je'aime Powell currently works as a Senior Systems Administrator and
+    Technical Research Design Analyst at the Texas Advanced Computing
+    Center (TACC) within the University of Texas at Austin. While
+    supporting high-performance computing users, he also leads hackathons,
+    STEM-based high school summer camps, and facilitates related training
+    sessions. His research in the fields of Intelligent Systems and
+    Decision Systems Support with a focus on the development of adaptive
+    IoT environmental sensors. He holds both a Master's degree in Applied
+    Mathematics with a Concentration in Remote Sensing and a Bachelor's in
+    Computer Science from Elizabeth City State University.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/jeaimehp/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/jeaimehp"
+      icon: "twitter"
+    - label: "GitHub"
+      url: "https://github.com/jeaimehp"
+      icon: "github"
+    - label: "Personal Website"
+      url: "http://jeaimehpc.com"
+      icon: "link"
+    - label: "Google Scholar"
+      url: "https://scholar.google.com/citations?user=sd6PjdkAAAAJ"
+      icon: "scholar"
+    - label: "ORCID"
+      url: "https://orcid.org/0000-0003-1377-5422"
+      icon: "link"
+
+- name: "Boyd Wilson"
+  affiliation: "Omnibond"
+  affiliation_url: "http://www.omnibond.com/"
+  photo: "/assets/images/organizers/boyd-wilson.png"
+  bio: >-
+    Boyd Wilson, CEO of Omnibond Systems, has extensive experience and
+    leadership in the areas of software development, system
+    administration, storage architectures and business models. Formerly,
+    Boyd served as Software CTO and also Executive Director over computing
+    operations at Clemson University and had research computing as part
+    of his purview. He has participated in various academic grants,
+    papers and workshops in the areas of parallel storage, cloud
+    computing and computational infrastructure. Boyd's current focus lies
+    in four areas: computer vision, AI, and real-time traffic analytics
+    with TrafficVision; high-performance computing and storage with
+    CloudyCluster and OrangeFS; identity and security management; and
+    wake surfing and riding a boosted board around cities while
+    traveling.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/boydwilson/"
+      icon: "linkedin"
+    - label: "Twitter"
+      url: "https://twitter.com/boydwilson/"
+      icon: "twitter"
+    - label: "GitHub"
+      url: "https://github.com/omnibond/"
+      icon: "github"

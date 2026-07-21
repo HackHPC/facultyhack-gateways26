@@ -1,0 +1,57 @@
+<li class="mentor-card">
+  <div class="mentor-card__header">
+    {% if include.person.photo %}
+    <img
+      class="mentor-card__photo"
+      src="{{ include.person.photo | relative_url }}"
+      alt=""
+      width="96"
+      height="96"
+      loading="lazy"
+    >
+    {% endif %}
+    <div>
+      <h2 class="mentor-card__name">{{ include.person.name }}</h2>
+      <p class="mentor-card__affiliation">
+        {% if include.person.affiliation_url %}
+        <a href="{{ include.person.affiliation_url }}">{{ include.person.affiliation }}</a>
+        {% else %}
+        {{ include.person.affiliation }}
+        {% endif %}
+      </p>
+      {% if include.person.specialty %}
+      <ul class="mentor-card__specialty">
+        {% for tag in include.person.specialty %}
+        <li>{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% if include.person.bio %}
+  <p class="mentor-card__bio">{{ include.person.bio }}</p>
+  {% endif %}
+  {% if include.person.history %}
+  {% assign sorted_history = include.person.history | sort: "year" | reverse %}
+  <div class="mentor-card__history">
+    <h3 class="mentor-card__history-heading">Experience</h3>
+    <ul class="mentor-card__history-list">
+      {% for entry in sorted_history %}
+      <li>{{ entry.year }} &mdash; {{ entry.role }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if include.person.links %}
+  <ul class="mentor-card__links">
+    {% for link in include.person.links %}
+    <li>
+      <a href="{{ link.url }}">
+        {% include icons/{{ link.icon }}.svg %}
+        {{ link.label }}<span class="visually-hidden"> for {{ include.person.name }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</li>
