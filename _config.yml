@@ -12,6 +12,38 @@ baseurl: "/facultyhack-gateways26"
 
 repository: "HackHPC/facultyhack-gateways26"
 
+# SEO (jekyll-seo-tag, rendered via {% seo %} in _layouts/default.html).
+# `logo` drives the JSON-LD Organization/WebSite structured-data logo —
+# jekyll-seo-tag reads this straight from site config, so it just works.
+#
+# og:image / twitter:image are different: jekyll-seo-tag's image lookup is
+# PAGE-scoped only (it reads page["image"], never site["image"] — checked
+# the gem source directly, lib/jekyll-seo-tag/image_drop.rb, rather than
+# assume). A site-level `image:` key here is silently ignored. The
+# `defaults` block below is what actually makes every page pick it up, by
+# injecting `image` into each page's front matter at build time. Don't
+# "simplify" this back to a bare top-level `image:` key — it'll build
+# without error and just quietly not appear in the output.
+#
+# No `twitter:` block here on purpose: once seo_tag.image is present (via
+# the default below), the gem's own template already falls back to
+# `twitter:card = summary_large_image` without any config. Setting
+# `site.twitter` to anything (even just `{card: ...}`) also turns on a
+# `twitter:creator` tag derived from `site.author`, which isn't a real
+# Twitter/X handle here ("SGX3 / HackHPC") — leaving `site.twitter` unset
+# avoids emitting that broken tag.
+logo: /assets/images/branding/FacultyHack26_logo_w_text.jpg
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/images/branding/FacultyHack26_logo_w_text.jpg
+        height: 1080
+        width: 1920
+        alt: "FacultyHack@Gateways 2026"
+
 # Build settings
 markdown: kramdown
 kramdown:

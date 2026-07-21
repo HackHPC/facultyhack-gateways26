@@ -446,6 +446,19 @@ main:focus-visible {
   z-index: 1;
 }
 
+.dandelion {
+  border-top: 1px solid var(--color-border);
+}
+
+.dandelion__image {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  margin-top: var(--space-3);
+  border-radius: 0.5rem;
+}
+
 .apply {
   background-color: var(--color-bg-alt);
   border-top: 1px solid var(--color-border);
@@ -569,13 +582,19 @@ main:focus-visible {
 }
 
 .mentor-card__link-icon {
-  width: 1.125rem;
-  height: 1.125rem;
+  font-size: 1.125rem;
+  line-height: 1;
   flex-shrink: 0;
+  color: var(--color-link);
 }
 
-.mentor-card__link-icon--generic {
-  color: var(--color-link);
+/* The one custom (non-Font-Awesome) icon, Jupyter, is an inline <svg> with
+   no intrinsic size — size it off the same font-size the <i> icons use in
+   each context, so it stays visually consistent without duplicating every
+   context-specific override below. */
+svg.mentor-card__link-icon {
+  width: 1em;
+  height: 1em;
 }
 
 @media (min-width: 48em) {
@@ -676,13 +695,82 @@ main:focus-visible {
 }
 
 .resource-item__name .mentor-card__link-icon {
-  width: 1.375rem;
-  height: 1.375rem;
+  font-size: 1.375rem;
   flex-shrink: 0;
 }
 
-.resource-item__name .mentor-card__link-icon--generic {
+.resource-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 0.25rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
   color: var(--color-link);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.resource-share:hover {
+  background-color: var(--color-bg-alt);
+}
+
+.resource-share .mentor-card__link-icon {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.share-menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 12rem;
+  padding: var(--space-1) 0;
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(33, 24, 15, 0.2);
+}
+
+.share-menu__title {
+  margin: 0;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #495057;
+}
+
+.share-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.share-menu__link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.875rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.share-menu__link:hover {
+  background-color: var(--color-bg);
+}
+
+.share-menu__link .mentor-card__link-icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
 }
 
 .resource-item__description {

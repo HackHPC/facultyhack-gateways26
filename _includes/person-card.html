@@ -47,7 +47,7 @@
     {% for link in include.person.links %}
     <li>
       <a href="{{ link.url }}">
-        {% include icons/{{ link.icon }}.svg %}
+        {% include icon.html icon=link.icon %}
         {{ link.label }}<span class="visually-hidden"> for {{ include.person.name }}</span>
       </a>
     </li>

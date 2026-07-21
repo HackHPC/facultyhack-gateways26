@@ -34,9 +34,11 @@ committed:**
 - Modified: `PICKUP_AND_GO.md`, `_config.yml`, `_layouts/default.html`,
   `assets/css/style.css`, `index.html`
 - New, untracked: `_data/` (mentors.yml, sponsors.yml, organizers.yml,
-  resources.yml), `_includes/` (`person-card.html`, `site-logo.html` +
-  `icons/`, 19 SVGs), `assets/images/` (`mentors/`, `organizers/`,
-  `sponsors/`, `branding/` — 4 logo files), `assets/js/resources.js`,
+  resources.yml), `_includes/` (`person-card.html`, `site-logo.html` —
+  the old `icons/` SVG directory is gone, see "Icon system" below),
+  `assets/images/` (`mentors/`, `organizers/`, `sponsors/`, `branding/` —
+  5 files including `dandelion.png`), `assets/fontawesome/`
+  (self-hosted Font Awesome Free), `assets/js/resources.js`,
   `mentors.html`, `organizers.html`, `resources.html`
 
 Run `git status --short` to confirm before assuming anything is saved.
@@ -52,18 +54,21 @@ default.
 |---|---|
 | `_config.yml` | Site config. `url`/`baseurl` set for the `HackHPC/facultyhack-gateways26` repo. Pulls in `jekyll-seo-tag`, `jekyll-sitemap`. Excludes non-site files from the build output. |
 | `_layouts/default.html` | Base layout: skip link, `<header>`/`<nav>`/`<main>`/`<footer>` landmarks, nav includes "Mentors"/"Organizers"/"Resources" links with `aria-current="page"` when active (no "Apply" or "Challenges" links — both removed, see "Nav/hero/footer redesign" section), footer content (archives, source link, data-driven sponsor logos, NSF acknowledgment). Header and footer each carry an inline `style="--header-logo:..."`/`--footer-logo:...` custom property for their respective logo assets. |
-| `index.html` | Homepage content: Hero (with upfront logo `<img>` + h1 + tagline + dates), Overview (with a background-watermark logo behind the text), Challenges & Honorarium. No more Apply section or Apply buttons — removed by request. |
+| `index.html` | Homepage content: Hero (with upfront logo `<img>` + h1 + tagline + dates), Overview (with a background-watermark logo behind the text), **Why the Dandelion?** (three paragraphs of user-authored copy on the dandelion symbolism, followed by `assets/images/branding/dandelion.png`, `alt=""` since the adjacent text already fully conveys the meaning — capped at `40rem` wide via `.dandelion__image`), Challenges & Honorarium. No more Apply section or Apply buttons — removed by request. |
 | `mentors.html` | Mentors directory page. Loops `site.data.mentors`, rendering each via `_includes/person-card.html`. |
 | `organizers.html` | Organizers page. Same pattern, loops `site.data.organizers` via the same `person-card.html` partial. |
-| `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards. |
+| `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards, each with a share button. A shared `#share-menu` popup (X, Facebook, LinkedIn, Email, Copy Link) sits at the end of the page, driven by `assets/js/resources.js`. |
 | `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name, linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
 | `_data/mentors.yml` | Mentor records — see "Mentors page" section below for the schema and how the content was sourced. |
 | `_data/organizers.yml` | Organizer records, carried over from last year's site — see "Organizers page" section below. |
 | `_data/sponsors.yml` | Sponsor records (name/url/logo, one with a nested NSF grant block) — see "Sponsors" section below. |
 | `_data/resources.yml` | 163 resource records across 11 categories — see "Resources page" section below for provenance, dedup decisions, and the icon system. |
-| `_includes/icons/*.svg` | 20 inline SVG icons: person-link icons (`linkedin`, `facebook`, `scholar`, `twitter`, `github`, `link`), resource brand badges (`google`, `microsoft`, `amazon`, `python`, `jupyter`, `figma`, `r-project`, `wikipedia`), and 11 `category-*.svg` topic icons (one per Resources category, used as the fallback when a resource has no specific brand match). All `aria-hidden="true" focusable="false"` — purely decorative, the link's visible text is the only accessible name. |
+| `assets/fontawesome/` | Self-hosted Font Awesome Free 7.3.1 (`css/fontawesome.min.css` + `solid.min.css` + `brands.min.css`, `webfonts/fa-solid-900.woff2` + `fa-brands-400.woff2`, `LICENSE.txt`). See "Icon system" section below — this replaced the old `_includes/icons/*.svg` hand-drawn icons (all but one). |
+| `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
+| `_includes/icons/jupyter.svg` | The Jupiter "three moons" mark — Font Awesome Free and svgl.app both lack a Jupyter icon, sourced from Simple Icons instead. See "Icon system" section below. |
+| `_includes/icons/favicons/*.svg` | 95 files — each domain's own real favicon, base64-embedded in a small SVG wrapper, used as the icon for 117 of the 163 Resources entries. See "Resource icons sourced from real favicons" in the "Icon system" section below for how these were fetched and which ~15 resources didn't get one. |
 | `_includes/site-logo.html` | Inline `<img>` of the icon-only site logo, `alt="FacultyHack@Gateways 2026"`. Used on Mentors/Organizers hero areas (logo beside the title) — NOT used on the homepage or Resources page, which each handle their own logo placement differently. See "Nav/hero/footer redesign" section. |
-| `assets/images/branding/*` | 4 logo files, all user-supplied, all confirmed to contain dark artwork (black/dark-brown/dark-olive/tan — none are light colors): `FacultyHack26_logo.svg` (icon only, pure monochrome black), `FacultyHack26_logo_w_text.svg` (icon + wordmark, ~1.78:1), `FacultyhHack26_text.svg` (wordmark only, ~3.74:1, used in the header nav bar), `FacultyHack26_logo_w_text.jpg` (unused). See "Nav/hero/footer redesign" section for which file is used where and why. |
+| `assets/images/branding/*` | 5 files, all user-supplied: `FacultyHack26_logo.svg` (icon only, pure monochrome black), `FacultyHack26_logo_w_text.svg` (icon + wordmark, ~1.78:1, hero `<img>`), `FacultyhHack26_text.svg` (wordmark only, ~3.74:1, header nav bar), `FacultyHack26_logo_w_text.jpg` (1920×1080, SEO/OG share image + JSON-LD logo), `dandelion.png` (1536×1024, "Why the Dandelion?" section on the homepage). See "Nav/hero/footer redesign" section for which logo file is used where and why. |
 | `assets/images/mentors/*` | Mentor headshots (8 of 10 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
 | `assets/images/organizers/*` | 6 organizer avatars, reused from last year's site (org's own asset, same recurring purpose — see "Organizers page" section). |
 | `assets/images/sponsors/*` | 6 sponsor/grant-agency logos, reused from last year's site. |
@@ -360,7 +365,8 @@ knowing the layers if you're adding more:
    real names/emails — **dropped entirely, for every row**, per explicit
    instruction and consistent with this file's existing privacy rules.
    One entry (NCAR Explorer Series) had its own URL truncated in the
-   source CSV — left unlinked, same rule as #1.
+   source CSV — left unlinked, same rule as #1, until the user supplied
+   the real URL directly (`https://edec.ucar.edu/public/ncar-explorer-series`).
 4. **Consolidated from 26 categories down to 11** by request — grouped by
    what a reader is trying to do (e.g. "Computing & Infrastructure" =
    old HPC + Cloud Computing + Cyberinfrastructure Resources + AI
@@ -368,28 +374,194 @@ knowing the layers if you're adding more:
    several of which only ever had 1-2 entries. Verified zero resources
    lost in the regroup (163 before, 163 after) via a small Ruby script,
    not by hand.
-5. **Icons**: each of the 11 categories has a default topic icon
-   (`_includes/icons/category-*.svg`, monochrome). 30 specific resources
-   across well-known, easily-recognized brands (GitHub, Google, Microsoft,
-   Amazon, Python, Jupyter, Figma, R, Wikipedia) override that with a
-   colored brand badge instead, via a per-resource `icon:` field. Not
-   attempted for all 163 — most resources don't have a distinct, widely
-   recognized mark, and forcing one would be noise, not signal.
+5. **Icons**: each of the 11 categories has a default topic icon. 30
+   specific resources across well-known, easily-recognized brands (GitHub,
+   Google, Microsoft/AWS, Python, Figma, R, Wikipedia) override that with
+   a brand icon instead, via a per-resource `icon:` field. Not attempted
+   for all 163 — most resources don't have a distinct, widely recognized
+   mark, and forcing one would be noise, not signal. See "Icon system"
+   below for how these render now (Font Awesome, not hand-drawn SVG).
+6. **Share button**: every resource with a URL has a share button next to
+   it (`.resource-share`), opening the shared `#share-menu` popup at the
+   bottom of the page (X, Facebook, LinkedIn, Email, Copy Link) — or the
+   native OS share sheet on devices that support `navigator.share()`.
 
-**Search + jump-to-category toolbar is the one place this project uses
-JavaScript** (`assets/js/resources.js`, vanilla, no dependencies). This was
-a deliberate exception to the site's otherwise strict no-JS rule — live
-text search has no non-JS equivalent on a static site with no backend.
-If JS fails to load, both controls go inert (harmless) rather than
-breaking anything; the full list stays visible. The dropdown's `<option>`
-values are generated from the same `| slugify` as each category's `<h2>`
-id, so they're guaranteed to stay in sync — don't hand-edit one without
-the other.
+**Search, jump-to-category, and the share menu are the one place this
+project uses JavaScript** (`assets/js/resources.js`, vanilla, no
+dependencies). This was a deliberate exception to the site's otherwise
+strict no-JS rule — live text search and a "pick where to share" popup
+have no non-JS equivalent on a static site with no backend. If JS fails
+to load, the search/jump controls go inert (harmless, full list stays
+visible) and the share buttons simply do nothing on click — no broken
+links either way. The dropdown's `<option>` values are generated from the
+same `| slugify` as each category's `<h2>` id, so they're guaranteed to
+stay in sync — don't hand-edit one without the other.
 
 Whenever this data file changes, double check `resource-item` count in the
 built HTML still matches the YAML resource count, and that the dropdown
 option count still matches the `<h2>` count — both have been the fast way
 to catch a botched edit across this many entries.
+
+## Icon system
+
+All site icons (mentor/organizer link icons, resource brand icons, resource
+category icons, the resource share button, and the share-menu popup icons)
+now render via **self-hosted Font Awesome Free 7.3.1**, replacing the
+26 hand-drawn placeholder SVGs that used to live in `_includes/icons/`
+(that directory is gone). By request, this was done as a self-hosted
+webfont/CSS integration rather than a CDN `<link>` — the site otherwise has
+zero external network dependencies, and a CDN would have been the first one.
+
+- **Vendored files** (`assets/fontawesome/`): `css/fontawesome.min.css`
+  (base + all glyph definitions), `css/solid.min.css`, `css/brands.min.css`
+  (each with their own `@font-face`), `webfonts/fa-solid-900.woff2`,
+  `webfonts/fa-brands-400.woff2`, and `LICENSE.txt`. Only the `solid` and
+  `brands` styles are vendored — `regular`/`duotone`/`sharp`/`thin` and the
+  JS-based kit were left out since nothing here uses them. Total footprint
+  is ~340KB, cacheable, no JS. All three CSS files are linked in
+  `_layouts/default.html`'s `<head>`, before `assets/css/style.css`.
+  **Deliberately not** `assets/vendor/fontawesome/` — `.gitignore` has a
+  bare `vendor/` rule (for Bundler's `vendor/bundle`), which matches a
+  directory named `vendor` at *any* depth, so `assets/vendor/` would have
+  been silently untracked and never pushed to GitHub Pages despite working
+  fine in every local build. Caught by `git check-ignore -v` before
+  committing — if you ever add another self-hosted library, check it
+  isn't shadowed by that rule too.
+- **Data schema**: every `icon:` field in `_data/mentors.yml`,
+  `_data/organizers.yml`, and `_data/resources.yml` stores a
+  `"style:name"` pair, e.g. `"brands:github"` or `"solid:server"` — not a
+  bare name. `style` is normally `solid` or `brands`, but there's one
+  reserved value, `custom` (see the Jupiter bullet below). Both
+  `_includes/person-card.html` and `resources.html` render icons through a
+  single shared partial, `_includes/icon.html`, rather than duplicating the
+  branch logic — pass it the raw `"style:name"` string as `icon`:
+  `{% include icon.html icon=link.icon %}`. Inside, it splits on `:` into
+  `icon_style`/`icon_name` (as their own `{% assign %}`s, not inline
+  `icon_parts[0]`/`[1]` — Jekyll's dynamic-`{% include %}` filename regex
+  doesn't accept `[` `]` in a `{{ }}` reference, so bracket-indexed access
+  only works for the *non-file-path* Font Awesome branch; the custom-SVG
+  branch needs the plain variable or it throws `Invalid syntax for include
+  tag`), then either includes `icons/{{ icon_name }}.svg` (if
+  `icon_style == "custom"`) or emits
+  `<i class="mentor-card__link-icon fa-{{ icon_style }} fa-{{ icon_name }}" aria-hidden="true"></i>`.
+  If you add a new icon, follow that exact pattern — don't invent a bare
+  icon name, it won't resolve to a real Font Awesome class.
+- **The one custom icon — Jupyter**: Font Awesome Free has no Jupyter brand
+  mark. Checked svgl.app (svgl.app/api/svgs is dead; pulled their source
+  data file directly from `github.com/pheralb/svgl`, `src/data/svgs.ts`,
+  5,133 lines/300+ logos) — no Jupyter entry there either. The real Jupiter
+  "three moons" mark came from Simple Icons instead
+  (`github.com/simple-icons/simple-icons`, `icons/jupyter.svg`, CC0 —
+  no attribution required, though it's still Jupyter's trademark same as
+  any other brand icon here), vendored as
+  `_includes/icons/jupyter.svg` with
+  `fill="currentColor"` added so it inherits color like every other icon.
+  Its `icon:` value in `_data/resources.yml` is `"custom:jupyter"`. Sizing
+  it required one extra CSS rule (`svg.mentor-card__link-icon { width: 1em;
+  height: 1em; }` in `assets/css/style.css`) since `font-size` — which
+  sizes the Font Awesome `<i>` glyphs — doesn't size a plain `<svg>`; `1em`
+  on the SVG itself picks up whatever `font-size` each context already set
+  on the shared `.mentor-card__link-icon` class, so it stays consistent
+  without a second set of per-context size overrides.
+- **Other mapping decisions worth knowing**: a few more old placeholder
+  names don't have a direct Font Awesome Free equivalent, substituted with
+  the closest available icon rather than left broken — `twitter` →
+  `brands:x-twitter` (current brand identity, not the legacy bird),
+  `wikipedia` → `brands:wikipedia-w` (bare `wikipedia` doesn't exist),
+  `scholar` → `brands:google-scholar`, `amazon` (AWS-context resources
+  specifically) → `brands:aws`, `category-gateway` (Science Gateways) →
+  `solid:door-open`, `category-sparkle` (AI Tools & Resources) →
+  `solid:wand-magic-sparkles`, `category-people` (Organizations &
+  Communities) → `solid:people-group`.
+- **All Font Awesome icons are monochrome** (`currentColor`, sized via
+  `font-size` not `width`/`height` since they're font glyphs now, not
+  SVGs) rather than colored per-brand. The old placeholder icons used
+  colored badges (brand-colored square + white initials); real Font
+  Awesome brand icons are just glyph outlines with no built-in color, and
+  re-coloring each one per brand would mean re-verifying contrast against
+  every surface they appear on (card background, resource list, header,
+  footer, share-menu popup) — this site has already been through that
+  exercise once for the 5-color brand palette and it wasn't a small
+  effort. Monochrome `var(--color-link)` was already the established
+  pattern for the old category icons, so this just extends it site-wide.
+  **This does not apply to the real-favicon resource icons** — see below,
+  those are deliberately full-color.
+- **Attribution**: Font Awesome Free's icons are CC BY 4.0 and the fonts
+  are SIL OFL — the vendored CSS files keep their original header comment
+  (`Font Awesome Free 7.3.1 by @fontawesome...`) intact, which is what
+  satisfies their license's attribution requirement. No visible on-page
+  credit link was added; if that's ever wanted, it'd be a design choice,
+  not a license requirement, given the comment is already preserved. See
+  `assets/fontawesome/LICENSE.txt` for the full text.
+
+### Resource icons sourced from real favicons
+
+By request, 117 of the 163 Resources entries (everything that didn't
+already have a Font Awesome/custom brand icon) now show that site's own
+real favicon instead of the shared category icon. This is a different,
+deliberately non-monochrome exception to everything above.
+
+- **How it was built** (not repeatable via a Jekyll/Liquid command — this
+  was a one-time Python pipeline run from the scratchpad, not checked into
+  the repo): for each of the 132 resources missing an icon, resolved a
+  domain slug from its URL and deduped to 110 unique domains (many
+  resources share a domain, e.g. the several `perplexity.ai` /
+  `github.com` entries). For each domain: fetched the page HTML with a
+  browser-like User-Agent, parsed `<link rel="icon"...>` tags (preferring
+  SVG, then largest declared `sizes`), falling back to `/favicon.ico` at
+  the origin if no `<link>` was declared. Decoded the result with Pillow
+  (selecting the largest embedded frame for multi-resolution `.ico`
+  files), downscaled anything over 64px, and wrote each as a small
+  self-contained SVG: `<svg class="mentor-card__link-icon" viewBox="0 0 W
+  H" ...><image width="W" height="H" href="data:{mime};base64,..."/></svg>`
+  — deliberately re-wrapping *every* source (even real vector SVG
+  favicons) as a base64 data URI inside a controlled wrapper, rather than
+  inlining third-party SVG markup directly into the page. 163 resources
+  all render on one page at once, so raw third-party SVGs risk `id`
+  collisions and stray embedded `<style>` rules bleeding across icons;
+  the data-URI wrapper avoids that entirely at the cost of a slightly
+  larger file (~372KB total across all 95 domain icons — only loaded on
+  the Resources page, not site-wide).
+- **Files**: `_includes/icons/favicons/<domain-slug>.svg` (95 files, e.g.
+  `github-com.svg`, `nsf-gov.svg`). Referenced from `_data/resources.yml`
+  as `icon: "custom:favicons/<domain-slug>"`, rendered through the same
+  `_includes/icon.html` helper as everything else (the `custom:` branch
+  was already there for Jupiter — this just gave it 95 more files to
+  serve instead of 1).
+- **95 of 110 unique domains succeeded; 15 didn't** — those resources
+  (about 15 of the 163, spread across categories) simply kept their
+  category's default icon, same "don't guess" rule used everywhere else
+  in this file. Breakdown of the failures:
+  - **7 domains didn't resolve at all** (dead/parked, not a fetch bug —
+    confirmed with `dig`): `hpc-ed.org`, `blackinhpc.org`, `sc.ed.gov`,
+    `acmhpdc.org`, `hpccampus.com`, `pearc.utulsa.edu`, and (at the time)
+    `projecteureka.org` — that last one turned out to be a stale URL, not
+    a dead resource: the user later confirmed the real domain is
+    `projecteureka.ai`, which is live. `_data/resources.yml` and
+    `_includes/icons/favicons/projecteureka-ai.svg` are updated. The other
+    6 are still unconfirmed — worth the same treatment if the real
+    current URLs turn up.
+  - **`ippdps.org` (IEEE IPDPS) looks like a typo** — `ipdps.org` (one
+    fewer `p`) resolves fine and is almost certainly the real domain.
+    Not corrected here since fixing resource URLs was out of scope for
+    "add icons" — flagged for whoever picks this up next.
+  - **3 sites (`acm.org`, `siam.org` on the first pass, `perplexity.ai`
+    on the first pass) returned HTTP 403** — bot-protected; `siam.org`
+    and `perplexity.ai` succeeded on a retry with a longer timeout,
+    `acm.org` never did. Not worth pursuing further — evading bot
+    detection wasn't attempted.
+  - **A handful of live sites still failed** despite working fine when
+    tested standalone with the exact same request (`networkx.org`,
+    `swcarpentry.github.io`, `openscapes.github.io`, `ncar.ucar.edu`,
+    `sc.supercomputing.org`) — looked like transient/CDN flakiness during
+    the batch run (concurrent fetching, GitHub Pages edge caching) rather
+    than a real problem with the fetch logic; a few had none of these
+    issues on a manual re-check but weren't worth chasing further given
+    diminishing returns. Worth another attempt if these particular icons
+    matter enough to justify it.
+  - `vita.had.co.nz` (a personal academic homepage, linked directly to a
+    PDF) and `networkx.org` genuinely have **no favicon declared at all**
+    — confirmed by hand, not just a fetch failure.
 
 ## Toolchain: why plain Jekyll instead of the `github-pages` gem
 
@@ -540,7 +712,21 @@ behavior, real screen-reader output, and — especially relevant now given
 how much logo/color iteration happened by verbal description only — actual
 visual correctness of the header/hero/footer/Overview redesign are
 completely unverified by eye. This is the single biggest gap before
-calling this done.
+calling this done. **The Font Awesome icon swap is in the same boat**: the
+build succeeds and every `icon:` value was confirmed to resolve to a real
+Font Awesome Free glyph name (checked against the package's own
+`metadata/icons.yml`) and render as `fa-{style} fa-{name}` in the built
+HTML, but nobody has actually looked at whether the glyphs look right at
+their rendered size next to the mentor/organizer/resource text — that's
+worth a first look before this goes live. **Same for the 117 real-favicon
+resource icons**: every one was confirmed to decode as a valid image
+(spot-checked with Pillow) and every embedded `<image>` tag was confirmed
+present in the built HTML, but a resource list mixing 117 different
+sites' own full-color favicons (arbitrary shapes, resolutions, visual
+weights) next to Font Awesome's uniform monochrome glyphs on the ~15
+category-default entries is exactly the kind of thing that needs an
+actual look, not just a build check — this is the biggest visual-risk
+item added this session.
 
 ## To continue in a new session
 
@@ -575,10 +761,22 @@ calling this done.
 6. **Decide whether to fix or accept** John Holmen's duplicate "2025 —
    Mentor" line and the thin/unverified LinkedIn-only specialty tags
    (Faiyaz, Ojo, Perry) — both are documented above, neither is a bug.
-7. **Get the missing Northwestern State University and NCAR Explorer
-   Series URLs** if they're findable, or confirm they should stay
-   unlinked — see "Resources page" section.
-8. Not yet built: any pages beyond Home/Mentors/Organizers/Resources, a
+7. **Get the missing Northwestern State University URL** if it's findable,
+   or confirm it should stay unlinked — see "Resources page" section.
+   (NCAR Explorer Series is resolved: the user supplied
+   `https://edec.ucar.edu/public/ncar-explorer-series` directly.)
+8. **Check 6 domains found dead while fetching resource-icon favicons** —
+   `hpc-ed.org`, `blackinhpc.org`, `sc.ed.gov`, `acmhpdc.org`,
+   `hpccampus.com`, `pearc.utulsa.edu` — none resolve via DNS right now.
+   (`projectEUREKA!` was the 7th; the user confirmed its real domain is
+   `projecteureka.ai`, now fixed.) Also, `ippdps.org` (IEEE IPDPS entry)
+   looks like a typo for `ipdps.org`, which does resolve. None of the
+   remaining 6 have been fixed — it surfaced as a side effect of the
+   favicon fetch and is a `_data/resources.yml` content question, out of
+   scope for that task. See "Resource icons sourced from real favicons"
+   in the "Icon system" section for the full list including sites that
+   are live but couldn't supply a favicon.
+9. Not yet built: any pages beyond Home/Mentors/Organizers/Resources, a
    real favicon (currently `<link rel="icon" href="data:,">`, i.e.
    deliberately blank).
 
@@ -598,25 +796,12 @@ calling this done.
 │   ├── resources.yml
 │   └── sponsors.yml
 ├── _includes/
+│   ├── icon.html
 │   ├── person-card.html
 │   ├── site-logo.html
 │   └── icons/
-│       ├── facebook.svg
-│       ├── github.svg
-│       ├── link.svg
-│       ├── linkedin.svg
-│       ├── scholar.svg
-│       ├── twitter.svg
-│       ├── google.svg
-│       ├── microsoft.svg
-│       ├── amazon.svg
-│       ├── python.svg
-│       ├── jupyter.svg
-│       ├── figma.svg
-│       ├── r-project.svg
-│       ├── wikipedia.svg
-│       └── category-{gateway,server,code,palette,chart,sparkle,
-│               people,briefcase,graduation-cap,calendar,flag}.svg
+│       ├── jupyter.svg    (custom, non-Font-Awesome icon)
+│       └── favicons/      (95 files, one real favicon per resource domain)
 ├── _layouts/
 │   └── default.html
 ├── assets/
@@ -624,12 +809,22 @@ calling this done.
 │   │   └── style.css
 │   ├── js/
 │   │   └── resources.js
+│   ├── fontawesome/
+│   │   ├── LICENSE.txt
+│   │   ├── css/
+│   │   │   ├── fontawesome.min.css
+│   │   │   ├── solid.min.css
+│   │   │   └── brands.min.css
+│   │   └── webfonts/
+│   │       ├── fa-solid-900.woff2
+│   │       └── fa-brands-400.woff2
 │   └── images/
 │       ├── branding/
 │       │   ├── FacultyHack26_logo.svg        (icon only)
 │       │   ├── FacultyHack26_logo_w_text.svg (icon + wordmark, hero <img>)
 │       │   ├── FacultyhHack26_text.svg       (wordmark only, header nav)
-│       │   └── FacultyHack26_logo_w_text.jpg (unused)
+│       │   ├── FacultyHack26_logo_w_text.jpg (SEO/OG share image, JSON-LD logo)
+│       │   └── dandelion.png                 ("Why the Dandelion?" section)
 │       ├── mentors/
 │       │   ├── README.md          (excluded from build)
 │       │   ├── ahmad-al-omari.jpg

@@ -36,10 +36,10 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ollusa.edu/sbl/profiles/ahmad-al-omari.html"
-      icon: "link"
+      icon: "solid:link"
     - label: "Facebook"
       url: "https://www.facebook.com/ahmad.alomari.102"
-      icon: "facebook"
+      icon: "brands:facebook"
 
 - name: "Anas AlSobeh"
   affiliation: "Utah Valley University"
@@ -67,13 +67,13 @@
   links:
     - label: "Staff Profile"
       url: "https://www.uvu.edu/directory/employee/?id=WGlTY2Z3K2xFTGhKVDh3cE9Ec2tYUT09"
-      icon: "link"
+      icon: "solid:link"
     - label: "Personal Website"
       url: "https://aalosbeh.github.io/"
-      icon: "link"
+      icon: "solid:link"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/anas-alsobeh-b79474125/"
-      icon: "linkedin"
+      icon: "brands:linkedin"
 
 - name: "Felicia Doswell"
   affiliation: "Norfolk State University"
@@ -101,10 +101,10 @@
   links:
     - label: "Staff Profile"
       url: "https://www.nsu.edu/Academics/Faculty-and-Academic-Divisions/Schools-and-Colleges/College-of-Science-Engineering-and-Technology/Departments/Computer-Science/Faculty-and-Staff/Felicia-Doswell"
-      icon: "link"
+      icon: "solid:link"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/felicia-doswell-3b77701b"
-      icon: "linkedin"
+      icon: "brands:linkedin"
 
 - name: "Mohamed Elbakary"
   affiliation: "Elizabeth City State University"
@@ -133,10 +133,10 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ecsu.edu/directory/mohamed-elbakary.php"
-      icon: "link"
+      icon: "solid:link"
     - label: "Department Page"
       url: "https://www.ecsu.edu/academics/undergrad/engineering-technology.php"
-      icon: "link"
+      icon: "solid:link"
 
 - name: "Mohammed Elmellouki"
   affiliation: "Mississippi Valley State University"
@@ -164,10 +164,10 @@
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/mohammed-elmellouki-ph-d-89213687/"
-      icon: "linkedin"
+      icon: "brands:linkedin"
     - label: "Google Scholar"
       url: "https://scholar.google.com/citations?user=LzFPoJ4AAAAJ&hl=fr"
-      icon: "scholar"
+      icon: "brands:google-scholar"
 
 - name: "Sajida Faiyaz"
   affiliation: "Austin Community College"
@@ -188,7 +188,7 @@
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/sajida-faiyaz-p-eng-pmp-m-eng-ms-81423327/"
-      icon: "linkedin"
+      icon: "brands:linkedin"
 
 - name: "John Holmen"
   affiliation: "Oak Ridge National Laboratory"
@@ -223,10 +223,10 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ornl.gov/staff-profile/john-k-holmen"
-      icon: "link"
+      icon: "solid:link"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/jholmen/"
-      icon: "linkedin"
+      icon: "brands:linkedin"
 
 - name: "Elijah MacCarthy"
   affiliation: "Oak Ridge National Laboratory"
@@ -256,7 +256,7 @@
   links:
     - label: "Staff Profile"
       url: "https://www.ornl.gov/staff-profile/elijah-maccarthy"
-      icon: "link"
+      icon: "solid:link"
 
 - name: "Olabisi Ojo"
   affiliation: "Albany State University"
@@ -285,7 +285,7 @@
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/olabisiojo/"
-      icon: "linkedin"
+      icon: "brands:linkedin"
 
 - name: "Sabrina Perry"
   affiliation: "Austin Peay State University"
@@ -313,4 +313,4 @@
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/sabrina-perry22"
-      icon: "linkedin"
+      icon: "brands:linkedin"

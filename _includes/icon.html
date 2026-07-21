@@ -1,0 +1,8 @@
+{% assign icon_parts = include.icon | split: ":" %}
+{% assign icon_style = icon_parts[0] %}
+{% assign icon_name = icon_parts[1] %}
+{% if icon_style == "custom" %}
+{% include icons/{{ icon_name }}.svg %}
+{% else %}
+<i class="mentor-card__link-icon fa-{{ icon_style }} fa-{{ icon_name }}" aria-hidden="true"></i>
+{% endif %}
