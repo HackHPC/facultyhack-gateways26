@@ -11,6 +11,10 @@ Register for the in-person Gateways 2026 conference (September 23–25 in
 Washington, D.C.) using this link:
 <https://sciencegateways.org/gateways2026>.
 
+Apply for travel support using this application
+(<https://docs.google.com/forms/d/e/1FAIpQLSf6ka-yH_bZmHyUoLwR_jsMlKZCsjh2jkmxwOkrIp9Nm8tkuw/viewform>),
+and indicate that you are presenting a poster.
+
 ## 2. Bio & Headshot
 
 *Include in GitHub Repo*

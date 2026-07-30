@@ -86,7 +86,7 @@ default.
 | `_includes/icons/favicons/*.svg` | 124 files — each domain's own real favicon, base64-embedded in a small SVG wrapper. 95 of these are for 117 of the 163 Resources entries (see "Resource icons sourced from real favicons" below); 8 more (`subr-edu`, `famu-edu`, `howard-edu`, `hamptonu-edu`, `bowiestate-edu`, `morainevalley-edu`, `voorhees-edu`, `cau-edu`) were added 2026-07-30 for mentee institution links on the Teams page, reusing `ornl-gov` for the Subil Abraham fallback rather than re-fetching it — see "Teams page" above. |
 | `_includes/site-logo.html` | Inline `<img>` of the icon-only site logo, `alt="FacultyHack@Gateways 2026"`. Used on Mentors/Organizers hero areas (logo beside the title) — NOT used on the homepage or Resources page, which each handle their own logo placement differently. See "Nav/hero/footer redesign" section. |
 | `assets/images/branding/*` | 5 files, all user-supplied: `FacultyHack26_logo.svg` (icon only, pure monochrome black), `FacultyHack26_logo_w_text.svg` (icon + wordmark, ~1.78:1, hero `<img>`), `FacultyhHack26_text.svg` (wordmark only, ~3.74:1, header nav bar), `FacultyHack26_logo_w_text.jpg` (1920×1080, SEO/OG share image + JSON-LD logo), `dandelion.png` (1536×1024, "Why the Dandelion?" section on the homepage). See "Nav/hero/footer redesign" section for which logo file is used where and why. |
-| `assets/images/mentors/*` | Mentor headshots (9 of 11 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
+| `assets/images/mentors/*` | Mentor headshots (10 of 11 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
 | `assets/images/organizers/*` | 6 organizer avatars, reused from last year's site (org's own asset, same recurring purpose — see "Organizers page" section). |
 | `assets/images/sponsors/*` | 6 sponsor/grant-agency logos, reused from last year's site. |
 | `assets/js/resources.js` | Vanilla JS, scoped to the Resources page only — live search filter + jump-to-category smooth scroll. See "Resources page" section for why JS was justified here despite the site's otherwise no-JS rule. |
@@ -184,14 +184,20 @@ LinkedIn/Facebook's anti-scraping ToS. The user then supplied actual image
 files directly, which is the correct path. If asked to add more photos this
 way again, don't fetch them automatically — same reasoning applies.
 
-Current state: **9 of 11 mentors have a photo**, wired up via a `photo:`
+Current state: **10 of 11 mentors have a photo**, wired up via a `photo:`
 field in `_data/mentors.yml` pointing at a file in
-`assets/images/mentors/`. Missing: **Mohammed Elmellouki** and **Sajida
-Faiyaz**. Subil Abraham (added 2026-07-30, see "Teams page") got a photo
-the same day too — `subilA.jpg`, supplied directly by the user rather than
-fetched by Claude, same correct-path precedent as every other mentor
-photo. The `mentors.html` template and CSS (`.mentor-card__header`,
-`.mentor-card__photo`) already handle mentors with or without a photo
+`assets/images/mentors/`. Missing: **Mohammed Elmellouki**. Both Subil
+Abraham and Sajida Faiyaz got a photo the same day (2026-07-30) —
+`subilA.jpg` and `sajida-faiyaz.jpg` — both supplied directly by the
+user rather than fetched by Claude, same correct-path precedent as every
+other mentor photo. Sajida's arrived as `SajidaF .jpg` (a stray space
+before the extension, clearly an accidental typo rather than a naming
+choice) — renamed to `sajida-faiyaz.jpg` to match the `<mentor-slug>.jpg`
+convention documented in this directory's `README.md`, rather than kept
+as-is the way Subil's filename was (that one wasn't a typo, just a
+different but valid naming style). The `mentors.html` template and CSS
+(`.mentor-card__header`, `.mentor-card__photo`) already handle mentors
+with or without a photo
 gracefully — no broken images, no empty placeholder circles for those
 without one.
 
@@ -852,6 +858,16 @@ a `.deliverable__meta` pill badge for a size constraint / due date,
 reusing the same pill-badge visual language as
 `.mentor-card__specialty`.
 
+**#1 Conference Registration got a second paragraph (2026-07-30, by
+request)**: a travel-support application link (a Google Form) plus an
+instruction to indicate you're presenting a poster when applying. Just a
+second `<p>` inside the same `<li>` — the existing `.deliverable p + p`
+rule already adds spacing between consecutive paragraphs in a card, so
+no new CSS was needed. Propagated to the downloadable `.md`/`.pdf`
+exports too (see "Downloadable PDF/Markdown export" below) — the PDF was
+regenerated and the new paragraph re-verified by reading it back, same
+habit as every other edit to that file.
+
 **Grew from six to seven items (2026-07-30, by request — "Add a Create a
 NAIRR education account to the deliverables")**: new #7, "NAIRR Education
 Account," appended at the end rather than inserted earlier in the list —
@@ -1460,6 +1476,54 @@ bundle exec jekyll serve --livereload
 ```
 Note the `/facultyhack-gateways26/` path suffix — that's `baseurl` from
 `_config.yml`.
+
+### First real-browser bug report, and a stylesheet caching fix (2026-07-30)
+
+This was **the first time anything in this project was actually checked
+in a real browser** — every prior verification this whole session was
+structural/mathematical (see "Verification status" below), never
+visual. The user ran the site (via the `jekyll serve --livereload`
+instance above) in both Safari and Chrome and reported the Deliverables
+page looking broken in Chrome only: duplicated numbers next to each
+deliverable, and no card borders, while Safari showed the correct
+circular numbered badge + bordered card.
+
+**Diagnosed as a stale Chrome cache, not a real CSS bug**, before making
+any change: audited `assets/css/style.css` directly — brace-balanced,
+comment-balanced, exactly one `.deliverable-list` rule (`list-style:
+none`, which is what suppresses the browser's native "1." marker so only
+the custom `.deliverable__number` circular badge shows) and exactly one
+`.deliverable` rule (`border: 1px solid var(--color-border)`), no
+duplicate/conflicting rules anywhere else in the file. Both properties
+are fully and identically supported in current Chrome and Safari, so a
+genuine cross-browser incompatibility was unlikely. Given how many times
+`style.css` was edited over the course of this session against a single
+already-running `localhost:4000` dev server with no cache-busting on the
+stylesheet `<link>`, a stale Chrome HTTP cache (more aggressive than
+Safari's for repeated local requests) was the most likely explanation.
+Asked the user to hard-refresh Chrome to confirm before changing
+anything — **confirmed correct**, it was in fact a local cache issue.
+
+**Fix applied anyway, to prevent recurrence**: `_layouts/default.html`'s
+`style.css` `<link>` now has a cache-busting query string,
+`?v={{ site.time | date: '%s' }}` — a Unix timestamp that changes on
+every Jekyll build/serve regeneration, forcing browsers to fetch a fresh
+copy instead of reusing a cached one keyed to the bare URL. Deliberately
+**not** applied to the three Font Awesome stylesheet `<link>`s right
+above it — those are vendored, never edited, and benefit from long-lived
+caching once fetched once; busting them on every rebuild would be
+counterproductive.
+
+**Worth remembering for next time**: this session never had regular
+browser QA built into its workflow, relying entirely on
+`html.parser`-based structural checks and WCAG contrast math (still
+valuable, still worth continuing) — but this bug report is proof that
+class of check cannot catch everything, particularly caching/runtime
+issues, browser-specific rendering quirks, or interaction/JS behavior
+under real user input. Now that a local server is genuinely running and
+being used for manual QA, that's the better opportunity to catch
+anything else this project's checks have been structurally blind to
+before going live.
 
 ## WCAG 2.2 AA audit — findings and fixes (2026-07-17)
 

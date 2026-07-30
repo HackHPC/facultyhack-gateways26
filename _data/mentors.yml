@@ -203,6 +203,7 @@
   affiliation_url: "https://www.austincc.edu/"
   affiliation_icon: "custom:favicons/austincc-edu"
   specialty: ["Software Engineering", "Databases"]
+  photo: "assets/images/mentors/sajida-faiyaz.jpg"
   history:
     - year: 2025
       role: "Mentor"
