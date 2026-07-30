@@ -1,0 +1,27 @@
+{% assign resource_icon = include.resource.icon | default: include.default_icon %}
+<li class="resource-item">
+  <p class="resource-item__name">
+    {% include icon.html icon=resource_icon %}
+    {% if include.resource.url %}
+    <a href="{{ include.resource.url }}">{{ include.resource.name }}</a>
+    {% else %}
+    {{ include.resource.name }}
+    {% endif %}
+    {% if include.resource.url %}
+    <button
+      type="button"
+      class="resource-share"
+      data-share-name="{{ include.resource.name }}"
+      data-share-url="{{ include.resource.url }}"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i class="mentor-card__link-icon fa-solid fa-share-nodes" aria-hidden="true"></i>
+      <span class="visually-hidden">Share {{ include.resource.name }}</span>
+    </button>
+    {% endif %}
+  </p>
+  {% if include.resource.description %}
+  <p class="resource-item__description">{{ include.resource.description }}</p>
+  {% endif %}
+</li>

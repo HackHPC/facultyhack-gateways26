@@ -1,0 +1,103 @@
+# FacultyHack@Gateways 2026 program schedule, shown on schedule.html.
+# Three parts: the virtual training sessions (Aug 3-14), the in-person
+# Gateways 2026 conference in D.C. (Sept 23-25), and a reusable
+# breakdown of how each virtual session's 6-8 PM ET block is structured.
+#
+# Each entry under virtual_sessions may optionally add a `resources:`
+# list once materials exist for that session (slides, a recording, a
+# PDF handout, a linked article, etc.) — omit the key entirely for
+# sessions with nothing yet, don't add an empty list. Only sessions that
+# actually have resources render a "Resources" block on their card, and
+# only then do they appear in the "Session Materials" section at the top
+# of the Resources page. Each resource:
+#   - name (required): link/file text.
+#   - url (required): external link, or a path under assets/ for an
+#     uploaded PDF.
+#   - icon (optional, defaults to "solid:link"): same "style:name" schema
+#     as _data/resources.yml — "custom:favicons/<domain-slug>" for a
+#     fetched favicon (see "Icon system" in PICKUP_AND_GO.md for how to
+#     add one), "solid:file-pdf" for an uploaded PDF, or any Font Awesome
+#     "brands:<name>" / "solid:<name>" icon.
+#   - description (optional): shown under the link if present.
+
+virtual_sessions:
+  - date: "Mon, August 3"
+    announcements: "Kickoff, honorarium expectations, and mentor intros."
+    training: "SGX3 Overview: Introduction to the Science Gateways Center of Excellence (SGX3) and computing environments."
+    resources:
+      - name: "Science Gateways Community Institute (SGCI)"
+        url: "https://sciencegateways.org"
+        icon: "custom:favicons/sciencegateways-org"
+        description: "National organization that provides training, consulting, software, and community support for developing and sustaining Science Gateways."
+      - name: "Science Gateways Resource Catalog"
+        url: "https://sciencegateways.org/resources/browse"
+        icon: "custom:favicons/sciencegateways-org"
+        description: "The Science Gateway Catalog is a collection of gateways and gateway-building technologies that offer a searchable way for developers and users to find existing resources."
+      - name: "Deliverables"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/deliverables/"
+        icon: "solid:list-check"
+        description: "The six deliverables for this program and what's due when."
+      - name: "README Template"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/assets/templates/facultyhack-readme-template.md"
+        icon: "solid:file-lines"
+        description: "Template for your final GitHub repository's README.md."
+  - date: "Wed, August 5"
+    announcements: "Day 1 recap, deliverables overview, and initial curriculum scoping."
+    training: "NAIRR (Dr. O) & AI Deconstruction Intro: Deep dive into the National Artificial Intelligence Research Resource (NAIRR) Pilot Portal and introducing AI deconstruction methods."
+    resources:
+      - name: "NAIRR Pilot Portal"
+        url: "https://nairrpilot.org"
+        icon: "custom:favicons/nairrpilot-org"
+        description: "The National Artificial Intelligence Research Resource pilot portal managed by SGX3 for the NSF to share computing and AI resources across the research community."
+  - date: "Fri, August 7"
+    announcements: "Weekend prep, addressing technical hurdles, and progress review."
+    training: "Course Goals & AI Deconstruction: Defining specific curriculum modules, actionable goals, and continuing AI deconstruction frameworks."
+  - date: "Mon, August 10"
+    announcements: "Week 2 kickoff and highlighting successful module ideas."
+    training: "Gateways Central & AI Deconstruction: Led by returning faculty hackers. Practical insights, tool applications, and applying AI deconstruction to curriculum building."
+  - date: "Wed, August 12"
+    announcements: "Reminders for final deliverables and D.C. travel logistics."
+    training: "AI Deconstruction Deep Dive: Advanced AI deconstruction workflows and a dedicated working sprint to integrate these concepts into course materials."
+    resources:
+      - name: "Deliverables"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/deliverables/"
+        icon: "solid:list-check"
+        description: "The six deliverables for this program and what's due when."
+      - name: "README Template"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/assets/templates/facultyhack-readme-template.md"
+        icon: "solid:file-lines"
+        description: "Template for your final GitHub repository's README.md."
+  - date: "Fri, August 14"
+    announcements: "Final wrap-up and next steps for Gateways 2026 in D.C."
+    training: "Status Updates: First draft of posters, reviewing the GitHub repository structure, and finalizing deliverables."
+    resources:
+      - name: "Deliverables"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/deliverables/"
+        icon: "solid:list-check"
+        description: "The six deliverables for this program and what's due when."
+      - name: "README Template"
+        url: "https://hackhpc.github.io/facultyhack-gateways26/assets/templates/facultyhack-readme-template.md"
+        icon: "solid:file-lines"
+        description: "Template for your final GitHub repository's README.md."
+
+conference:
+  - date: "Sept 23–25"
+    event: "Gateways 2026 Conference Attendance"
+    deliverables: "Faculty participate in conference sessions, workshops, and networking to fulfill honorarium requirements."
+  - date: "TBA (During Reception)"
+    event: "FacultyHack Poster Session & Awards"
+    deliverables: >-
+      Faculty hang printed posters (max 30"x45") prior to the event. One
+      author must be present during the reception to answer questions and
+      present their curriculum updates. Awards voted on by attendees.
+
+daily_flow:
+  - time: "6:00–6:30 PM (30 min)"
+    activity: "Announcements"
+    focus: "Administrative updates, daily objectives, spotlighting previous wins, and general Q&A."
+  - time: "6:30–7:00 PM (30 min)"
+    activity: "Mentor Time"
+    focus: "Faculty and technical mentors break into teams to review progress, troubleshoot roadblocks, and map out how the upcoming training applies to their specific curriculum."
+  - time: "7:00–8:00 PM (1 hr)"
+    activity: "Training"
+    focus: "Intensive instruction on HPC/AI tools, curriculum integration, and deliverables preparation."

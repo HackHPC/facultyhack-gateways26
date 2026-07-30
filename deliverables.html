@@ -1,0 +1,168 @@
+---
+layout: default
+title: Deliverables
+description: >-
+  The six deliverables FacultyHack@Gateways 2026 participants complete to
+  earn the $500 honorarium, from conference registration through the
+  final GitHub submission.
+---
+
+<section class="deliverables" aria-labelledby="deliverables-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="deliverables-heading">Deliverables</h1>
+        <p>
+          Participants who complete the following six deliverables receive
+          a <strong>$500 honorarium</strong>. See the
+          <a href="{{ '/schedule/' | relative_url }}">Schedule page</a> for
+          session dates and the training that supports each one.
+        </p>
+      </div>
+    </div>
+
+    <ol class="deliverable-list">
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">1</span>
+          Conference Registration
+        </h2>
+        <p>
+          Register for the in-person Gateways 2026 conference (September
+          23&ndash;25 in Washington, D.C.) using this link:
+          <a href="https://sciencegateways.org/gateways2026">sciencegateways.org/gateways2026</a>.
+        </p>
+      </li>
+
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">2</span>
+          Bio &amp; Headshot
+          <span class="deliverable__tag">Include in GitHub Repo</span>
+        </h2>
+        <p>
+          Provide a short professional biography (or CV link) and a
+          high-quality headshot for your project page.
+        </p>
+      </li>
+
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">3</span>
+          Gateways 2026 Poster
+          <span class="deliverable__meta">Max size: 30&Prime; wide &times; 45&Prime; high</span>
+          <span class="deliverable__tag">Include in GitHub Repo</span>
+        </h2>
+        <ul>
+          <li>
+            <strong>The Abstract:</strong> Submit a max 500-word abstract
+            (no references) describing your project and its impact
+            directly to the conference portal.
+          </li>
+          <li>
+            <strong>The Physical Poster:</strong> Print and bring your
+            poster to the conference to display your work during the
+            reception.
+          </li>
+        </ul>
+      </li>
+
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">4</span>
+          SGX3 Blog Post
+          <span class="deliverable__meta">Due October 9, 2026</span>
+        </h2>
+        <p>
+          Write a short reflection piece for the SGX3 website covering
+          your curriculum project, your hands-on experience with HPC
+          tools, and your takeaways from attending the conference.
+        </p>
+        <p>
+          Email to Dr. Linda Hayden:
+          <a href="mailto:haydenl@mindspring.com">haydenl@mindspring.com</a>.
+        </p>
+      </li>
+
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">5</span>
+          Resource List &amp; Tech Notes
+          <span class="deliverable__tag">Include in GitHub Repo</span>
+        </h2>
+        <p>
+          <strong>Gateways Catalog Requirement:</strong> Pick at least
+          three (3) tools from Gateways Central and write a short
+          sentence on how you will use each in your classroom.
+        </p>
+      </li>
+
+      <li class="deliverable">
+        <h2 class="deliverable__title">
+          <span class="deliverable__number" aria-hidden="true">6</span>
+          Project GitHub Repository
+        </h2>
+        <p>
+          Upload all your final materials to a public GitHub repository
+          you create for the hackathon. Submit your repository URL to
+          Je&rsquo;aime Powell:
+          <a href="mailto:jeaime@omnibond.com">jeaime@omnibond.com</a>.
+          Your submission must include:
+        </p>
+        <ul>
+          <li>
+            README.md (filled out using the
+            <button type="button" class="link-button" id="readme-template-open" aria-haspopup="dialog">provided template</button>)
+            <noscript>
+              &mdash; <a href="{{ '/assets/templates/facultyhack-readme-template.md' | relative_url }}">view the template</a>
+            </noscript>
+          </li>
+          <li>Original Syllabus (PDF)</li>
+          <li>Revised Syllabus (PDF &mdash; highlighting your new Gateways/HPC/AI integrations)</li>
+          <li>Gateways Poster (PDF)</li>
+          <li>Blog Post Draft (Markdown or PDF)</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+{% capture readme_template_content %}{% include_relative assets/templates/facultyhack-readme-template.md %}{% endcapture %}
+
+<dialog class="template-dialog" id="readme-template-dialog" aria-labelledby="readme-template-dialog-title">
+  <div class="template-dialog__header">
+    <h2 class="template-dialog__title" id="readme-template-dialog-title">README.md Template</h2>
+    <button type="button" class="template-dialog__close" id="readme-template-dialog-close">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      <span class="visually-hidden">Close</span>
+    </button>
+  </div>
+  <div class="template-dialog__actions">
+    <button type="button" class="button button--primary button--small" id="readme-template-copy">
+      <i class="fa-solid fa-copy" aria-hidden="true"></i>
+      <span id="readme-template-copy-label">Copy</span>
+    </button>
+    <button
+      type="button"
+      class="button button--small"
+      data-share-name="FacultyHack@Gateways 2026 README Template"
+      data-share-url="{{ '/assets/templates/facultyhack-readme-template.md' | absolute_url }}"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+      Share
+    </button>
+    <a class="button button--small" href="{{ '/assets/templates/facultyhack-readme-template.md' | relative_url }}" download>
+      <i class="fa-solid fa-download" aria-hidden="true"></i>
+      Download
+    </a>
+  </div>
+  <pre class="template-dialog__code"><code id="readme-template-code">{{ readme_template_content | strip | escape }}</code></pre>
+</dialog>
+
+{% include share-menu.html %}
+
+<script src="{{ '/assets/js/deliverables.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/share-menu.js' | relative_url }}" defer></script>

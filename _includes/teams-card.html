@@ -1,0 +1,53 @@
+{% assign mentor = nil %}
+{% for m in site.data.mentors %}
+  {% if m.name == include.pairing.mentor_name %}
+    {% assign mentor = m %}
+  {% endif %}
+{% endfor %}
+
+<li class="teams-card">
+  <div class="teams-card__mentee">
+    <h2 class="teams-card__mentee-name">{{ include.pairing.mentee.name }}</h2>
+    <p class="mentor-card__affiliation">{{ include.pairing.mentee.affiliation }}</p>
+    <p class="teams-card__course">
+      <span class="teams-card__course-label">Target Course</span>
+      {{ include.pairing.mentee.target_course }}
+    </p>
+    {% if include.pairing.mentee.links %}
+    <ul class="mentor-card__links">
+      {% for link in include.pairing.mentee.links %}
+      <li>
+        <a href="{{ link.url }}">
+          {% include icon.html icon=link.icon %}
+          {{ link.label }}<span class="visually-hidden"> for {{ include.pairing.mentee.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="teams-card__mentor">
+    <p class="teams-card__mentor-label">Mentored by</p>
+    {% if mentor %}
+    <p class="teams-card__mentor-name">
+      <a href="{{ '/mentors/' | relative_url }}#{{ mentor.name | slugify }}">{{ mentor.name }}</a>
+    </p>
+    <p class="mentor-card__affiliation">
+      {% if mentor.affiliation_icon %}
+      {% include icon.html icon=mentor.affiliation_icon %}
+      {% endif %}
+      {% if mentor.affiliation_url %}
+      <a href="{{ mentor.affiliation_url }}">{{ mentor.affiliation }}</a>
+      {% else %}
+      {{ mentor.affiliation }}
+      {% endif %}
+    </p>
+    {% else %}
+    <p class="teams-card__mentor-name">{{ include.pairing.mentor_name }}</p>
+    {% if include.pairing.mentor_affiliation %}
+    <p class="mentor-card__affiliation">{{ include.pairing.mentor_affiliation }}</p>
+    {% endif %}
+    {% endif %}
+  </div>
+</li>

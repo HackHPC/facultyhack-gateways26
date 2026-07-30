@@ -16,11 +16,15 @@ below are the ones most likely to matter if you're picking this up cold.
 A Jekyll static site for the **FacultyHack@Gateways 2026** program, built for
 deployment to GitHub Pages at `https://github.com/HackHPC/facultyhack-gateways26`
 (→ `https://hackhpc.github.io/facultyhack-gateways26`). Built mobile-first,
-targeting WCAG 2.2 AA. Four pages exist: the homepage (`index.html`), a
-Mentors directory (`mentors.html`, driven by `_data/mentors.yml`), an
-Organizers page (`organizers.html`, driven by `_data/organizers.yml`), and
-a Resources page (`resources.html`, driven by `_data/resources.yml`).
-Mentors and Organizers share one card partial, `_includes/person-card.html`.
+targeting WCAG 2.2 AA. Seven pages exist: the homepage (`index.html`), a
+Schedule page (`schedule.html`, driven by `_data/schedule.yml`), a
+Deliverables page (`deliverables.html`, static content, no data file), a
+Mentors directory (`mentors.html`, driven by `_data/mentors.yml`), a Teams
+page (`teams.html`, driven by `_data/teams.yml`, cross-referencing
+`_data/mentors.yml`), an Organizers page (`organizers.html`, driven by
+`_data/organizers.yml`), and a Resources page (`resources.html`, driven
+by `_data/resources.yml`). Mentors and Organizers share one card partial,
+`_includes/person-card.html`.
 
 ## Git status — read this before committing anything
 
@@ -55,16 +59,24 @@ default.
 | `_config.yml` | Site config. `url`/`baseurl` set for the `HackHPC/facultyhack-gateways26` repo. Pulls in `jekyll-seo-tag`, `jekyll-sitemap`. Excludes non-site files from the build output. |
 | `_layouts/default.html` | Base layout: skip link, `<header>`/`<nav>`/`<main>`/`<footer>` landmarks, nav includes "Mentors"/"Organizers"/"Resources" links with `aria-current="page"` when active (no "Apply" or "Challenges" links — both removed, see "Nav/hero/footer redesign" section), footer content (archives, source link, data-driven sponsor logos, NSF acknowledgment). Header and footer each carry an inline `style="--header-logo:..."`/`--footer-logo:...` custom property for their respective logo assets. |
 | `index.html` | Homepage content: Hero (with upfront logo `<img>` + h1 + tagline + dates), Overview (with a background-watermark logo behind the text), **Why the Dandelion?** (three paragraphs of user-authored copy on the dandelion symbolism, followed by `assets/images/branding/dandelion.png`, `alt=""` since the adjacent text already fully conveys the meaning — capped at `40rem` wide via `.dandelion__image`), Challenges & Honorarium. No more Apply section or Apply buttons — removed by request. |
+| `schedule.html` | Schedule page — see "Schedule page" section below. Three data-driven `<table>`s (virtual sessions, in-person conference, daily-flow breakdown), the first real tables in the project. |
+| `deliverables.html` | Deliverables page — see "Deliverables page" section below. Static content, no backing `_data/*.yml` file. Includes the README-template `<dialog>` card. |
+| `assets/templates/facultyhack-readme-template.md` | The README template, raw markdown, no front matter (deliberately — see "Deliverables page"). Downloadable/shareable at its own URL, and its content is also embedded (via `include_relative`) into the dialog card on `deliverables.html`. |
 | `mentors.html` | Mentors directory page. Loops `site.data.mentors`, rendering each via `_includes/person-card.html`. |
+| `teams.html` | Teams page — see "Teams page" section below. Loops `site.data.teams`, rendering each pairing via `_includes/teams-card.html`, which cross-references `site.data.mentors` by name. |
 | `organizers.html` | Organizers page. Same pattern, loops `site.data.organizers` via the same `person-card.html` partial. |
 | `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards, each with a share button. A shared `#share-menu` popup (X, Facebook, LinkedIn, Email, Copy Link) sits at the end of the page, driven by `assets/js/resources.js`. |
-| `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name, linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
+| `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name (now with `id="{{ name | slugify }}"` on the card `<li>` for deep-linking — see "Teams page"), linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
+| `_includes/teams-card.html` | Team-pairing card partial — takes a `pairing` param, looks up `pairing.mentor_name` against `site.data.mentors` to reuse that mentor's existing profile data rather than duplicating it. See "Teams page" section below. |
+| `_data/teams.yml` | 11 mentee/mentor pairings — see "Teams page" section below for provenance and the privacy rules applied. |
+| `_data/schedule.yml` | Schedule data — `virtual_sessions`, `conference`, `daily_flow` lists. See "Schedule page" section below. |
 | `_data/mentors.yml` | Mentor records — see "Mentors page" section below for the schema and how the content was sourced. |
 | `_data/organizers.yml` | Organizer records, carried over from last year's site — see "Organizers page" section below. |
 | `_data/sponsors.yml` | Sponsor records (name/url/logo, one with a nested NSF grant block) — see "Sponsors" section below. |
 | `_data/resources.yml` | 163 resource records across 11 categories — see "Resources page" section below for provenance, dedup decisions, and the icon system. |
 | `assets/fontawesome/` | Self-hosted Font Awesome Free 7.3.1 (`css/fontawesome.min.css` + `solid.min.css` + `brands.min.css`, `webfonts/fa-solid-900.woff2` + `fa-brands-400.woff2`, `LICENSE.txt`). See "Icon system" section below — this replaced the old `_includes/icons/*.svg` hand-drawn icons (all but one). |
 | `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
+| `_includes/resource-item.html` | Shared resource-link partial (icon + name/link + share button + optional description) — takes `resource` and `default_icon` params. Used by `resources.html`'s main category loop, the Session Materials section, and each schedule card's Resources block. See "Per-session resources" in the "Schedule page" section below. |
 | `_includes/icons/jupyter.svg` | The Jupiter "three moons" mark — Font Awesome Free and svgl.app both lack a Jupyter icon, sourced from Simple Icons instead. See "Icon system" section below. |
 | `_includes/icons/favicons/*.svg` | 95 files — each domain's own real favicon, base64-embedded in a small SVG wrapper, used as the icon for 117 of the 163 Resources entries. See "Resource icons sourced from real favicons" in the "Icon system" section below for how these were fetched and which ~15 resources didn't get one. |
 | `_includes/site-logo.html` | Inline `<img>` of the icon-only site logo, `alt="FacultyHack@Gateways 2026"`. Used on Mentors/Organizers hero areas (logo beside the title) — NOT used on the homepage or Resources page, which each handle their own logo placement differently. See "Nav/hero/footer redesign" section. |
@@ -72,7 +84,10 @@ default.
 | `assets/images/mentors/*` | Mentor headshots (8 of 10 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
 | `assets/images/organizers/*` | 6 organizer avatars, reused from last year's site (org's own asset, same recurring purpose — see "Organizers page" section). |
 | `assets/images/sponsors/*` | 6 sponsor/grant-agency logos, reused from last year's site. |
-| `assets/js/resources.js` | The only JavaScript in this project — vanilla, ~50 lines, scoped to the Resources page only. Live search filter + jump-to-category smooth scroll. See "Resources page" section for why JS was justified here despite the site's otherwise no-JS rule. |
+| `assets/js/resources.js` | Vanilla JS, scoped to the Resources page only — live search filter + jump-to-category smooth scroll. See "Resources page" section for why JS was justified here despite the site's otherwise no-JS rule. |
+| `assets/js/share-menu.js` | Vanilla JS, shared by `resources.html` and `deliverables.html` — the share-menu popup logic (native Web Share API first, custom popup fallback), extracted from `resources.js` so a second page could use it. See "Share-menu refactor" in the "Deliverables page" section. |
+| `assets/js/deliverables.js` | Vanilla JS, scoped to the Deliverables page only — opens/closes the README-template `<dialog>` and handles its Copy button. See "README template card" in the "Deliverables page" section. |
+| `_includes/share-menu.html` | Shared share-menu popup markup, extracted from `resources.html`. Included on both `resources.html` and `deliverables.html`. |
 | `assets/css/style.css` | Mobile-first stylesheet, CSS custom properties for theming (brand palette), shared person-card/grid/photo/specialty/history styles, resource-card/toolbar styles, footer sponsor-logo styles, nav/hero/footer/overview watermark and logo styles. |
 | `Gemfile` / `Gemfile.lock` | Modern Jekyll 4.4, **not** the `github-pages` gem — see "Toolchain" below for why. `Gemfile.lock` is committed intentionally, for reproducible CI builds. |
 | `.gitignore` | Excludes `_site/`, `.jekyll-cache/`, `.sass-cache/`, `.bundle/`, `vendor/`. |
@@ -189,6 +204,55 @@ All `<img>` tags use `alt=""` (decorative) since the mentor's name is
 already the adjacent `<h2>` — verified this doesn't regress the WCAG audit
 (alt attribute present on all 8, tag balance and duplicate-id checks still
 clean after adding them).
+
+## Teams page
+
+`teams.html` + `_data/teams.yml` (added 2026-07-30), from a pasted
+mentee/mentor pairing spreadsheet — 11 pairings, each mentee bringing HPC/
+AI into a specific course, paired with a mentor.
+
+**Both mentee and mentor email columns were dropped entirely** (personal
+gmail/hotmail addresses for mentees, institutional emails for mentors) —
+same standing privacy rule as `_data/mentors.yml`, applied here without
+being asked again since the rule doesn't need re-litigating per data set.
+"N/A" / "n/a" / "I don't have one" placeholder values in the source were
+treated as "no link" and not rendered literally. A few rows had the exact
+same URL duplicated across the "social media" and "professional URL"
+source columns — deduplicated to one link rather than showing it twice.
+
+**10 of the 11 mentors already have a full profile on the Mentors page**
+(matched by exact name — one spelling correction: the pairing sheet had
+"Elijah Maccarthy," corrected to the existing profile's "Elijah
+MacCarthy"). Rather than duplicate mentor bio/affiliation/link data into
+`teams.yml`, `_includes/teams-card.html` looks up each pairing's
+`mentor_name` against `site.data.mentors` at render time and reuses that
+mentor's real affiliation, `affiliation_url`, `affiliation_icon`, and a
+link straight to their card on the Mentors page. To make that deep link
+work, **`_includes/person-card.html` now sets `id="{{
+include.person.name | slugify }}"` on every mentor/organizer `<li>`** —
+new, previously nothing on either page was individually addressable.
+Verified no `id` collisions resulted (mentors.html and organizers.html
+each still have fully unique ids after the change).
+
+**The 11th mentor, Subil Abraham (mentored Mary Beals), is not in
+`_data/mentors.yml`** — wasn't part of the original mentor-roster
+spreadsheet the Mentors page was built from, so there's no bio/photo/link
+data for them anywhere on this site yet. `teams-card.html` falls back to
+plain text (`mentor_name` + a hardcoded `mentor_affiliation: "Oak Ridge
+National Laboratory"` in `teams.yml`, inferred from their `ornl.gov` email
+domain the same way John Holmen's and Elijah MacCarthy's affiliations
+were derived, not guessed) instead of a broken link. **Adding Subil
+Abraham as a real entry in `_data/mentors.yml` was deliberately not done
+here** — out of scope for "build the team page," and would need the same
+photo-permission/bio-sourcing care as every other mentor. Worth doing as
+a follow-up if asked.
+
+Each card is a two-column split (`.team-card`, stacks to one column below
+the `40em` breakpoint): mentee info (name as a real `<h2>` — the mentee is
+the primary subject of the Teams page — affiliation, target course, and
+any public links) on one side, "Mentored by" info on the other. Reuses
+`.mentor-card__affiliation` and `.mentor-card__links` directly rather than
+inventing near-duplicate CSS classes for the same visual pattern.
 
 ## Nav/hero/footer redesign
 
@@ -327,6 +391,345 @@ the mentor bios were, so no fresh sourcing/verification was done on these.
   org's site, don't assume the same reasoning applies — it hinges on this
   being the same organization's own asset reused for the same purpose.
 
+## Schedule page
+
+`schedule.html` + `_data/schedule.yml` (added 2026-07-21, from a table the
+user pasted directly — not scraped/researched, so no provenance caveats
+like the Mentors/Resources data). Same three YAML lists driving three
+different presentations:
+
+- `virtual_sessions` (6 entries, Mon/Wed/Fri Aug 3–14): date,
+  `announcements`, `training` — rendered as **timeline cards** (see below).
+- `conference` (2 entries): the Sept 23–25 Gateways 2026 Conference
+  itself, and the FacultyHack poster session/awards during the
+  reception — also timeline cards.
+- `daily_flow` (3 entries): the reusable breakdown of how a virtual
+  session's 6–8 PM ET block splits into Announcements (6:00–6:30) /
+  Mentor Time (6:30–7:00) / Training (7:00–8:00) — explains where each
+  card's "Announcements & Mentor Time" content comes from. **Still a
+  `<table>`**, unlike the other two — this is a legend/breakdown of a
+  recurring structure, not a list of discrete dated events, so it didn't
+  make sense to convert.
+
+### Timeline-card redesign (2026-07-21)
+
+Originally all three sections were plain `<table>`s. The user asked to
+make the page "more like" `hackhpc.github.io/admi26/schedule.html` — that
+page (a **post-event recap**, ADMI26 already happened) uses a vertical
+timeline of `.schedule-block` cards: date/time header, a "Join Zoom"
+button, an expand/collapse toggle, and a body with sub-events, award
+badges, and narrative "Session Summary" recaps. Confirmed by fetching
+their actual HTML (not just a WebFetch summary) before touching anything.
+
+FacultyHack26 hasn't happened yet, so summaries/awards/slide-decks don't
+apply — only the **visual timeline-card pattern** was adapted, not
+ADMI26's post-event content types. Asked the user to confirm scope
+first (full collapsible cards vs. always-expanded vs. just restyling the
+tables); they picked full collapsible cards.
+
+**Implementation, deliberately zero JS**: each card is a native
+`<details class="schedule-block">` / `<summary class="schedule-block__summary">`
+— not a custom JS toggle like ADMI26's (their `.session-toggle-btn` is
+actually `style="display:none"` in their static HTML, so it's unclear
+their JS toggle is even active by default; native `<details>` gets
+full keyboard/screen-reader support for free with zero JS, fitting this
+project's established "no JS unless there's truly no non-JS equivalent"
+rule — same reasoning that scoped `assets/js/resources.js` to only the
+one page that actually needs it).
+
+- The "Join Zoom" button (`.button .button--primary .button--small` — new
+  small-size modifier added to the previously-unused `.button--primary`
+  from the old Apply-button era) sits **inside** `<summary>`, alongside
+  the date/time, so it's always visible even when the card is collapsed
+  — matching ADMI26, where Join Zoom is outside the collapsible body too.
+  It's the same Zoom link repeated on all 6 cards (matches ADMI26's own
+  pattern — they repeat their Zoom link across session blocks too, not
+  a mistake), not just stated once, unlike the earlier one-link-in-the-
+  intro version of this page. A link nested inside `<summary>` is valid
+  per the HTML spec (`<summary>` accepts phrasing content); clicking it
+  navigates normally, and if it also happens to toggle the details open
+  as a side effect in some browsers, that's harmless since the user is
+  navigating away to Zoom anyway — not worth JS `stopPropagation()` to
+  prevent.
+- The expand/collapse chevron (`fa-solid fa-chevron-down`) rotates via
+  `.schedule-block[open] .schedule-block__chevron { transform:
+  rotate(180deg); }` — pure CSS, no JS, driven by the native `[open]`
+  attribute `<details>` already manages.
+- **All 6 virtual-session cards default `open`** (not just the first) —
+  originally only the first card did, matching a typical "expand the next
+  one" pattern, but the user said that made the two-week schedule hard to
+  view (having to click through 6 cards one at a time to see the actual
+  content defeats the point of a schedule page). Asked which fix they
+  wanted (expand-all vs. week-grouping headers vs. reverting to a compact
+  table); they picked expand-all. Still fully collapsible per-card for
+  anyone who wants to tuck one away. The **Conference section's 2 cards
+  still only default-open the first one** — with just 2 items there's no
+  equivalent scanning problem, so that wasn't touched.
+- **`summary` was missing from the global focus-ring selector list**
+  (`a:focus-visible, button:focus-visible, ...`) — caught and fixed while
+  building this, since `<details>`/`<summary>` hadn't been used anywhere
+  before. Without it, keyboard users toggling a card would've gotten the
+  browser's inconsistent default outline instead of this site's amber
+  focus ring.
+- Each event inside a card body gets an `<h3>` (e.g. "Announcements &
+  Mentor Time", "Training Focus") — verified this doesn't skip levels
+  (h2 section heading → h3 event names → next h2), checked
+  programmatically same as every other heading-hierarchy check in this
+  project.
+- **Card background/hover** (`.schedule-block`): white (`--color-bg-alt`)
+  by request, with the border highlighting to `--color-accent` on both
+  `:hover` and `:focus-within` (same pattern as `.resource-item`'s hover
+  from the accessibility audit — keyboard users get the same visual cue
+  mouse users do). Ran into a real bug getting here: the first attempt
+  set the card to white *while the `.schedule` section itself was also
+  white* (`--color-bg-alt`), so the "white card" had nothing to contrast
+  against and just blended flat into the page — reported back as "the
+  background color of the cards is not white" even though the color
+  value itself was correct. Root cause was inverted from the site's
+  established convention: `.mentor-card`/`.resource-item` are the *ivory*
+  tone (`--color-bg`) sitting on a *white* (`--color-bg-alt`) section —
+  here it was backwards. Fixed by flipping `.schedule`'s own section
+  background to ivory (`--color-bg`) so the white cards actually read as
+  white against it, mirroring that same established pattern (just with
+  the two tones swapped, since the ask was specifically a white card).
+  The resulting card/section contrast is still only ~1.05:1 — that's
+  inherent to how close `--color-bg`/`--color-bg-alt` are, and it's the
+  same subtlety `.mentor-card` has always had; the 1px `--color-border`
+  border is what actually defines the card shape, same as everywhere
+  else on the site, not the background tint.
+- Removed a now-redundant `.schedule-block__summary:hover { background-
+  color: var(--color-bg-alt) }` rule from an earlier pass — once the
+  whole card became `--color-bg-alt`, that hover rule was white-on-white
+  (a no-op).
+
+**Zoom + calendar links**, in the Virtual Training Sessions intro
+paragraph (not per-card, since it's identical across all 6): the Zoom
+join link (`https://us06web.zoom.us/launch/jc/...`) also appears inside
+every card's "Join Zoom" button — deliberately repeated, matching
+ADMI26's own pattern of repeating their Zoom link per card rather than
+stating it once. The ICS "add to calendar" link
+(`https://us06web.zoom.us/meeting/.../ics?icsToken=...&meetingMasterEventId=...`)
+is stated once only, in the intro text. Both links contain Zoom-generated
+tokens in the URL (not secrets — this is Zoom's own "share this so people
+can join/add to calendar" link format, the same kind of link that goes
+out in a normal meeting invite) — added directly from what the user
+pasted, not fetched/verified independently.
+
+Nav link added as the *first* item (before Mentors), on the reasoning
+that schedule/logistics is core, frequently-needed information for an
+active participant — same instinct as the original (now-removed)
+"Overview" link being first.
+
+### Per-session resources (2026-07-21)
+
+Each entry in `_data/schedule.yml`'s `virtual_sessions` can now carry an
+**optional** `resources:` list — slides, recordings, PDFs, linked
+articles, whatever ends up getting shared for that specific session.
+None have been added yet; this is infrastructure only, built ahead of
+actual content per the user's request ("add this... that only displays
+once resources are added").
+
+- **Empty by default, on purpose.** No session currently has a
+  `resources:` key. Nothing related to this feature renders anywhere —
+  not the "Resources" block on a session's card, not the "Session
+  Materials" section at the top of the Resources page, not the extra
+  "Session Materials" option in the Resources page's jump-to-category
+  dropdown — until at least one session actually has resources.
+  Verified this by temporarily adding 3 test entries to one session,
+  confirming everything rendered correctly (favicon icon, PDF icon, the
+  default-icon fallback, the optional description, the share button, the
+  jump-dropdown option, tag balance), then removing the test data and
+  re-confirming the site is back to a clean empty state (171 resources,
+  same as before this feature existed) — don't skip that same test/revert
+  cycle if you extend this further.
+- **Schema per resource** (documented in `_data/schedule.yml`'s header
+  comment): `name` and `url` required; `icon` optional (defaults to
+  `"solid:link"`) using the exact same `"style:name"` schema as
+  `_data/resources.yml` — `"custom:favicons/<domain-slug>"` for a real
+  fetched favicon (same fetch-and-vendor process as every other resource
+  icon — see "Icon system"), `"solid:file-pdf"` for an uploaded PDF (no
+  separate "type" field needed, the icon value itself carries that
+  distinction), or any other Font Awesome icon; `description` optional,
+  shown under the link only if present.
+- **New shared partial, `_includes/resource-item.html`**, extracted from
+  what used to be inline markup in `resources.html`'s main category loop
+  (icon + name + optional link + share button + optional description).
+  Takes `resource` and `default_icon` params. Now used in **three
+  places**: the main Resources category loop (refactored, not just
+  reused — behavior-preserving, since every existing resources.yml entry
+  already has a description, so the newly-added `{% if
+  resource.description %}` guard changes nothing there), the new Session
+  Materials section, and each schedule card's Resources block. This also
+  fixed a latent inconsistency: the pre-refactor inline markup rendered
+  `<p class="resource-item__description">{{ resource.description }}</p>`
+  unconditionally, which would've emitted an empty `<p></p>` for any
+  resource without one — never actually triggered before since every
+  `_data/resources.yml` entry has always had a description, but would
+  have been a real bug for a description-less session resource.
+- **"Session Materials" section on `resources.html`**, positioned first
+  — before the toolbar's category loop, using the same
+  `.resource-category`/`.resource-item` classes as every other category,
+  so it's automatically picked up by the existing search/filter JS with
+  zero JS changes needed. Grouped by session date (`<h3>` per date,
+  matching the h2→h3 pattern used everywhere else). Computed via a
+  Liquid `push`-based list build (`{% assign session_materials = "" |
+  split: "" %}` then `push` each session that has `resources`) rather
+  than a `where_exp` filter, to avoid depending on a plugin-provided
+  filter for something a plain loop does just as well.
+- **Per-card Resources block on `schedule.html`**, reusing the existing
+  `.schedule-block__event`/`.schedule-block__event-name` (h3) structure
+  as a third sibling alongside "Announcements & Mentor Time" and
+  "Training Focus" — no new CSS needed, it inherits the same card
+  spacing/typography automatically.
+
+## Deliverables page
+
+`deliverables.html` (added 2026-07-30, static content pasted directly by
+the user — no `_data/*.yml` file, since it's a fixed one-time list of 6
+items, not something expected to grow/get re-sorted/get per-item icons
+the way Resources or Schedule do). Six `<li class="deliverable">` cards
+in an `<ol class="deliverable-list">`, each with a circular numbered
+badge (`.deliverable__number`, `aria-hidden="true"` since the `<ol>`
+already gives screen readers positional info — "1 of 6" etc. — from the
+list semantics alone; the visible badge would otherwise double-announce
+the number) and an `<h2>` title. Two cards (#3 Poster, #4 Blog Post) also
+get a `.deliverable__meta` pill badge for a size constraint / due date,
+reusing the same pill-badge visual language as
+`.mentor-card__specialty`.
+
+**README template** (added same day): `assets/templates/facultyhack-
+readme-template.md` — the exact markdown template the user pasted,
+copied verbatim, no front matter on purpose so Jekyll treats it as a
+static file and copies it through byte-for-byte rather than trying to
+render it as a page (confirmed with a `diff` against the source after
+build, and re-confirmed after the dialog card below was added — the
+`{{ readme_template_content | strip | escape }}` round-trip through
+`html.unescape()` was verified to reproduce the source file exactly,
+byte for byte). Linked from deliverable #6's "README.md (filled out
+using the provided template)" line. If this ever needs to become an
+actual rendered page instead of a downloadable raw file, it would need
+front matter added and probably a different file location — don't add
+front matter to this file without also deciding to convert it into a
+real page, since right now the whole point is that it's raw/unrendered.
+
+### README template card (2026-07-30)
+
+The user asked for the template to "appear as a card when clicked...
+that allows users to share or copy the code" — turned the plain
+download link into a **native `<dialog>` modal** showing the template
+in a scrollable code block, with Copy / Share / Download actions.
+
+- **"provided template" is now a `<button class="link-button">`**
+  (styled to look like an inline text link, not a real navigation —
+  `<button>` is the correct element here since it triggers an in-page
+  action, not a page change), not an `<a>`. Clicking it calls
+  `dialog.showModal()` via `assets/js/deliverables.js`.
+- **Why native `<dialog>` instead of a hand-rolled modal**: focus
+  trapping, Escape-to-close, and top-layer stacking all come free from
+  the browser, so the JS needed is tiny (open, close-button click,
+  backdrop-click-to-close, plus the copy handler) — consistent with this
+  project's "as little JS as the interaction actually requires" pattern,
+  same reasoning as choosing native `<details>` for the Schedule page's
+  timeline cards over a custom toggle.
+- **The template content is embedded via `{% include_relative
+  assets/templates/facultyhack-readme-template.md %}`**, captured into a
+  variable and piped through `| strip | escape`, rather than duplicating
+  the template text a second time somewhere in the HTML. One source of
+  truth: `assets/templates/facultyhack-readme-template.md` is still the
+  file that gets downloaded/shared/statically served — the same file's
+  *content* is also what appears in the dialog. `include_relative`
+  (rather than a plain `{% include %}`, which is restricted to
+  `_includes/`) works here because it resolves relative to the
+  including page, and `deliverables.html` sits at the site root, same
+  level as `assets/`.
+- **Copy button**: reads `#readme-template-code`'s `.textContent` (the
+  browser un-escapes HTML entities back to literal characters
+  automatically) and writes it to the clipboard via
+  `navigator.clipboard.writeText()` — this is what actually lets someone
+  paste the *exact* template straight into their own repo's README.md.
+- **Share button reuses the exact same share-menu component already
+  built for the Resources page** (native Web Share API first, custom
+  X/Facebook/LinkedIn/Email/Copy-Link popup fallback) — see "Share-menu
+  refactor" below for how that got made reusable across pages. Shares an
+  **absolute** URL (`| absolute_url`, not `| relative_url`) to the raw
+  template file, since a shared link needs to work outside this site's
+  own pages.
+- **Download button**: a plain `<a href="..." download>` to the same raw
+  file — the one action that doesn't need any JS at all.
+- **`<noscript>` fallback** right after the "provided template" trigger
+  button: a plain link straight to the raw template file. Converting
+  that trigger from an `<a>` to a `<button>` (needed since it opens a
+  dialog, not a navigation) meant the template stopped being reachable
+  at all with JS disabled/failed — this restores it.
+- **Real bug caught while building this**: initially gave the dialog's
+  Share button `class="resource-share button button--small"`, reusing
+  `.resource-share` (from `resource-item.html`) purely to get picked up
+  by the share-menu JS's `.resource-share` selector. That selector was
+  wrong to reuse here — `.resource-share`'s own CSS (transparent
+  background, icon-only sizing) would have fought with `.button
+  .button--small`'s visible-label button styling, since both target the
+  same element with overlapping properties. Fixed at the root instead of
+  patching around it: **`share-menu.js`'s selector changed from
+  `.resource-share` to `[data-share-url]`**, decoupling "what triggers a
+  share" (a data attribute, always present on any share trigger) from
+  "how the trigger looks" (whatever class fits the context — the compact
+  icon-only `.resource-share` treatment in resource lists, or a full
+  `.button` in this dialog). `resource-item.html`'s existing share
+  buttons already had `data-share-url` set, so they kept working
+  unmodified.
+
+### Share-menu refactor (2026-07-30)
+
+Extracting the Copy/Share dialog for the README template meant a second
+page now needed the share-menu popup, which used to be entirely inline
+in `resources.html` + `assets/js/resources.js`. Split both:
+
+- **`_includes/share-menu.html`** — the share-menu popup markup (X /
+  Facebook / LinkedIn / Email / Copy Link), extracted verbatim from what
+  used to be inline in `resources.html`. Now `{% include share-menu.html
+  %}` on both `resources.html` and `deliverables.html`. `id="share-menu"`
+  is fine to repeat across the two since IDs only need to be unique
+  *within* a document, not site-wide — each page gets its own copy.
+- **`assets/js/share-menu.js`** — the share-menu *logic*, extracted from
+  `resources.js`. Had to actually split the file, not just also load
+  `resources.js` on `deliverables.html`, because `resources.js` opens
+  with `if (!searchInput || !items.length) { return; }` — a hard
+  early-return that would have skipped the share-menu code entirely on
+  any page without a `#resource-search` box (i.e., every page except
+  Resources). Caught this before it became a "why doesn't Share work on
+  the Deliverables page" bug rather than after.
+- **`assets/js/resources.js`** now only contains the search-filter and
+  jump-to-category logic — genuinely Resources-page-specific, unlike
+  the share-menu which is now correctly shared.
+- Both `resources.html` and `deliverables.html` load two `<script>` tags
+  now: their own page-specific file, plus `share-menu.js`.
+
+This is the fuller, detailed version of the homepage's existing
+"Challenges & Honorarium" section (`index.html`, 4 bullet points, same
+$500 honorarium) — **deliberately not merged or cross-linked** beyond the
+Deliverables page pointing back to the Schedule page in its intro
+paragraph. Left the homepage section as-is rather than replacing it with
+a link to this page or vice versa, since that wasn't asked for and is a
+content-strategy call, not an obvious correctness fix.
+
+**Two personal emails are published on this page on purpose**:
+`haydenl@mindspring.com` (Dr. Linda Hayden, for the SGX3 blog post
+submission) and `jeaime@omnibond.com` (Je'aime Powell, for the final
+GitHub repo submission). This is different from the strict "never
+publish personal emails" rule that governs `_data/mentors.yml` — those
+were scraped from a pasted spreadsheet the mentors didn't necessarily
+intend for public posting. Here, the user (an organizer) is directly
+authoring official submission instructions for a page whose entire
+purpose is telling participants where to send things — publishing the
+submission address is the explicit point, not a privacy leak. Don't
+generalize this exception to other pages without the same reasoning
+applying (a program organizer directly instructing that a specific
+contact method be published as part of official task instructions).
+
+Nav link added right after Schedule (before Mentors) — both are
+"what do I need to know/do" logistics pages, grouped together at the
+front of the nav ahead of the people/resources pages.
+
 ## Sponsors
 
 `_data/sponsors.yml` carries over the 5 *active* sponsors from last year's
@@ -386,16 +789,34 @@ knowing the layers if you're adding more:
    bottom of the page (X, Facebook, LinkedIn, Email, Copy Link) — or the
    native OS share sheet on devices that support `navigator.share()`.
 
-**Search, jump-to-category, and the share menu are the one place this
-project uses JavaScript** (`assets/js/resources.js`, vanilla, no
-dependencies). This was a deliberate exception to the site's otherwise
-strict no-JS rule — live text search and a "pick where to share" popup
-have no non-JS equivalent on a static site with no backend. If JS fails
-to load, the search/jump controls go inert (harmless, full list stays
-visible) and the share buttons simply do nothing on click — no broken
-links either way. The dropdown's `<option>` values are generated from the
-same `| slugify` as each category's `<h2>` id, so they're guaranteed to
-stay in sync — don't hand-edit one without the other.
+**Search, jump-to-category, and the share menu are the reason this
+project uses JavaScript at all** (`assets/js/resources.js` +
+`assets/js/share-menu.js`, vanilla, no dependencies, no build step).
+This was a deliberate exception to the site's otherwise strict no-JS
+rule — live text search and a "pick where to share" popup have no
+non-JS equivalent on a static site with no backend. The share-menu piece
+was later reused on `deliverables.html` too (see "Share-menu refactor"
+in the "Deliverables page" section) and the README-template card there
+added its own small `assets/js/deliverables.js` for the same kind of
+reason (no non-JS way to do a copy-to-clipboard button or open a
+`<dialog>`) — so this is no longer literally "the one place," but the
+same bar still applies everywhere JS shows up in this project: only
+where the interaction has no static-HTML/CSS equivalent, one file per
+actual concern, and always failing gracefully. If JS fails to load, the
+search/jump controls go inert (harmless, full list stays visible), share
+buttons do nothing on click, and the README template's "provided
+template" trigger — a `<button>`, not a link, since it opens a dialog
+rather than navigating — would do nothing on click too. That last one
+got a real `<noscript>` fallback (a plain link straight to
+`assets/templates/facultyhack-readme-template.md`) rather than just
+accepting the gap, since unlike the share buttons (a nice-to-have on top
+of content that's already reachable another way), this was the *only*
+way to reach the template before the dialog existed — removing it
+without a fallback would've been a regression, not just a degraded
+enhancement.
+The dropdown's `<option>` values are generated from the same `|
+slugify` as each category's `<h2>` id, so they're guaranteed to stay in
+sync — don't hand-edit one without the other.
 
 Whenever this data file changes, double check `resource-item` count in the
 built HTML still matches the YAML resource count, and that the dropdown
@@ -772,10 +1193,10 @@ single biggest remaining risk before calling any of this "done."
 ## Verification status
 
 **A real `jekyll build` succeeds** (Jekyll 4.4.1, Homebrew Ruby 4.0.6) for
-all four pages. Output in `_site/`: `index.html`, `mentors/index.html`,
+all seven pages. Output in `_site/`: `index.html`, `schedule/index.html`,
+`deliverables/index.html`, `mentors/index.html`, `team/index.html`,
 `organizers/index.html`, `resources/index.html`, `assets/css/style.css`,
 `assets/js/resources.js`, `sitemap.xml`, `robots.txt`, and every image
-(mentor photos, organizer avatars, sponsor/grant logos, 4 branding logos)
 under `assets/images/` — no stray files. `baseurl` applies correctly
 everywhere, including inside every inline `style="--*-logo: url(...)"`
 custom property.
@@ -818,13 +1239,24 @@ sites' own full-color favicons (arbitrary shapes, resolutions, visual
 weights) next to Font Awesome's uniform monochrome glyphs on the ~15
 category-default entries is exactly the kind of thing that needs an
 actual look, not just a build check — this is the biggest visual-risk
-item added this session.
+item added this session. **Same caveat applies to the Schedule page's
+timeline cards**: the whole layout hinges on native `<details>`/
+`<summary>` disclosure behavior, which has never been used anywhere else
+in this project and has never been clicked in a real browser — the HTML
+is spec-valid and the CSS math (chevron rotation, focus ring, hover/hover-
+within, the white-card-on-ivory-section contrast bug already found and
+fixed once) all check out structurally, but nobody has actually opened
+and closed a card by hand yet.
 
 ## To continue in a new session
 
-1. **Open all four pages in a real browser** (`bundle exec jekyll serve
+1. **Open all seven pages in a real browser** (`bundle exec jekyll serve
    --livereload`) — this hasn't happened even once yet, and matters more
-   than usual right now:
+   than usual right now. On the Schedule page specifically: click through
+   a few `<details>` cards to confirm expand/collapse feels right, and
+   confirm the nested "Join Zoom" link inside `<summary>` doesn't do
+   anything visually janky when clicked (documented as "harmless either
+   way" but never actually watched happen). Elsewhere:
    - The header/hero/footer/Overview logo and color redesign was all done
      from written descriptions of the source files, never seen rendered.
      Confirm it actually looks right before assuming it does.
@@ -911,24 +1343,36 @@ item added this session.
 ├── PICKUP_AND_GO.md        (this file)
 ├── _config.yml
 ├── _data/
+│   ├── archives.yml
 │   ├── mentors.yml
 │   ├── organizers.yml
 │   ├── resources.yml
-│   └── sponsors.yml
+│   ├── schedule.yml
+│   ├── sponsors.yml
+│   └── teams.yml
 ├── _includes/
 │   ├── icon.html
 │   ├── person-card.html
+│   ├── teams-card.html
+│   ├── resource-item.html
+│   ├── share-menu.html
 │   ├── site-logo.html
 │   └── icons/
 │       ├── jupyter.svg    (custom, non-Font-Awesome icon)
-│       └── favicons/      (95 files, one real favicon per resource domain)
+│       ├── acm.svg        (custom, ACM's site is Cloudflare-blocked)
+│       └── favicons/      (real favicons, one per external domain used
+│                            across resources/mentors/organizers/schedule)
 ├── _layouts/
 │   └── default.html
 ├── assets/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
-│   │   └── resources.js
+│   │   ├── resources.js    (search + jump-to-category, Resources page only)
+│   │   ├── share-menu.js   (shared: Resources + Deliverables pages)
+│   │   └── deliverables.js (README-template dialog, Deliverables page only)
+│   ├── templates/
+│   │   └── facultyhack-readme-template.md
 │   ├── fontawesome/
 │   │   ├── LICENSE.txt
 │   │   ├── css/
@@ -970,7 +1414,10 @@ item added this session.
 │           ├── tacc.svg
 │           └── hackhpc.svg
 ├── index.html
+├── schedule.html
+├── deliverables.html
 ├── mentors.html
+├── teams.html
 ├── organizers.html
 └── resources.html
 ```

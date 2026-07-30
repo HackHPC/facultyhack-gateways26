@@ -188,6 +188,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
+summary:focus-visible,
 [tabindex]:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
@@ -411,6 +412,14 @@ main:focus-visible {
   filter: brightness(0.85);
 }
 
+.button--small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
 /* --------------------------------------------------------------------------
    Content sections
    -------------------------------------------------------------------------- */
@@ -612,6 +621,61 @@ svg.mentor-card__link-icon {
 }
 
 /* --------------------------------------------------------------------------
+   Team
+   -------------------------------------------------------------------------- */
+
+.teams-grid {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.teams-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg);
+}
+
+@media (min-width: 40em) {
+  .teams-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .teams-card__mentor {
+    padding-left: var(--space-3);
+    border-left: 1px solid var(--color-border);
+  }
+}
+
+.teams-card__mentee-name,
+.teams-card__mentor-name {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+}
+
+.teams-card__course {
+  margin: 0 0 var(--space-2);
+}
+
+.teams-card__course-label,
+.teams-card__mentor-label {
+  display: block;
+  margin-bottom: 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-link);
+}
+
+/* --------------------------------------------------------------------------
    Resources
    -------------------------------------------------------------------------- */
 
@@ -798,6 +862,315 @@ svg.mentor-card__link-icon {
   .resource-list {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* --------------------------------------------------------------------------
+   Schedule
+   -------------------------------------------------------------------------- */
+
+.schedule {
+  padding-block: var(--space-5);
+  background-color: var(--color-bg);
+}
+
+.schedule section {
+  margin-top: var(--space-5);
+}
+
+.schedule h2 {
+  margin-bottom: var(--space-2);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin-top: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+.table-scroll table {
+  width: 100%;
+  min-width: 40em; /* below this, the table scrolls as a unit rather than
+    squeezing three columns of prose into unreadably narrow strips */
+  border-collapse: collapse;
+}
+
+.table-scroll th,
+.table-scroll td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table-scroll thead th {
+  background-color: var(--color-bg-alt);
+  font-weight: 700;
+}
+
+.table-scroll tbody th[scope="row"] {
+  font-weight: 600;
+  white-space: nowrap;
+  background-color: var(--color-bg-alt);
+}
+
+.table-scroll tbody tr:last-child th,
+.table-scroll tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-timeline {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.schedule-block {
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-alt);
+  overflow: hidden;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.schedule-block:hover,
+.schedule-block:focus-within {
+  border-color: var(--color-accent);
+}
+
+.schedule-block__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  cursor: pointer;
+  list-style: none;
+}
+
+.schedule-block__summary::-webkit-details-marker {
+  display: none;
+}
+
+.schedule-block__datetime {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-block__date {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.schedule-block__time {
+  font-size: 0.875rem;
+  color: #495057;
+}
+
+.schedule-block__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.schedule-block__chevron {
+  color: var(--color-link);
+  transition: transform 0.15s ease-in-out;
+}
+
+.schedule-block[open] .schedule-block__chevron {
+  transform: rotate(180deg);
+}
+
+.schedule-block__body {
+  padding: 0 var(--space-3) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+}
+
+.schedule-block__event + .schedule-block__event {
+  margin-top: var(--space-3);
+}
+
+.schedule-block__event-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.schedule-block__event-time {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #495057;
+}
+
+/* --------------------------------------------------------------------------
+   Deliverables
+   -------------------------------------------------------------------------- */
+
+.deliverables {
+  padding-block: var(--space-5);
+  background-color: var(--color-bg-alt);
+}
+
+.deliverable-list {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.deliverable {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg);
+}
+
+.deliverable__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+.deliverable__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-accent-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.deliverable__meta {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  color: #495057;
+}
+
+.deliverable__tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+.deliverable p + p {
+  margin-top: var(--space-2);
+}
+
+.deliverable ul {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.25rem;
+}
+
+.deliverable ul li + li {
+  margin-top: 0.375rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-accent);
+}
+
+.template-dialog {
+  width: min(90vw, 48rem);
+  max-height: 85vh;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
+}
+
+.template-dialog::backdrop {
+  background-color: rgba(33, 24, 15, 0.5);
+}
+
+.template-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.template-dialog__title {
+  margin: 0;
+}
+
+.template-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.template-dialog__close:hover {
+  background-color: var(--color-bg);
+}
+
+.template-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.template-dialog__code {
+  margin: 0;
+  padding: var(--space-3);
+  overflow: auto;
+  max-height: 60vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background-color: var(--color-bg);
 }
 
 /* --------------------------------------------------------------------------

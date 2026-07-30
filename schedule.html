@@ -1,0 +1,138 @@
+---
+layout: default
+title: Schedule
+description: >-
+  Full program schedule for FacultyHack@Gateways 2026 — virtual training
+  sessions, the in-person Gateways 2026 conference, and the standard
+  daily session format.
+---
+
+<section class="schedule" aria-labelledby="schedule-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="schedule-heading">Schedule</h1>
+        <p>
+          FacultyHack@Gateways 2026 runs as six virtual training sessions in
+          August, followed by the in-person Gateways 2026 Conference in
+          Washington, D.C. in September. All virtual session times are
+          Eastern Time (ET).
+        </p>
+      </div>
+    </div>
+
+    <section aria-labelledby="virtual-sessions-heading">
+      <h2 id="virtual-sessions-heading">Virtual Training Sessions</h2>
+      <p>
+        Six sessions, Mondays, Wednesdays, and Fridays, August 3&ndash;14,
+        6:00&ndash;8:00 PM ET. Every session below joins on the same Zoom
+        link &mdash;
+        <a href="https://us06web.zoom.us/meeting/tZckf-utqTMtE90bh-HWz37ssv9N-XJaaHr5/ics?icsToken=DHw_D6w7wh0yL4EkyAAALAAAAPWyX5uLCc37uNProQ74N7idn0iuIuRIkqY4gPCO5SvaETrRYGweoQ-c_uxq3cBcV4YRpvYjNbTnrFnwNzAwMDAwMQ&amp;meetingMasterEventId=vPIdF73hT1quiycY45QzCA">add the recurring event to your calendar (.ics)</a>
+        so you don't have to look it up each time. Click a date to collapse
+        it. See "Standard Daily Flow" below for how each session's two
+        hours are broken down.
+      </p>
+      <div class="schedule-timeline">
+        {% for session in site.data.schedule.virtual_sessions %}
+        <details class="schedule-block" open>
+          <summary class="schedule-block__summary">
+            <span class="schedule-block__datetime">
+              <span class="schedule-block__date">{{ session.date }}</span>
+              <span class="schedule-block__time">6:00&ndash;8:00 PM ET</span>
+            </span>
+            <span class="schedule-block__actions">
+              <a class="button button--primary button--small" href="https://us06web.zoom.us/launch/jc/83982578799">
+                <i class="fa-solid fa-video" aria-hidden="true"></i>
+                Join Zoom
+              </a>
+              <i class="schedule-block__chevron fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+          </summary>
+          <div class="schedule-block__body">
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">
+                Announcements &amp; Mentor Time
+                <span class="schedule-block__event-time">6:00&ndash;7:00 PM</span>
+              </h3>
+              <p>{{ session.announcements }}</p>
+            </div>
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">
+                Training Focus
+                <span class="schedule-block__event-time">7:00&ndash;8:00 PM</span>
+              </h3>
+              <p>{{ session.training }}</p>
+            </div>
+            {% if session.resources %}
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">Resources</h3>
+              <ul class="resource-list">
+                {% for resource in session.resources %}
+                {% include resource-item.html resource=resource default_icon="solid:link" %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+        </details>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section aria-labelledby="conference-heading">
+      <h2 id="conference-heading">Gateways 2026 Conference (In-Person)</h2>
+      <p>
+        September 23&ndash;25, 2026 in Washington, D.C. Travel support is
+        provided &mdash; see the
+        <a href="https://sciencegateways.org/gateways2026">Gateways 2026 Conference site</a>
+        for full conference details.
+      </p>
+      <div class="schedule-timeline">
+        {% for item in site.data.schedule.conference %}
+        <details class="schedule-block"{% if forloop.first %} open{% endif %}>
+          <summary class="schedule-block__summary">
+            <span class="schedule-block__datetime">
+              <span class="schedule-block__date">{{ item.date }}</span>
+            </span>
+            <span class="schedule-block__actions">
+              <i class="schedule-block__chevron fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+          </summary>
+          <div class="schedule-block__body">
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">{{ item.event }}</h3>
+              <p>{{ item.deliverables }}</p>
+            </div>
+          </div>
+        </details>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section aria-labelledby="daily-flow-heading">
+      <h2 id="daily-flow-heading">Standard Daily Flow (6:00&ndash;8:00 PM ET)</h2>
+      <div class="table-scroll">
+        <table>
+          <caption class="visually-hidden">Breakdown of a standard virtual session's two-hour block</caption>
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Segment</th>
+              <th scope="col">Focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for block in site.data.schedule.daily_flow %}
+            <tr>
+              <th scope="row">{{ block.time }}</th>
+              <td>{{ block.activity }}</td>
+              <td>{{ block.focus }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</section>

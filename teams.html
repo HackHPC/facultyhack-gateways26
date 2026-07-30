@@ -1,0 +1,29 @@
+---
+layout: default
+title: Teams
+description: >-
+  The 2026 FacultyHack@Gateways mentee/mentor pairings and the courses
+  each faculty participant is bringing HPC and AI into.
+---
+
+<section class="mentors" aria-labelledby="teams-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="teams-heading">Teams</h1>
+        <p>
+          This year's faculty participants and their mentors, paired by
+          course. See the <a href="{{ '/mentors/' | relative_url }}">Mentors</a>
+          page for full mentor bios.
+        </p>
+      </div>
+    </div>
+
+    <ul class="teams-grid">
+      {% for pairing in site.data.teams %}
+      {% include teams-card.html pairing=pairing %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>

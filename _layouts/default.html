@@ -30,7 +30,10 @@
 
       <nav class="site-nav" aria-label="Primary">
         <ul class="site-nav__menu">
+          <li><a href="{{ '/schedule/' | relative_url }}"{% if page.url contains '/schedule' %} aria-current="page"{% endif %}>Schedule</a></li>
+          <li><a href="{{ '/deliverables/' | relative_url }}"{% if page.url contains '/deliverables' %} aria-current="page"{% endif %}>Deliverables</a></li>
           <li><a href="{{ '/mentors/' | relative_url }}"{% if page.url contains '/mentors' %} aria-current="page"{% endif %}>Mentors</a></li>
+          <li><a href="{{ '/teams/' | relative_url }}"{% if page.url contains '/teams' %} aria-current="page"{% endif %}>Teams</a></li>
           <li><a href="{{ '/organizers/' | relative_url }}"{% if page.url contains '/organizers' %} aria-current="page"{% endif %}>Organizers</a></li>
           <li><a href="{{ '/resources/' | relative_url }}"{% if page.url contains '/resources' %} aria-current="page"{% endif %}>Resources</a></li>
         </ul>
