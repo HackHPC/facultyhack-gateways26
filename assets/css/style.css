@@ -742,6 +742,155 @@ svg.mentor-card__link-icon {
   margin-top: 0;
 }
 
+/* --------------------------------------------------------------------------
+   Event Branding (Resources page)
+   -------------------------------------------------------------------------- */
+
+.branding-dropdown {
+  margin-top: var(--space-3);
+}
+
+.branding-dropdown summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-link);
+}
+
+.branding-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.branding-dropdown[open] summary {
+  margin-bottom: var(--space-3);
+}
+
+.branding-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.branding-logo-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+}
+
+.branding-logo-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 110px;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-border) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-border) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.branding-logo-preview img {
+  max-width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+.branding-logo-preview--favicon img {
+  max-height: 64px;
+}
+
+.branding-logo-info {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.branding-logo-name {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+}
+
+.branding-logo-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.branding-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--color-link);
+  border-radius: 0.25rem;
+  color: var(--color-link);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.branding-download-btn:hover,
+.branding-download-btn:focus-visible {
+  background-color: var(--color-link);
+  color: var(--color-text-inverse);
+}
+
+.branding-colors-heading {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+  font-size: 1.0625rem;
+}
+
+.branding-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+
+.branding-color-swatch {
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+}
+
+.branding-color-block {
+  height: 64px;
+  background-color: var(--swatch-color);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.branding-color-meta {
+  padding: 0.5rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.branding-color-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.branding-color-hex {
+  font-size: 0.8125rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #495057;
+  letter-spacing: 0.02em;
+}
+
 .resource-list {
   list-style: none;
   margin: var(--space-3) 0 0;

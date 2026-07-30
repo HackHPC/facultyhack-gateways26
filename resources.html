@@ -47,6 +47,7 @@ description: >-
           {% if session_materials.size > 0 %}
           <option value="resources-session-materials">Session Materials</option>
           {% endif %}
+          <option value="resources-event-branding">Event Branding</option>
           {% for group in site.data.resources %}
           <option value="resources-{{ group.category | slugify }}">{{ group.category }}</option>
           {% endfor %}
@@ -69,6 +70,110 @@ description: >-
       {% endfor %}
     </section>
     {% endif %}
+
+    <section class="resource-category branding-section" aria-labelledby="resources-event-branding">
+      <h2 id="resources-event-branding">Event Branding</h2>
+      <p>Official FacultyHack@Gateways 2026 brand assets for presentations, posters, and project materials.</p>
+      <details class="branding-dropdown">
+        <summary>View &amp; download logo assets</summary>
+        <div class="branding-dropdown__body">
+          <div class="branding-logo-grid">
+
+            <div class="branding-logo-card">
+              <div class="branding-logo-preview">
+                <img src="{{ '/assets/images/branding/FacultyHack26_logo.png' | relative_url }}" alt="">
+              </div>
+              <div class="branding-logo-info">
+                <span class="branding-logo-name">Logo Mark</span>
+                <div class="branding-logo-downloads">
+                  <a href="{{ '/assets/images/branding/FacultyHack26_logo.png' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-image" aria-hidden="true"></i> PNG</a>
+                  <a href="{{ '/assets/images/branding/FacultyHack26_logo.svg' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-file-code" aria-hidden="true"></i> SVG</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="branding-logo-card">
+              <div class="branding-logo-preview">
+                <img src="{{ '/assets/images/branding/FacultyhHack26_text.png' | relative_url }}" alt="">
+              </div>
+              <div class="branding-logo-info">
+                <span class="branding-logo-name">Wordmark</span>
+                <div class="branding-logo-downloads">
+                  <a href="{{ '/assets/images/branding/FacultyhHack26_text.png' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-image" aria-hidden="true"></i> PNG</a>
+                  <a href="{{ '/assets/images/branding/FacultyhHack26_text.svg' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-file-code" aria-hidden="true"></i> SVG</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="branding-logo-card">
+              <div class="branding-logo-preview">
+                <img src="{{ '/assets/images/branding/FacultyHack26_logo_w_text.jpg' | relative_url }}" alt="">
+              </div>
+              <div class="branding-logo-info">
+                <span class="branding-logo-name">Logo + Wordmark</span>
+                <div class="branding-logo-downloads">
+                  <a href="{{ '/assets/images/branding/FacultyHack26_logo_w_text.jpg' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-image" aria-hidden="true"></i> JPG</a>
+                  <a href="{{ '/assets/images/branding/FacultyHack26_logo_w_text.svg' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-file-code" aria-hidden="true"></i> SVG</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="branding-logo-card">
+              <div class="branding-logo-preview branding-logo-preview--favicon">
+                <img src="{{ '/assets/images/branding/favicon.png' | relative_url }}" alt="">
+              </div>
+              <div class="branding-logo-info">
+                <span class="branding-logo-name">Favicon</span>
+                <div class="branding-logo-downloads">
+                  <a href="{{ '/assets/images/branding/favicon.png' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-image" aria-hidden="true"></i> PNG</a>
+                  <a href="{{ '/favicon.ico' | relative_url }}" download class="branding-download-btn"><i class="fa-solid fa-image" aria-hidden="true"></i> ICO</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <h3 class="branding-colors-heading">Brand Colors</h3>
+          <div class="branding-color-grid">
+            <div class="branding-color-swatch" style="--swatch-color: #FAFAF7;">
+              <div class="branding-color-block"></div>
+              <div class="branding-color-meta">
+                <span class="branding-color-name">Soft Ivory</span>
+                <span class="branding-color-hex">#FAFAF7</span>
+              </div>
+            </div>
+            <div class="branding-color-swatch" style="--swatch-color: #6B4A2A;">
+              <div class="branding-color-block"></div>
+              <div class="branding-color-meta">
+                <span class="branding-color-name">Root Brown</span>
+                <span class="branding-color-hex">#6B4A2A</span>
+              </div>
+            </div>
+            <div class="branding-color-swatch" style="--swatch-color: #55661A;">
+              <div class="branding-color-block"></div>
+              <div class="branding-color-meta">
+                <span class="branding-color-name">Forest Olive</span>
+                <span class="branding-color-hex">#55661A</span>
+              </div>
+            </div>
+            <div class="branding-color-swatch" style="--swatch-color: #876237;">
+              <div class="branding-color-block"></div>
+              <div class="branding-color-meta">
+                <span class="branding-color-name">Warm Brown/Gold</span>
+                <span class="branding-color-hex">#876237</span>
+              </div>
+            </div>
+            <div class="branding-color-swatch" style="--swatch-color: #6E7D1F;">
+              <div class="branding-color-block"></div>
+              <div class="branding-color-meta">
+                <span class="branding-color-name">Olive Green</span>
+                <span class="branding-color-hex">#6E7D1F</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
 
     {% for group in site.data.resources %}
     <section class="resource-category" aria-labelledby="resources-{{ group.category | slugify }}">

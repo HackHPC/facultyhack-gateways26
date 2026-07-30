@@ -78,10 +78,10 @@ default.
 | `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
 | `_includes/resource-item.html` | Shared resource-link partial (icon + name/link + share button + optional description) — takes `resource` and `default_icon` params. Used by `resources.html`'s main category loop, the Session Materials section, and each schedule card's Resources block. See "Per-session resources" in the "Schedule page" section below. |
 | `_includes/icons/jupyter.svg` | The Jupiter "three moons" mark — Font Awesome Free and svgl.app both lack a Jupyter icon, sourced from Simple Icons instead. See "Icon system" section below. |
-| `_includes/icons/favicons/*.svg` | 95 files — each domain's own real favicon, base64-embedded in a small SVG wrapper, used as the icon for 117 of the 163 Resources entries. See "Resource icons sourced from real favicons" in the "Icon system" section below for how these were fetched and which ~15 resources didn't get one. |
+| `_includes/icons/favicons/*.svg` | 124 files — each domain's own real favicon, base64-embedded in a small SVG wrapper. 95 of these are for 117 of the 163 Resources entries (see "Resource icons sourced from real favicons" below); 8 more (`subr-edu`, `famu-edu`, `howard-edu`, `hamptonu-edu`, `bowiestate-edu`, `morainevalley-edu`, `voorhees-edu`, `cau-edu`) were added 2026-07-30 for mentee institution links on the Teams page, reusing `ornl-gov` for the Subil Abraham fallback rather than re-fetching it — see "Teams page" above. |
 | `_includes/site-logo.html` | Inline `<img>` of the icon-only site logo, `alt="FacultyHack@Gateways 2026"`. Used on Mentors/Organizers hero areas (logo beside the title) — NOT used on the homepage or Resources page, which each handle their own logo placement differently. See "Nav/hero/footer redesign" section. |
 | `assets/images/branding/*` | 5 files, all user-supplied: `FacultyHack26_logo.svg` (icon only, pure monochrome black), `FacultyHack26_logo_w_text.svg` (icon + wordmark, ~1.78:1, hero `<img>`), `FacultyhHack26_text.svg` (wordmark only, ~3.74:1, header nav bar), `FacultyHack26_logo_w_text.jpg` (1920×1080, SEO/OG share image + JSON-LD logo), `dandelion.png` (1536×1024, "Why the Dandelion?" section on the homepage). See "Nav/hero/footer redesign" section for which logo file is used where and why. |
-| `assets/images/mentors/*` | Mentor headshots (8 of 10 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
+| `assets/images/mentors/*` | Mentor headshots (9 of 11 mentors so far) + a `README.md` (excluded from the build via `_config.yml`) documenting the permission requirement and naming convention. See "Mentor photos" section below. |
 | `assets/images/organizers/*` | 6 organizer avatars, reused from last year's site (org's own asset, same recurring purpose — see "Organizers page" section). |
 | `assets/images/sponsors/*` | 6 sponsor/grant-agency logos, reused from last year's site. |
 | `assets/js/resources.js` | Vanilla JS, scoped to the Resources page only — live search filter + jump-to-category smooth scroll. See "Resources page" section for why JS was justified here despite the site's otherwise no-JS rule. |
@@ -179,12 +179,15 @@ LinkedIn/Facebook's anti-scraping ToS. The user then supplied actual image
 files directly, which is the correct path. If asked to add more photos this
 way again, don't fetch them automatically — same reasoning applies.
 
-Current state: **8 of 10 mentors have a photo**, wired up via a `photo:`
+Current state: **9 of 11 mentors have a photo**, wired up via a `photo:`
 field in `_data/mentors.yml` pointing at a file in
 `assets/images/mentors/`. Missing: **Mohammed Elmellouki** and **Sajida
-Faiyaz**. The `mentors.html` template and CSS (`.mentor-card__header`,
+Faiyaz**. Subil Abraham (added 2026-07-30, see "Teams page") got a photo
+the same day too — `subilA.jpg`, supplied directly by the user rather than
+fetched by Claude, same correct-path precedent as every other mentor
+photo. The `mentors.html` template and CSS (`.mentor-card__header`,
 `.mentor-card__photo`) already handle mentors with or without a photo
-gracefully — no broken images, no empty placeholder circles for the two
+gracefully — no broken images, no empty placeholder circles for those
 without one.
 
 Filenames as supplied don't follow one consistent convention (mixed casing,
@@ -220,39 +223,110 @@ treated as "no link" and not rendered literally. A few rows had the exact
 same URL duplicated across the "social media" and "professional URL"
 source columns — deduplicated to one link rather than showing it twice.
 
-**10 of the 11 mentors already have a full profile on the Mentors page**
-(matched by exact name — one spelling correction: the pairing sheet had
-"Elijah Maccarthy," corrected to the existing profile's "Elijah
-MacCarthy"). Rather than duplicate mentor bio/affiliation/link data into
-`teams.yml`, `_includes/teams-card.html` looks up each pairing's
-`mentor_name` against `site.data.mentors` at render time and reuses that
-mentor's real affiliation, `affiliation_url`, `affiliation_icon`, and a
-link straight to their card on the Mentors page. To make that deep link
-work, **`_includes/person-card.html` now sets `id="{{
-include.person.name | slugify }}"` on every mentor/organizer `<li>`** —
-new, previously nothing on either page was individually addressable.
-Verified no `id` collisions resulted (mentors.html and organizers.html
-each still have fully unique ids after the change).
+**All 11 mentors now have a full profile on the Mentors page** (matched by
+exact name — one spelling correction: the pairing sheet had "Elijah
+Maccarthy," corrected to the existing profile's "Elijah MacCarthy").
+Rather than duplicate mentor bio/affiliation/link data into `teams.yml`,
+`_includes/teams-card.html` looks up each pairing's `mentor_name` against
+`site.data.mentors` at render time and reuses that mentor's real
+affiliation, `affiliation_url`, `affiliation_icon`, and a link straight to
+their card on the Mentors page. To make that deep link work,
+**`_includes/person-card.html` now sets `id="{{ include.person.name |
+slugify }}"` on every mentor/organizer `<li>`** — new, previously nothing
+on either page was individually addressable. Verified no `id` collisions
+resulted (mentors.html and organizers.html each still have fully unique
+ids after the change).
 
-**The 11th mentor, Subil Abraham (mentored Mary Beals), is not in
-`_data/mentors.yml`** — wasn't part of the original mentor-roster
-spreadsheet the Mentors page was built from, so there's no bio/photo/link
-data for them anywhere on this site yet. `teams-card.html` falls back to
-plain text (`mentor_name` + a hardcoded `mentor_affiliation: "Oak Ridge
-National Laboratory"` in `teams.yml`, inferred from their `ornl.gov` email
-domain the same way John Holmen's and Elijah MacCarthy's affiliations
-were derived, not guessed) instead of a broken link. **Adding Subil
-Abraham as a real entry in `_data/mentors.yml` was deliberately not done
-here** — out of scope for "build the team page," and would need the same
-photo-permission/bio-sourcing care as every other mentor. Worth doing as
-a follow-up if asked.
+**The 11th mentor, Subil Abraham (mentored Mary Beals), was initially not
+in `_data/mentors.yml`** — wasn't part of the original mentor-roster
+spreadsheet the Mentors page was built from, so `teams-card.html` fell
+back to plain text (still there, `teams-card.html`'s `{% else %}` branch,
+for any future pairing whose mentor isn't found). **Added 2026-07-30, by
+request ("update the mentors page with missing mentors from the teams
+page")**: a minimal entry in `_data/mentors.yml` — name + affiliation
+("Oak Ridge National Laboratory", inferred from their `ornl.gov` email
+domain the same way John Holmen's and Elijah MacCarthy's affiliations were
+derived, not guessed) + `affiliation_url`/`affiliation_icon` (reusing the
+`ornl-gov` favicon already fetched for those two). Initially added with no
+bio/specialty/links, since none of that data existed anywhere for this
+person and every field on `person-card.html` is independently optional.
+**Bio added same day**, by request, sourced via `WebFetch` from Subil
+Abraham's real ORNL staff profile
+(`https://www.ornl.gov/staff-profile/subil-abraham`) — role (HPC Engineer,
+Operations – User Assistance group, National Center for Computational
+Sciences), M.S. in Computer Science from Virginia Tech with a thesis on
+container performance on HPC workloads and filesystems, a prior
+Technology Integration internship evaluating SymphonyFS, and research
+interests, all written in the same third-person style as the other
+mentors' bios. Got `specialty: ["Containers for HPC", "Parallel
+Programming"]` and a "Staff Profile" link (`custom:favicons/ornl-gov`
+icon, matching John Holmen's link pattern). **The email address the staff
+profile page listed was not added**, per the file's standing privacy
+rule. A photo (`subilA.jpg`) arrived separately the same day, supplied
+directly by the user — see "Mentor photos" below. Inserted first in
+the file (alphabetical by last name, "Abraham" sorts before "Al-Omari").
+Once added, `teams.yml`'s
+`mentor_affiliation_url`/`mentor_affiliation_icon` for the Mary Beals
+pairing became redundant (the lookup now finds him) and were removed —
+only the plain `mentor_affiliation` fallback mechanism remains in
+`teams-card.html`, unused today but still there for a future gap.
 
-Each card is a two-column split (`.team-card`, stacks to one column below
+Each card is a two-column split (`.teams-card`, stacks to one column below
 the `40em` breakpoint): mentee info (name as a real `<h2>` — the mentee is
 the primary subject of the Teams page — affiliation, target course, and
 any public links) on one side, "Mentored by" info on the other. Reuses
 `.mentor-card__affiliation` and `.mentor-card__links` directly rather than
 inventing near-duplicate CSS classes for the same visual pattern.
+
+**Mentee institution affiliations are now links with a real favicon icon
+too** (added 2026-07-30, by request — "find the affiliate urls and add the
+link also pull the favicon from the affiliate sites"), mirroring the
+mentor-affiliation pattern already established in `_data/mentors.yml`.
+Each mentee entry in `teams.yml` gained `affiliation_url` +
+`affiliation_icon`, resolved to the institution's own real website (e.g.
+"Southern University A&M College" → `https://www.subr.edu/`; "Southern
+University A&M College" and "Southern University and A&M College" are the
+same school spelled two ways across the source spreadsheet rows — both
+point at the same URL/icon rather than "fixing" the mentee-facing text).
+`_includes/teams-card.html` renders it exactly like the mentor side does:
+icon + `<a>` when a URL exists, plain text otherwise. Subil Abraham's
+ORNL fallback (the one mentor not in `mentors.yml`, see above) got the
+same treatment — `mentor_affiliation_url`/`mentor_affiliation_icon` in
+`teams.yml`, reusing the `ornl-gov` favicon already fetched for John
+Holmen and Elijah MacCarthy rather than re-fetching it.
+
+8 new favicons were fetched for this
+(`_includes/icons/favicons/subr-edu.svg`, `famu-edu.svg`, `howard-edu.svg`,
+`hamptonu-edu.svg`, `bowiestate-edu.svg`, `morainevalley-edu.svg`,
+`voorhees-edu.svg`, `cau-edu.svg`), using the exact same one-time Python
+pipeline documented in "Resource icons sourced from real favicons" below
+(parse `<link rel="icon">`, prefer SVG then largest declared size, fall
+back to `/favicon.ico`, re-wrap as a base64 data-URI `<svg>` — never
+inline third-party markup directly). One snag: `bowiestate.edu` declares
+an `apple-touch-icon.png` that genuinely 404s on their own site (confirmed
+directly, not a fetch bug) — fell back to their `/favicon.ico` instead,
+which is only 16×16 (their site simply doesn't serve a larger one). All 8
+were spot-checked by decoding the embedded base64 back to an image (or,
+for FAMU's real vector favicon, validating it as well-formed XML) to
+confirm none of them silently captured an error page instead of an icon.
+
+**Mentee personal/project links got the same treatment 2026-07-30, by
+request** ("use the favicons from the mentee sites to make svg icons") —
+the 4 that had been showing the generic `solid:link` icon:
+`yohn-scholar-web-34116-lovable-app.svg` (Yohn Parra Bautista's personal
+site), `corefutureslab-org.svg` (Agbeli Ameko's "Core Futures Lab"),
+`sopss-org.svg` (Vivek Shandilya's "SOPSS" — genuinely a Google Sites page,
+so its "real favicon" is Google's generic Sites icon, not a SOPSS-specific
+one; that's what actually shows in a browser tab for that URL, so it was
+kept rather than treated as a failure), and `caeepnc-org.svg` (Kristine
+Christensen's "CAEEPNC"). **One didn't get one**: Cheryl Swanier's
+"Personal Website" (`kewlgirlzkode.com`) still shows `solid:link` — its
+`/favicon.ico` returns `200 image/vnd.microsoft.icon` but a genuinely
+empty body (confirmed by downloading it directly), consistent with the
+site's homepage also throwing a PHP 500 error; not a fetch bug, so nothing
+was fabricated for it, same "don't guess" rule as every other dead-domain
+case in this file. Mentee LinkedIn/Facebook/Instagram links were left
+alone — those already use real Font Awesome brand icons, not favicons.
 
 ## Nav/hero/footer redesign
 
@@ -822,6 +896,60 @@ Whenever this data file changes, double check `resource-item` count in the
 built HTML still matches the YAML resource count, and that the dropdown
 option count still matches the `<h2>` count — both have been the fast way
 to catch a botched edit across this many entries.
+
+### Event Branding section (added 2026-07-30)
+
+Added directly under "Session Materials," before the alphabetical resource
+categories, by request — modeled on the "Event Branding" section of the
+`HackHPC/admi26` Resources page
+(`https://hackhpc.github.io/admi26/resources.html`), fetched and inspected
+for its structure (a collapsible logo-asset grid + a brand-color swatch
+grid) but rebuilt with this site's own real assets, own CSS variables, and
+its own class names (`.branding-*`, hardcoded in `resources.html` — not a
+`_data` file, since there's a small fixed set of assets, unlike the
+per-resource-item pattern used everywhere else on this page).
+
+- **Structure**: `<section class="resource-category branding-section">`
+  (keeps it visually consistent with every other section on the page and
+  gives it a `resources-event-branding` id for the "Jump to category"
+  dropdown), containing a `<details class="branding-dropdown">` — the
+  same zero-JS collapsible pattern used for the Schedule timeline cards
+  and Judging-Criteria-style dropdowns elsewhere, collapsed by default
+  since the logo grid isn't something most visitors need immediately.
+- **Logo assets** (all real files already in `assets/images/branding/`,
+  nothing newly generated): Logo Mark
+  (`FacultyHack26_logo.png`/`.svg`, the dandelion mark), Wordmark
+  (`FacultyhHack26_text.png`/`.svg` — note the existing double-h typo in
+  the filename, left as-is rather than renamed, matching the file already
+  referenced by `_layouts/default.html`'s header logo), Logo + Wordmark
+  (`FacultyHack26_logo_w_text.jpg`/`.svg`), and Favicon
+  (`favicon.png` + the site's real `favicon.ico` — **no SVG offered for
+  the favicon**, since the only SVG that exists is the plain dandelion
+  mark, not the circular favicon-specific composition, and claiming it as
+  a "favicon SVG" would have been fabricating an asset that doesn't
+  actually exist). Each card previews the image over a checkerboard
+  background (visible for the two transparent PNGs, a no-op for the
+  opaque white JPG) with PNG/SVG/JPG/ICO download buttons
+  (`download` attribute, real Font Awesome icons — `fa-image` and
+  `fa-file-code`, both verified present in the vendored
+  `fontawesome.min.css` glyph map before use, same verification habit as
+  everywhere else icons get added in this file).
+- **Brand Colors**: the site's real 5-color palette, pulled straight from
+  the named comment block at the top of `assets/css/style.css` (Soft
+  Ivory, Root Brown, Forest Olive, Warm Brown/Gold, Olive Green) — not
+  invented for this section, and not the same 10-swatch structural/UI
+  palette ADMI26's page shows (that page documents its own separate
+  design-system colors like "Alert Red" and "Page Background," which this
+  site doesn't have equivalents for).
+- **Search/filter interaction**: the section is a `.resource-category`
+  but deliberately contains **zero** `.resource-item` elements, so
+  `resources.js`'s existing filter logic (`hidden = query.length > 0 &&
+  !hasVisibleItem`) hides it automatically the moment a search query is
+  typed — same as any other category with no matches, no special-casing
+  needed.
+- **Verified**: all 12 asset URLs referenced in the section resolve to
+  real files in the built `_site/`, checked file-by-file rather than
+  assumed.
 
 ## Icon system
 

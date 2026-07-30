@@ -8,7 +8,16 @@
 <li class="teams-card">
   <div class="teams-card__mentee">
     <h2 class="teams-card__mentee-name">{{ include.pairing.mentee.name }}</h2>
-    <p class="mentor-card__affiliation">{{ include.pairing.mentee.affiliation }}</p>
+    <p class="mentor-card__affiliation">
+      {% if include.pairing.mentee.affiliation_icon %}
+      {% include icon.html icon=include.pairing.mentee.affiliation_icon %}
+      {% endif %}
+      {% if include.pairing.mentee.affiliation_url %}
+      <a href="{{ include.pairing.mentee.affiliation_url }}">{{ include.pairing.mentee.affiliation }}</a>
+      {% else %}
+      {{ include.pairing.mentee.affiliation }}
+      {% endif %}
+    </p>
     <p class="teams-card__course">
       <span class="teams-card__course-label">Target Course</span>
       {{ include.pairing.mentee.target_course }}
@@ -46,7 +55,16 @@
     {% else %}
     <p class="teams-card__mentor-name">{{ include.pairing.mentor_name }}</p>
     {% if include.pairing.mentor_affiliation %}
-    <p class="mentor-card__affiliation">{{ include.pairing.mentor_affiliation }}</p>
+    <p class="mentor-card__affiliation">
+      {% if include.pairing.mentor_affiliation_icon %}
+      {% include icon.html icon=include.pairing.mentor_affiliation_icon %}
+      {% endif %}
+      {% if include.pairing.mentor_affiliation_url %}
+      <a href="{{ include.pairing.mentor_affiliation_url }}">{{ include.pairing.mentor_affiliation }}</a>
+      {% else %}
+      {{ include.pairing.mentor_affiliation }}
+      {% endif %}
+    </p>
     {% endif %}
     {% endif %}
   </div>

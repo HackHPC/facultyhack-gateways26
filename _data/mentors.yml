@@ -12,6 +12,30 @@
 # submitted directly) exists for that specific file — see the README in
 # that directory. Never populate this by downloading images from LinkedIn,
 # Facebook, or institutional staff pages without that permission.
+- name: "Subil Abraham"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
+  specialty: ["Containers for HPC", "Parallel Programming"]
+  photo: "assets/images/mentors/subilA.jpg"
+  bio: >-
+    Subil Abraham is an HPC Engineer in the Operations – User Assistance
+    group of the National Center for Computational Sciences at
+    Oak Ridge National Laboratory. He holds an M.S. in Computer Science
+    from Virginia Tech, where his graduate thesis examined container
+    performance on HPC workloads and filesystems. Before his current role,
+    he interned in ORNL's Technology Integration group evaluating
+    SymphonyFS performance. His interests include containers for
+    high-performance computing, parallel programming, and HPC
+    infrastructure and performance evaluation.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/subil-abraham"
+      icon: "custom:favicons/ornl-gov"
+    - label: "ORCID"
+      url: "https://orcid.org/0000-0002-9537-7251"
+      icon: "brands:orcid"
+
 - name: "Ahmad Al-Omari"
   affiliation: "Our Lady of the Lake University"
   affiliation_url: "https://www.ollusa.edu/"

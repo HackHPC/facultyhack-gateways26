@@ -146,7 +146,7 @@
       icon: "brands:google-scholar"
     - label: "ORCID"
       url: "https://orcid.org/0000-0003-1377-5422"
-      icon: "solid:link"
+      icon: "brands:orcid"
 
 - name: "Boyd Wilson"
   affiliation: "Omnibond"
