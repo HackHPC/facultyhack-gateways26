@@ -1,6 +1,6 @@
 # FacultyHack@Gateways 2026 — Deliverables
 
-Participants who complete the following six deliverables receive a
+Participants who complete the following seven deliverables receive a
 **$500 honorarium**. See the Schedule page
 (<https://hackhpc.github.io/facultyhack-gateways26/schedule/>) for
 session dates and the training that supports each one.
@@ -59,3 +59,12 @@ jeaime@omnibond.com. Your submission must include:
   integrations)
 - Gateways Poster (PDF)
 - Blog Post Draft (Markdown or PDF)
+
+## 7. NAIRR Education Account
+
+Create your account on the NAIRR Pilot Portal
+(<https://nairrpilot.org>), the National Artificial Intelligence
+Research Resource used in the Day 2 NAIRR training. If your curriculum
+project needs classroom compute access for students, review the
+Educational Resources opportunity as well
+(<https://nairrpilot.org/opportunities/education-call>).

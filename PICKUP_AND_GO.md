@@ -812,20 +812,70 @@ right above it, not merged into it.
   (not "Resources") heading, then deleted the test files and rebuilt
   clean, confirming zero "Files" blocks remained.
 
+### Content edits (2026-07-30)
+
+Three small, unrelated data edits to `_data/schedule.yml`, done together
+by request:
+
+- **The "Science Gateways Resource Catalog" resource moved three times**
+  in quick succession — Day 1 → Day 4 (first request), Day 4 → Day 1
+  ("move ... to the first session"), then explicitly undone back to Day
+  4 ("undo that"). **Final state: Day 4 (Mon, August 10)**, Day 1 back to
+  just SGCI + Deliverables + README Template (its original three), Day 4
+  with its one resource, everything else untouched. Verified after each
+  move and again after the undo: renders only on the one session's card,
+  and its cross-listing on the Resources page's "Session Materials"
+  section (grouped under the `<h3>` matching whichever session owns it,
+  automatically, since that grouping is driven by the same data) always
+  matches wherever it currently lives.
+- **"Dr. O" → "Dr. Oyebade Oyerinde"** in Day 2's `training` field —
+  a literal name substitution, taken as given rather than second-guessed
+  (this is presumably the mentor/session lead referred to informally
+  elsewhere, not something to verify against another data source).
+- **These two are unrelated to the Deliverables page's "six → seven"
+  wording changes** above — different files, different reason, just
+  requested in the same message.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
-the user — no `_data/*.yml` file, since it's a fixed one-time list of 6
-items, not something expected to grow/get re-sorted/get per-item icons
-the way Resources or Schedule do). Six `<li class="deliverable">` cards
-in an `<ol class="deliverable-list">`, each with a circular numbered
-badge (`.deliverable__number`, `aria-hidden="true"` since the `<ol>`
-already gives screen readers positional info — "1 of 6" etc. — from the
-list semantics alone; the visible badge would otherwise double-announce
-the number) and an `<h2>` title. Two cards (#3 Poster, #4 Blog Post) also
-get a `.deliverable__meta` pill badge for a size constraint / due date,
+the user — no `_data/*.yml` file, since it's a fixed list of items, not
+something expected to grow/get re-sorted/get per-item icons the way
+Resources or Schedule do — see the note below on why that assumption
+already needed revisiting once). `<li class="deliverable">` cards in an
+`<ol class="deliverable-list">`, each with a circular numbered badge
+(`.deliverable__number`, `aria-hidden="true"` since the `<ol>` already
+gives screen readers positional info — "1 of 7" etc. — from the list
+semantics alone; the visible badge would otherwise double-announce the
+number) and an `<h2>` title. Two cards (#3 Poster, #4 Blog Post) also get
+a `.deliverable__meta` pill badge for a size constraint / due date,
 reusing the same pill-badge visual language as
 `.mentor-card__specialty`.
+
+**Grew from six to seven items (2026-07-30, by request — "Add a Create a
+NAIRR education account to the deliverables")**: new #7, "NAIRR Education
+Account," appended at the end rather than inserted earlier in the list —
+deliberately, to avoid renumbering #1–6 and breaking the "deliverable
+#6" cross-reference already written into this file's README-template
+section. No `.deliverable__tag` ("Include in GitHub Repo") on it, same
+as #1 Conference Registration — it's an account-setup action, not a
+repo-includable file. Its content (create an account at
+`nairrpilot.org`, review the Educational Resources opportunity at
+`nairrpilot.org/opportunities/education-call` for classroom compute
+access) was **not guessed** — the NAIRR Pilot site doesn't document a
+distinct "education account" flow separate from its general account +
+allocation-request system, so this was verified via `WebFetch` against
+the live site (homepage, then the Educational Resources opportunity
+page) before writing the deliverable text, rather than assumed from the
+literal instruction wording alone. Every place that said "six
+deliverables" got updated to "seven": this page's front-matter
+`description`, the intro paragraph, all three `_data/schedule.yml`
+resource entries whose `description` says "The ~~six~~ seven
+deliverables for this program...", and both the downloadable `.md` and
+regenerated `.pdf` exports (see below) — checked via grep across the
+whole repo, not just the obvious spot, specifically because this kind of
+count-in-prose detail is exactly the sort of thing that's easy to update
+in one file and miss in three others.
 
 ### Downloadable PDF/Markdown export of the page (2026-07-30)
 
