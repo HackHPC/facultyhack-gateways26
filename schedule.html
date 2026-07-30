@@ -35,6 +35,15 @@ description: >-
       </p>
       <div class="schedule-timeline">
         {% for session in site.data.schedule.virtual_sessions %}
+        {% assign session_slug = session.date | slugify %}
+        {% assign session_dir = "/assets/files/schedule/" | append: session_slug | append: "/" %}
+        {% assign session_files = "" | split: "" %}
+        {% for file in site.static_files %}
+          {% if file.path contains session_dir %}
+            {% assign session_files = session_files | push: file %}
+          {% endif %}
+        {% endfor %}
+        {% assign session_files = session_files | sort: "name" %}
         <details class="schedule-block" open>
           <summary class="schedule-block__summary">
             <span class="schedule-block__datetime">
@@ -70,6 +79,32 @@ description: >-
               <ul class="resource-list">
                 {% for resource in session.resources %}
                 {% include resource-item.html resource=resource default_icon="solid:link" %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            {% if session_files.size > 0 %}
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">Files</h3>
+              <ul class="resource-list">
+                {% for file in session_files %}
+                {% assign file_ext = file.extname | downcase %}
+                {% case file_ext %}
+                  {% when ".pdf" %}
+                    {% assign file_icon = "solid:file-pdf" %}
+                  {% when ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" %}
+                    {% assign file_icon = "solid:file-image" %}
+                  {% when ".ppt", ".pptx" %}
+                    {% assign file_icon = "solid:file-powerpoint" %}
+                  {% else %}
+                    {% assign file_icon = "solid:file-lines" %}
+                {% endcase %}
+                <li class="resource-item">
+                  <p class="resource-item__name">
+                    {% include icon.html icon=file_icon %}
+                    <a href="{{ file.path | relative_url }}">{{ file.basename }}</a>
+                  </p>
+                </li>
                 {% endfor %}
               </ul>
             </div>

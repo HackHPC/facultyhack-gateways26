@@ -62,6 +62,8 @@ exclude:
   - README.md
   - PICKUP_AND_GO.md
   - assets/images/mentors/README.md
+  - assets/files/teams/README.md
+  - assets/files/schedule/README.md
   - Gemfile
   - Gemfile.lock
   - node_modules

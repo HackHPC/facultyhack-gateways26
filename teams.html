@@ -20,6 +20,29 @@ description: >-
       </div>
     </div>
 
+    <div class="resource-toolbar">
+      <div class="resource-toolbar__field">
+        <label for="teams-search">Search teams</label>
+        <input
+          type="search"
+          id="teams-search"
+          name="q"
+          placeholder="e.g. mentee, mentor, course, institution&hellip;"
+          autocomplete="off"
+        >
+      </div>
+      <div class="resource-toolbar__field">
+        <label for="teams-jump">Jump to team</label>
+        <select id="teams-jump">
+          <option value="">Choose a team&hellip;</option>
+          {% for pairing in site.data.teams %}
+          <option value="{{ pairing.mentee.name | slugify }}">{{ pairing.mentee.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <p id="teams-count" class="resource-toolbar__status" aria-live="polite"></p>
+    </div>
+
     <ul class="teams-grid">
       {% for pairing in site.data.teams %}
       {% include teams-card.html pairing=pairing %}
@@ -27,3 +50,8 @@ description: >-
     </ul>
   </div>
 </section>
+
+{% include share-menu.html %}
+
+<script src="{{ '/assets/js/teams.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/share-menu.js' | relative_url }}" defer></script>

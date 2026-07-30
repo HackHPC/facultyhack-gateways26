@@ -62,13 +62,18 @@ default.
 | `schedule.html` | Schedule page — see "Schedule page" section below. Three data-driven `<table>`s (virtual sessions, in-person conference, daily-flow breakdown), the first real tables in the project. |
 | `deliverables.html` | Deliverables page — see "Deliverables page" section below. Static content, no backing `_data/*.yml` file. Includes the README-template `<dialog>` card. |
 | `assets/templates/facultyhack-readme-template.md` | The README template, raw markdown, no front matter (deliberately — see "Deliverables page"). Downloadable/shareable at its own URL, and its content is also embedded (via `include_relative`) into the dialog card on `deliverables.html`. |
+| `assets/templates/facultyhack-deliverables.md` | Portable copy of the Deliverables page's own content (not the README template above), hand-transcribed with absolute URLs. Source of truth for the generated PDF below. See "Downloadable PDF/Markdown export" in "Deliverables page". |
+| `assets/templates/facultyhack-deliverables.pdf` | Generated from the `.md` file above via a one-time local `reportlab` script (not checked into the repo). Regenerate by hand if the deliverables content changes. |
 | `mentors.html` | Mentors directory page. Loops `site.data.mentors`, rendering each via `_includes/person-card.html`. |
-| `teams.html` | Teams page — see "Teams page" section below. Loops `site.data.teams`, rendering each pairing via `_includes/teams-card.html`, which cross-references `site.data.mentors` by name. |
+| `teams.html` | Teams page — see "Teams page" section below. Search box + jump-to-team `<select>` toolbar (same shape as the Resources page's), then `site.data.teams` rendered via `_includes/teams-card.html`, which cross-references `site.data.mentors` by name and auto-lists any files under that mentee's `assets/files/teams/<slug>/` directory. A shared `#share-menu` popup sits at the end of the page, driven by `assets/js/teams.js` + `assets/js/share-menu.js`. |
 | `organizers.html` | Organizers page. Same pattern, loops `site.data.organizers` via the same `person-card.html` partial. |
 | `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards, each with a share button. A shared `#share-menu` popup (X, Facebook, LinkedIn, Email, Copy Link) sits at the end of the page, driven by `assets/js/resources.js`. |
 | `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name (now with `id="{{ name | slugify }}"` on the card `<li>` for deep-linking — see "Teams page"), linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
-| `_includes/teams-card.html` | Team-pairing card partial — takes a `pairing` param, looks up `pairing.mentor_name` against `site.data.mentors` to reuse that mentor's existing profile data rather than duplicating it. See "Teams page" section below. |
+| `_includes/teams-card.html` | Team-pairing card partial — takes a `pairing` param, looks up `pairing.mentor_name` against `site.data.mentors` to reuse that mentor's existing profile data rather than duplicating it. Also scans `site.static_files` for that mentee's `assets/files/teams/<slug>/` directory and auto-renders a "Files" list. See "Teams page" section below. |
 | `_data/teams.yml` | 11 mentee/mentor pairings — see "Teams page" section below for provenance and the privacy rules applied. |
+| `assets/files/teams/<mentee-slug>/` | One directory per mentee, drop a file in and rebuild — no YAML editing needed. Each holds only a `.gitkeep` until a real file is added. See `assets/files/teams/README.md` and "Teams page" below. |
+| `assets/files/schedule/<session-slug>/` | Same pattern, one directory per virtual session (slug = session date, slugified). See `assets/files/schedule/README.md` and "Auto-linked per-session files" in "Schedule page" below. |
+| `assets/js/teams.js` | Vanilla JS, scoped to the Teams page only — live search filter + jump-to-team smooth scroll, same pattern as `resources.js`. See "Teams page" section. |
 | `_data/schedule.yml` | Schedule data — `virtual_sessions`, `conference`, `daily_flow` lists. See "Schedule page" section below. |
 | `_data/mentors.yml` | Mentor records — see "Mentors page" section below for the schema and how the content was sourced. |
 | `_data/organizers.yml` | Organizer records, carried over from last year's site — see "Organizers page" section below. |
@@ -85,9 +90,9 @@ default.
 | `assets/images/organizers/*` | 6 organizer avatars, reused from last year's site (org's own asset, same recurring purpose — see "Organizers page" section). |
 | `assets/images/sponsors/*` | 6 sponsor/grant-agency logos, reused from last year's site. |
 | `assets/js/resources.js` | Vanilla JS, scoped to the Resources page only — live search filter + jump-to-category smooth scroll. See "Resources page" section for why JS was justified here despite the site's otherwise no-JS rule. |
-| `assets/js/share-menu.js` | Vanilla JS, shared by `resources.html` and `deliverables.html` — the share-menu popup logic (native Web Share API first, custom popup fallback), extracted from `resources.js` so a second page could use it. See "Share-menu refactor" in the "Deliverables page" section. |
+| `assets/js/share-menu.js` | Vanilla JS, shared by `resources.html`, `deliverables.html`, and `teams.html` — the share-menu popup logic (native Web Share API first, custom popup fallback), extracted from `resources.js` so more pages could use it. See "Share-menu refactor" in the "Deliverables page" section. |
 | `assets/js/deliverables.js` | Vanilla JS, scoped to the Deliverables page only — opens/closes the README-template `<dialog>` and handles its Copy button. See "README template card" in the "Deliverables page" section. |
-| `_includes/share-menu.html` | Shared share-menu popup markup, extracted from `resources.html`. Included on both `resources.html` and `deliverables.html`. |
+| `_includes/share-menu.html` | Shared share-menu popup markup, extracted from `resources.html`. Included on `resources.html`, `deliverables.html`, and `teams.html`. |
 | `assets/css/style.css` | Mobile-first stylesheet, CSS custom properties for theming (brand palette), shared person-card/grid/photo/specialty/history styles, resource-card/toolbar styles, footer sponsor-logo styles, nav/hero/footer/overview watermark and logo styles. |
 | `Gemfile` / `Gemfile.lock` | Modern Jekyll 4.4, **not** the `github-pages` gem — see "Toolchain" below for why. `Gemfile.lock` is committed intentionally, for reproducible CI builds. |
 | `.gitignore` | Excludes `_site/`, `.jekyll-cache/`, `.sass-cache/`, `.bundle/`, `vendor/`. |
@@ -327,6 +332,111 @@ site's homepage also throwing a PHP 500 error; not a fetch bug, so nothing
 was fabricated for it, same "don't guess" rule as every other dead-domain
 case in this file. Mentee LinkedIn/Facebook/Instagram links were left
 alone — those already use real Font Awesome brand icons, not favicons.
+
+**Search + jump-to dropdown + per-team share links** (added 2026-07-30,
+by request, in two passes — search followed the jump-to dropdown once it
+already existed). All three reuse existing site patterns rather than
+inventing new ones:
+
+- **Search teams**: a `<input type="search" id="teams-search">` in the
+  same `.resource-toolbar__field` toolbar as the jump-to select, plus a
+  `<p id="teams-count" class="resource-toolbar__status" aria-live="polite">`
+  status line — same markup shape as the Resources page's search box.
+  Filters on each `.teams-card`'s full `textContent` (mentee name,
+  affiliation, course, mentor name — everything in the card, not just the
+  name), toggling the native `hidden` attribute per card and updating the
+  live-region count, mirroring `resources.js`'s `filterResources()`
+  logic but simplified: Teams has no category sections to hide, just a
+  flat list of cards, so there's no `categories.forEach` step to port.
+- **Jump to team**: a `<select id="teams-jump">` in the same toolbar,
+  listing all 11 mentees by name. Each `<option value>` is `{{
+  pairing.mentee.name | slugify }}`, matching a new `id` added to the
+  `<li class="teams-card">` itself (previously the card had no id at
+  all). Handles the `change` event — scroll into view, `tabindex="-1"` +
+  focus, reset the select back to the placeholder — copied from the
+  identical jump-to-category logic already in `resources.js`.
+- Both live in `assets/js/teams.js`, a new small page-specific script,
+  kept as its own file rather than generalizing a shared helper with
+  `resources.js`, consistent with this project's one-file-per-concern
+  rule for JS (see "Resources page" below). **Deliberately not one hard
+  early-return guarding both features**, unlike `resources.js`'s original
+  combined `if (!searchInput || !items.length) return` (a page missing
+  one element would silently kill the other): the search block and the
+  jump block in `teams.js` each check their own elements independently.
+- **Share links**: every team card gets a share button
+  (`.resource-share`, the same class/markup/icon as the Resources page's
+  per-resource share button), added inside a new `.teams-card__mentee-header`
+  flex row alongside the mentee `<h2>`. `data-share-url` uses Jekyll's
+  `| absolute_url` filter to build a real deep link
+  (`https://hackhpc.github.io/facultyhack-gateways26/teams/#<mentee-slug>`),
+  same pattern already used for the Deliverables page's README-template
+  share button — a relative URL would break the X/Facebook/LinkedIn share
+  intents, which need a fully-qualified URL. `data-share-name` is
+  "`<Mentee> & <Mentor> — FacultyHack@Gateways 2026 Team`". No new share
+  UI was built: `_includes/share-menu.html` + `assets/js/share-menu.js`
+  are already page-agnostic (target `[data-share-url]`, not a
+  page-specific class), so `teams.html` just added the same two includes/
+  scripts Resources and Deliverables already use.
+- **Verified**: all 11 mentee-name slugs are unique (no id collisions),
+  jump-select option values match card ids 1:1, share-menu markup and
+  both scripts render once each, and the full cross-page structural check
+  (tag balance, duplicate ids, heading order) still passes.
+
+**Auto-linked per-mentee files** (added 2026-07-30, by request — "Create
+directories for each mentee that when files are added they automatically
+create links to them in their team section with matching icons for PDF,
+image, or pptx"). No YAML editing required to add a file — this is the
+one part of the Teams page that reads from the filesystem instead of
+`_data/teams.yml`.
+
+- **Directories**: `assets/files/teams/<mentee-slug>/`, one per mentee,
+  slug matching the same `| slugify` used for each card's `id` (e.g.
+  `assets/files/teams/antigone-anthony/`). Each starts empty except a
+  `.gitkeep` placeholder — Jekyll ignores dotfiles by default, so these
+  never appear in the built site, but they keep the empty directories
+  tracked in git. A single `assets/files/teams/README.md` documents the
+  convention (naming, supported extensions, icon mapping) and is excluded
+  from the build via `_config.yml`, same precedent as
+  `assets/images/mentors/README.md`.
+- **Detection logic**: `_includes/teams-card.html` loops
+  `site.static_files` (Jekyll's built-in list of every static file that
+  will be copied into `_site`) and keeps any whose `path` contains
+  `/assets/files/teams/<mentee-slug>/` — an exact directory-path segment
+  check (leading and trailing slashes), not a loose substring match, so
+  it can't false-positive across mentees even though none of the current
+  11 slugs happen to be substrings of each other. Matches are sorted by
+  filename (`| sort: "name"`) for a deterministic order. A "Files"
+  section (reusing the `.mentor-card__links` list styling, same as the
+  mentee's personal links right above it) only renders when at least one
+  file is found — same "don't show an empty section" rule already used
+  for session resources on `schedule.html`.
+- **Icon mapping** (`{% case file.extname %}`): `.pdf` →
+  `solid:file-pdf`, `.jpg`/`.jpeg`/`.png`/`.gif`/`.webp`/`.svg` →
+  `solid:file-image`, `.ppt`/`.pptx` → `solid:file-powerpoint`, anything
+  else → `solid:file-lines` (generic file, same fallback icon used for
+  the Deliverables README-template link). **All four icons were verified
+  at the font level, not just the CSS level** — earlier icon checks in
+  this file relied on grepping `fontawesome.min.css` for the class name
+  existing, but that only proves a name-to-codepoint mapping exists, not
+  that the glyph itself is present in the vendored `fa-solid-900.woff2`.
+  For this feature, used `fontTools` (installed into the scratchpad venv
+  for this one check, not added as a project dependency) to decode the
+  actual webfont and confirm each codepoint (`file-pdf` U+f1c1,
+  `file-powerpoint` U+f1c4, `file-image` U+f03e/f1c5, `file-lines`
+  U+f15c) really has a glyph in the solid font — a stronger check than
+  the ones used elsewhere in this project, worth reusing for any new
+  solid/regular icon added in the future rather than falling back to the
+  occurrence-count heuristic.
+- **Link text** is `file.basename` (filename without extension) — name
+  files the way they should read on the page (e.g. `Course Syllabus.pdf`
+  renders as "Course Syllabus"), not slugified or reformatted.
+- **Tested end-to-end** by temporarily dropping one real file of each
+  supported type (`.pdf`, `.jpg`, `.pptx`, and an unmapped `.docx` to
+  confirm the generic fallback) into four different mentees' directories,
+  rebuilding, confirming each rendered with the correct icon/label/href
+  in the built HTML, then deleting the test files and rebuilding clean
+  again — the feature was never left half-verified on "should work"
+  reasoning alone.
 
 ## Nav/hero/footer redesign
 
@@ -656,6 +766,52 @@ once resources are added").
   "Training Focus" — no new CSS needed, it inherits the same card
   spacing/typography automatically.
 
+### Auto-linked per-session files (2026-07-30)
+
+By request — "Create directories for each session that allow you to
+drop in files and automatically create links on the session cards on
+the schedule like on the teams page for the mentees." Same mechanism as
+the Teams page's per-mentee files (see "Teams page" above), ported to
+`schedule.html`'s six virtual sessions, and deliberately kept as a
+**separate** mechanism from the hand-curated `resources:` YAML list
+right above it, not merged into it.
+
+- **Directories**: `assets/files/schedule/<session-slug>/`, one per
+  virtual session, slug = `{{ session.date | slugify }}` (e.g. "Mon,
+  August 3" → `mon-august-3`) — verified against Jekyll's actual
+  `slugify` output via a throwaway test page rather than assumed, since
+  getting this wrong would silently break every file's matching. Same
+  `.gitkeep` + single excluded `README.md` pattern as
+  `assets/files/teams/`.
+- **Detection logic lives inline in `schedule.html`**, not a separate
+  include — unlike Teams (which already had `_includes/teams-card.html`
+  to put this in), the virtual-session card markup was never extracted
+  into its own partial, so the `site.static_files` scan + `{% case %}`
+  icon mapping was added directly inside the `virtual_sessions` loop,
+  right before the `<details class="schedule-block">` it belongs to.
+  Same exact icon mapping as the Teams version: `.pdf` → `file-pdf`,
+  image extensions → `file-image`, `.ppt`/`.pptx` → `file-powerpoint`,
+  else → `file-lines`.
+- **Renders as a new "Files" block**, a third sibling alongside the
+  existing conditional "Resources" block inside `.schedule-block__body`
+  — a session can have neither, either, or both, independently. Reuses
+  `.resource-list`/`.resource-item` markup (same classes the "Resources"
+  block already uses) rather than Teams's `.mentor-card__links`, since
+  visual consistency with the sibling block in the same card mattered
+  more here than consistency with the Teams page.
+- **Deliberately does not cross-list into the "Session Materials"
+  section on `resources.html`** the way the `resources:` YAML list does
+  — that cross-listing renders `name`/`description` metadata this
+  filesystem-driven feature doesn't have. Noted in
+  `assets/files/schedule/README.md` so it doesn't look like an oversight
+  later.
+- **Tested end-to-end** the same way as the Teams version: dropped one
+  real file of each type (`.pdf`, `.png`, `.pptx`, and an unmapped
+  `.docx`) into four different sessions' directories, rebuilt, confirmed
+  each rendered with the correct icon/label/href and under a "Files"
+  (not "Resources") heading, then deleted the test files and rebuilt
+  clean, confirming zero "Files" blocks remained.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
@@ -670,6 +826,55 @@ the number) and an `<h2>` title. Two cards (#3 Poster, #4 Blog Post) also
 get a `.deliverable__meta` pill badge for a size constraint / due date,
 reusing the same pill-badge visual language as
 `.mentor-card__specialty`.
+
+### Downloadable PDF/Markdown export of the page (2026-07-30)
+
+By request — "Add links to the top of the deliverables page to download
+a PDF or Markdown of the deliverables." Two buttons
+(`.deliverables-downloads`, right under the intro paragraph, before the
+`<ol>`) link to `assets/templates/facultyhack-deliverables.md` and
+`assets/templates/facultyhack-deliverables.pdf`. **Not the README
+template** below — that's a document participants fill out for their own
+repo; this is a portable copy of the deliverables list itself, for anyone
+who wants it offline or printed.
+
+- **The `.md` is the source of truth**, hand-transcribed from
+  `deliverables.html`'s actual content (not regenerated from the HTML
+  programmatically) so it reads naturally as its own document — same
+  6 items, same tags/due-dates, but with absolute URLs
+  (`https://hackhpc.github.io/facultyhack-gateways26/...`) since a
+  downloaded file has no page context to resolve relative links against.
+  No front matter, same reasoning as the README template: Jekyll copies
+  it through as a static file untouched (verified with `diff` against
+  the built copy — byte-for-byte identical).
+- **The `.pdf` is generated from that `.md`**, not hand-built separately
+  — a one-time Python script (`reportlab`, pip-installed into the
+  scratchpad only, not a project dependency) with a small custom
+  markdown-subset parser (headings, bold, italic, bullets, one level of
+  paragraph continuation) that walks the same source file and lays it
+  out with the site's brand colors (Olive Green headings, Root Brown
+  body text). Not checked into the repo, same "one-time pipeline, not a
+  build step" precedent as the favicon-fetching script under "Icon
+  system" below — if the deliverables content ever changes, the `.md`
+  needs a hand edit and the `.pdf` needs a manual regenerate, there's no
+  live build-time link between them.
+- **A real bug was caught and fixed before finalizing**: the first PDF
+  draft split the intro paragraph in two, because the parser's
+  paragraph-continuation check treated any line starting with `*`
+  (including `**bold**`) as the start of a new italic block, not just a
+  genuine standalone `*italic*` line. Fixed by requiring the line to
+  both start AND end with a single `*` before treating it as a block
+  boundary. Caught by actually reading the rendered PDF back (via the
+  same `Read`-tool PDF rendering used to review any PDF in this
+  workflow), not by inspecting the generation script alone — the first
+  version "looked like it should work" and didn't.
+- **Verified**: both files resolve to real, non-empty files in the built
+  `_site/`, the `.md` is byte-identical to its source, the `.pdf` opens
+  as a valid 2-page PDF with correct content, and the two Font Awesome
+  icons used (`fa-file-pdf`, `fa-file-code`) were confirmed as real
+  glyphs in the vendored solid webfont via the same `fontTools` check
+  used for the Teams-page file icons (see "Teams page" above) — not just
+  the weaker CSS-occurrence-count heuristic used earlier in this file.
 
 **README template** (added same day): `assets/templates/facultyhack-
 readme-template.md` — the exact markdown template the user pasted,

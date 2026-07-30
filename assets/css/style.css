@@ -654,10 +654,22 @@ svg.mentor-card__link-icon {
   }
 }
 
+.teams-card__mentee-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
 .teams-card__mentee-name,
 .teams-card__mentor-name {
   margin: 0 0 0.25rem;
   font-size: 1.125rem;
+}
+
+.teams-card__mentee-header .resource-share {
+  flex-shrink: 0;
+  margin-left: 0;
 }
 
 .teams-card__course {
@@ -665,7 +677,8 @@ svg.mentor-card__link-icon {
 }
 
 .teams-card__course-label,
-.teams-card__mentor-label {
+.teams-card__mentor-label,
+.teams-card__files-label {
   display: block;
   margin-bottom: 0.125rem;
   font-size: 0.75rem;
@@ -673,6 +686,10 @@ svg.mentor-card__link-icon {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--color-link);
+}
+
+.teams-card__files {
+  margin-top: var(--space-2);
 }
 
 /* --------------------------------------------------------------------------
@@ -1165,6 +1182,13 @@ svg.mentor-card__link-icon {
 .deliverables {
   padding-block: var(--space-5);
   background-color: var(--color-bg-alt);
+}
+
+.deliverables-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
 }
 
 .deliverable-list {

@@ -5,9 +5,32 @@
   {% endif %}
 {% endfor %}
 
-<li class="teams-card">
+{% assign mentee_slug = include.pairing.mentee.name | slugify %}
+{% assign mentee_dir = "/assets/files/teams/" | append: mentee_slug | append: "/" %}
+{% assign mentee_files = "" | split: "" %}
+{% for file in site.static_files %}
+  {% if file.path contains mentee_dir %}
+    {% assign mentee_files = mentee_files | push: file %}
+  {% endif %}
+{% endfor %}
+{% assign mentee_files = mentee_files | sort: "name" %}
+
+<li class="teams-card" id="{{ mentee_slug }}">
   <div class="teams-card__mentee">
-    <h2 class="teams-card__mentee-name">{{ include.pairing.mentee.name }}</h2>
+    <div class="teams-card__mentee-header">
+      <h2 class="teams-card__mentee-name">{{ include.pairing.mentee.name }}</h2>
+      <button
+        type="button"
+        class="resource-share"
+        data-share-name="{{ include.pairing.mentee.name }} & {{ include.pairing.mentor_name }} &mdash; FacultyHack@Gateways 2026 Team"
+        data-share-url="{{ '/teams/' | absolute_url }}#{{ mentee_slug }}"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="mentor-card__link-icon fa-solid fa-share-nodes" aria-hidden="true"></i>
+        <span class="visually-hidden">Share {{ include.pairing.mentee.name }}&rsquo;s team</span>
+      </button>
+    </div>
     <p class="mentor-card__affiliation">
       {% if include.pairing.mentee.affiliation_icon %}
       {% include icon.html icon=include.pairing.mentee.affiliation_icon %}
@@ -33,6 +56,32 @@
       </li>
       {% endfor %}
     </ul>
+    {% endif %}
+    {% if mentee_files.size > 0 %}
+    <div class="teams-card__files">
+      <p class="teams-card__files-label">Files</p>
+      <ul class="mentor-card__links">
+        {% for file in mentee_files %}
+        {% assign file_ext = file.extname | downcase %}
+        {% case file_ext %}
+          {% when ".pdf" %}
+            {% assign file_icon = "solid:file-pdf" %}
+          {% when ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" %}
+            {% assign file_icon = "solid:file-image" %}
+          {% when ".ppt", ".pptx" %}
+            {% assign file_icon = "solid:file-powerpoint" %}
+          {% else %}
+            {% assign file_icon = "solid:file-lines" %}
+        {% endcase %}
+        <li>
+          <a href="{{ file.path | relative_url }}">
+            {% include icon.html icon=file_icon %}
+            {{ file.basename }}<span class="visually-hidden"> for {{ include.pairing.mentee.name }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endif %}
   </div>
 
