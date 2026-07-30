@@ -842,6 +842,16 @@ by request:
   wording changes** above — different files, different reason, just
   requested in the same message.
 
+**"Travel Support Application" resource added to Day 1 (2026-07-30, by
+request)** — same Google Form link added to the Conference Registration
+deliverable's second paragraph (above), now also on Day 1's schedule
+card and its Session Materials cross-listing. Got a real fetched favicon,
+`_includes/icons/favicons/docs-google-com.svg` (`docs.google.com`, the
+domain of the `/forms/d/e/.../viewform` URL), same fetch pipeline as
+every other resource icon — not the generic `solid:link` default. Day 1
+now has four resources: SGCI, Travel Support Application, Deliverables,
+README Template (order they render in).
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
