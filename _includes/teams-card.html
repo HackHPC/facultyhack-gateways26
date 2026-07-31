@@ -76,7 +76,7 @@
         <li>
           <a href="{{ file.path | relative_url }}">
             {% include icon.html icon=file_icon %}
-            {{ file.basename }}<span class="visually-hidden"> for {{ include.pairing.mentee.name }}</span>
+            {% include titleize.html text=file.basename %}<span class="visually-hidden"> for {{ include.pairing.mentee.name }}</span>
           </a>
         </li>
         {% endfor %}

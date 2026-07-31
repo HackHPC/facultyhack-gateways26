@@ -81,6 +81,7 @@ default.
 | `_data/resources.yml` | 163 resource records across 11 categories — see "Resources page" section below for provenance, dedup decisions, and the icon system. |
 | `assets/fontawesome/` | Self-hosted Font Awesome Free 7.3.1 (`css/fontawesome.min.css` + `solid.min.css` + `brands.min.css`, `webfonts/fa-solid-900.woff2` + `fa-brands-400.woff2`, `LICENSE.txt`). See "Icon system" section below — this replaced the old `_includes/icons/*.svg` hand-drawn icons (all but one). |
 | `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
+| `_includes/titleize.html` | Shared partial, takes a `text` param — underscores → spaces, first letter of each word capitalized, rest of each word untouched (deliberately not Liquid's `capitalize` filter, which lowercases the remainder). Used for auto-linked file names on `teams-card.html` and `schedule.html`. See "Underscore-delimited filenames" in "Teams page". |
 | `_includes/resource-item.html` | Shared resource-link partial (icon + name/link + share button + optional description) — takes `resource` and `default_icon` params. Used by `resources.html`'s main category loop, the Session Materials section, and each schedule card's Resources block. See "Per-session resources" in the "Schedule page" section below. |
 | `_includes/icons/jupyter.svg` | The Jupiter "three moons" mark — Font Awesome Free and svgl.app both lack a Jupyter icon, sourced from Simple Icons instead. See "Icon system" section below. |
 | `_includes/icons/favicons/*.svg` | 124 files — each domain's own real favicon, base64-embedded in a small SVG wrapper. 95 of these are for 117 of the 163 Resources entries (see "Resource icons sourced from real favicons" below); 8 more (`subr-edu`, `famu-edu`, `howard-edu`, `hamptonu-edu`, `bowiestate-edu`, `morainevalley-edu`, `voorhees-edu`, `cau-edu`) were added 2026-07-30 for mentee institution links on the Teams page, reusing `ornl-gov` for the Subil Abraham fallback rather than re-fetching it — see "Teams page" above. |
@@ -433,9 +434,9 @@ one part of the Teams page that reads from the filesystem instead of
   the ones used elsewhere in this project, worth reusing for any new
   solid/regular icon added in the future rather than falling back to the
   occurrence-count heuristic.
-- **Link text** is `file.basename` (filename without extension) — name
-  files the way they should read on the page (e.g. `Course Syllabus.pdf`
-  renders as "Course Syllabus"), not slugified or reformatted.
+- **Link text** is `file.basename` (filename without extension) run
+  through a new shared partial, `_includes/titleize.html` (see below) —
+  originally just raw `file.basename`, changed 2026-07-31.
 - **Tested end-to-end** by temporarily dropping one real file of each
   supported type (`.pdf`, `.jpg`, `.pptx`, and an unmapped `.docx` to
   confirm the generic fallback) into four different mentees' directories,
@@ -443,6 +444,56 @@ one part of the Teams page that reads from the filesystem instead of
   in the built HTML, then deleting the test files and rebuilding clean
   again — the feature was never left half-verified on "should work"
   reasoning alone.
+
+### Underscore-delimited filenames → readable link text (2026-07-31)
+
+By request — "files added to the schedule and teams will use
+underscore-delimited filenames. Parse them as the name of the links."
+New shared partial, **`_includes/titleize.html`**, takes an `text` param
+and outputs it with underscores replaced by spaces and each word's first
+letter capitalized — used by both `_includes/teams-card.html` and
+`schedule.html` wherever `file.basename` used to be output raw.
+
+- **Deliberately does NOT force-lowercase the rest of each word** the
+  way Liquid's built-in `capitalize` filter does. First implementation
+  used `capitalize` per word and broke on the very first real file the
+  user dropped in — `FacultyHack_Gateways26_Poster_Template.pptx`
+  (a real poster template added to `assets/files/schedule/mon-august-3/`
+  while this feature was being built) rendered as "**Facultyhack**
+  Gateways26 Poster Template," mangling the site's own brand name.
+  Rewritten to only uppercase the first character of each word via
+  `| slice: 0, 1 | upcase` appended to `| slice: 1, 999` (the untouched
+  remainder) — preserves mixed-case words and acronyms exactly as typed:
+  `FacultyHack_Gateways26_Poster_Template` → "FacultyHack Gateways26
+  Poster Template", `NAIRR_account_setup` → "NAIRR Account Setup". Not
+  guessed — caught by testing against a real filename already sitting in
+  the repo, not just synthetic test cases.
+- **A second, unrelated bug surfaced while building this**: Liquid in
+  this environment silently strips whitespace-only content sitting
+  directly between a block tag and its matching end tag —
+  `{% unless x %} {% endunless %}` (a single literal space) renders as
+  nothing at all, confirmed with an isolated throwaway test page
+  (`{% unless false %} {% endunless %}` → empty string). The first
+  `titleize.html` draft relied on exactly that pattern to inject spaces
+  between words and silently produced "CourseSyllabus" with no space.
+  Worth remembering for any future Liquid include: **build an array and
+  join it with a filter argument (`| join: " "`) instead of trying to
+  emit a literal space as raw template text between tags** — filter
+  arguments aren't affected, raw inter-tag whitespace apparently is.
+  Also used `{%- -%}` trim syntax throughout the final version to keep
+  the include's own multi-line structure from leaking blank
+  lines/indentation into its single-line output.
+- **Verified in isolation before touching the real pages both times** —
+  a throwaway `titleize-test.html` page with `permalink:` front matter,
+  built, checked the raw output, deleted — for both the whitespace bug
+  and the capitalize-mangling bug. Only after isolated output looked
+  correct was the real `teams-card.html`/`schedule.html` rebuild
+  attempted, confirmed correct, then confirmed against the actual
+  `FacultyHack_Gateways26_Poster_Template.pptx` file already sitting in
+  the repo.
+- Both `assets/files/teams/README.md` and `assets/files/schedule/
+  README.md` updated to document the underscore convention and the
+  case-preservation behavior for anyone adding files later.
 
 ## Nav/hero/footer redesign
 
@@ -877,6 +928,23 @@ no new CSS was needed. Propagated to the downloadable `.md`/`.pdf`
 exports too (see "Downloadable PDF/Markdown export" below) — the PDF was
 regenerated and the new paragraph re-verified by reading it back, same
 habit as every other edit to that file.
+
+**#3 Poster and #6 GitHub Repo now link to the real poster template
+(2026-07-31, by request)** —
+`assets/files/schedule/mon-august-3/FacultyHack_Gateways26_Poster_Template.pptx`,
+the same file the user dropped into the Day 1 session folder that
+motivated the underscore-filename-parsing work above. Linked from two
+spots: #3's "The Physical Poster" bullet ("Use the provided poster
+template to get started") and #6's "Gateways Poster (PDF)" checklist
+item ("from the provided poster template") — not just one, since the
+user asked for both "where appropriate" and both genuinely are: #3 is
+where you'd start the poster, #6 is where the finished PDF gets listed
+alongside the template it came from, same pattern as #6's README.md line
+already linking its own template. Both use `| relative_url` (an internal
+site-hosted file, not an absolute URL like the NAIRR/travel-support
+links above — those point off-site). Propagated to the downloadable
+`.md`/`.pdf` exports too, PDF regenerated and re-verified by reading it
+back.
 
 **Grew from six to seven items (2026-07-30, by request — "Add a Create a
 NAIRR education account to the deliverables")**: new #7, "NAIRR Education

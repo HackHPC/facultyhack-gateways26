@@ -30,7 +30,9 @@ headshot for your project page.
   describing your project and its impact directly to the conference
   portal.
 - **The Physical Poster:** Print and bring your poster to the conference
-  to display your work during the reception.
+  to display your work during the reception. Use the provided poster
+  template to get started
+  (<https://hackhpc.github.io/facultyhack-gateways26/assets/files/schedule/mon-august-3/FacultyHack_Gateways26_Poster_Template.pptx>).
 
 ## 4. SGX3 Blog Post
 
@@ -61,7 +63,8 @@ jeaime@omnibond.com. Your submission must include:
 - Original Syllabus (PDF)
 - Revised Syllabus (PDF — highlighting your new Gateways/HPC/AI
   integrations)
-- Gateways Poster (PDF)
+- Gateways Poster (PDF, from the provided poster template:
+  <https://hackhpc.github.io/facultyhack-gateways26/assets/files/schedule/mon-august-3/FacultyHack_Gateways26_Poster_Template.pptx>)
 - Blog Post Draft (Markdown or PDF)
 
 ## 7. NAIRR Education Account

@@ -20,11 +20,17 @@ chosen from the file's extension:
 | `.ppt` `.pptx`                      | `solid:file-powerpoint` |
 | anything else                       | `solid:file-lines` (generic file) |
 
-The link text is the filename without its extension, so name files the
-way you want them to read on the page (e.g. `Course Syllabus.pdf` renders
-as "Course Syllabus"). A mentee with no files in their directory simply
-shows no "Files" section — same "only show it once it exists" rule used
-for session resources on `schedule.html`.
+The link text is the filename without its extension. **Use underscores
+to separate words** (e.g. `course_syllabus.pdf`) — they're converted to
+spaces and each word's first letter is capitalized, so it renders as
+"Course Syllabus". Only the first letter of each word changes case; the
+rest of the word is left exactly as typed, so mixed-case words and
+acronyms come through correctly (`FacultyHack_Gateways26_Poster.pptx` →
+"FacultyHack Gateways26 Poster", `NAIRR_account_setup.pdf` → "NAIRR
+Account Setup"). Filenames with spaces instead of underscores still work
+the same way. A mentee with no files in their directory simply shows no
+"Files" section — same "only show it once it exists" rule used for
+session resources on `schedule.html`.
 
 Each empty directory holds a `.gitkeep` placeholder so git tracks it —
 Jekyll ignores dotfiles by default, so `.gitkeep` never appears in the

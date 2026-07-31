@@ -1,0 +1,9 @@
+{%- assign titleize_words = include.text | replace: "_", " " | split: " " -%}
+{%- assign titleize_capitalized = "" | split: "" -%}
+{%- for titleize_word in titleize_words -%}
+  {%- assign titleize_first = titleize_word | slice: 0, 1 | upcase -%}
+  {%- assign titleize_rest = titleize_word | slice: 1, 999 -%}
+  {%- assign titleize_word_cap = titleize_first | append: titleize_rest -%}
+  {%- assign titleize_capitalized = titleize_capitalized | push: titleize_word_cap -%}
+{%- endfor -%}
+{{- titleize_capitalized | join: " " -}}
