@@ -32,9 +32,11 @@ the same way. A session with no files in its directory simply shows no
 
 This is separate from the hand-curated `resources:` list in
 `_data/schedule.yml` (used for links to external sites, described in the
-comment at the top of that file) — that one also cross-lists into the
-"Session Materials" section on the Resources page; files added here do
-not, since there's no per-file description/name metadata to show there.
+comment at the top of that file), but both end up in the same two
+places: a session's card on `schedule.html`, and that session's group in
+the "Session Materials" section on the Resources page — a session shows
+up there if it has YAML resources, files in its directory, or both, and
+both kinds render in the same list under its date heading.
 
 Each empty directory holds a `.gitkeep` placeholder so git tracks it —
 Jekyll ignores dotfiles by default, so `.gitkeep` never appears in the

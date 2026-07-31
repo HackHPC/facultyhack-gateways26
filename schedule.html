@@ -88,23 +88,7 @@ description: >-
               <h3 class="schedule-block__event-name">Files</h3>
               <ul class="resource-list">
                 {% for file in session_files %}
-                {% assign file_ext = file.extname | downcase %}
-                {% case file_ext %}
-                  {% when ".pdf" %}
-                    {% assign file_icon = "solid:file-pdf" %}
-                  {% when ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" %}
-                    {% assign file_icon = "solid:file-image" %}
-                  {% when ".ppt", ".pptx" %}
-                    {% assign file_icon = "solid:file-powerpoint" %}
-                  {% else %}
-                    {% assign file_icon = "solid:file-lines" %}
-                {% endcase %}
-                <li class="resource-item">
-                  <p class="resource-item__name">
-                    {% include icon.html icon=file_icon %}
-                    <a href="{{ file.path | relative_url }}">{% include titleize.html text=file.basename %}</a>
-                  </p>
-                </li>
+                {% include session-file-item.html file=file %}
                 {% endfor %}
               </ul>
             </div>

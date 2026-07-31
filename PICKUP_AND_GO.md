@@ -81,7 +81,8 @@ default.
 | `_data/resources.yml` | 163 resource records across 11 categories — see "Resources page" section below for provenance, dedup decisions, and the icon system. |
 | `assets/fontawesome/` | Self-hosted Font Awesome Free 7.3.1 (`css/fontawesome.min.css` + `solid.min.css` + `brands.min.css`, `webfonts/fa-solid-900.woff2` + `fa-brands-400.woff2`, `LICENSE.txt`). See "Icon system" section below — this replaced the old `_includes/icons/*.svg` hand-drawn icons (all but one). |
 | `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
-| `_includes/titleize.html` | Shared partial, takes a `text` param — underscores → spaces, first letter of each word capitalized, rest of each word untouched (deliberately not Liquid's `capitalize` filter, which lowercases the remainder). Used for auto-linked file names on `teams-card.html` and `schedule.html`. See "Underscore-delimited filenames" in "Teams page". |
+| `_includes/titleize.html` | Shared partial, takes a `text` param — underscores → spaces, first letter of each word capitalized, rest of each word untouched (deliberately not Liquid's `capitalize` filter, which lowercases the remainder). Used for auto-linked file names on `teams-card.html`, `schedule.html`, and `resources.html`. See "Underscore-delimited filenames" in "Teams page". |
+| `_includes/session-file-item.html` | Shared partial, takes a `file` param (a `site.static_files` entry) — extension-to-icon mapping + `.resource-item` markup for one auto-linked session file. Used by both `schedule.html`'s Files block and `resources.html`'s "Session Materials" cross-listing, so the icon-mapping logic lives in one place. See "Now cross-lists into Session Materials too" in "Schedule page". |
 | `_includes/resource-item.html` | Shared resource-link partial (icon + name/link + share button + optional description) — takes `resource` and `default_icon` params. Used by `resources.html`'s main category loop, the Session Materials section, and each schedule card's Resources block. See "Per-session resources" in the "Schedule page" section below. |
 | `_includes/icons/jupyter.svg` | The Jupiter "three moons" mark — Font Awesome Free and svgl.app both lack a Jupyter icon, sourced from Simple Icons instead. See "Icon system" section below. |
 | `_includes/icons/favicons/*.svg` | 124 files — each domain's own real favicon, base64-embedded in a small SVG wrapper. 95 of these are for 117 of the 163 Resources entries (see "Resource icons sourced from real favicons" below); 8 more (`subr-edu`, `famu-edu`, `howard-edu`, `hamptonu-edu`, `bowiestate-edu`, `morainevalley-edu`, `voorhees-edu`, `cau-edu`) were added 2026-07-30 for mentee institution links on the Teams page, reusing `ornl-gov` for the Subil Abraham fallback rather than re-fetching it — see "Teams page" above. |
@@ -856,18 +857,46 @@ right above it, not merged into it.
   block already uses) rather than Teams's `.mentor-card__links`, since
   visual consistency with the sibling block in the same card mattered
   more here than consistency with the Teams page.
-- **Deliberately does not cross-list into the "Session Materials"
-  section on `resources.html`** the way the `resources:` YAML list does
-  — that cross-listing renders `name`/`description` metadata this
-  filesystem-driven feature doesn't have. Noted in
-  `assets/files/schedule/README.md` so it doesn't look like an oversight
-  later.
 - **Tested end-to-end** the same way as the Teams version: dropped one
   real file of each type (`.pdf`, `.png`, `.pptx`, and an unmapped
   `.docx`) into four different sessions' directories, rebuilt, confirmed
   each rendered with the correct icon/label/href and under a "Files"
   (not "Resources") heading, then deleted the test files and rebuilt
   clean, confirming zero "Files" blocks remained.
+
+### Now cross-lists into "Session Materials" too (2026-07-31)
+
+By request — "added files in the sessions should also be added to the
+resources page for the sessions." Reverses the previous day's
+deliberate decision not to do this (see the struck-through reasoning
+above, which no longer applies).
+
+- **New shared partial, `_includes/session-file-item.html`**: the
+  extension-to-icon `{% case %}` + `.resource-item` markup that used to
+  be inline inside `schedule.html`'s Files block, extracted so
+  `resources.html` could render the exact same markup without
+  duplicating the case statement a second time. `schedule.html` now just
+  does `{% include session-file-item.html file=file %}` in its loop.
+- **`resources.html`'s `session_materials` filter** changed from "has
+  `session.resources`" to "has `session.resources` **or** has files in
+  its `assets/files/schedule/<slug>/` directory" — a session now shows
+  up in "Session Materials" if it has YAML resources, dropped files, or
+  both, and the render loop was extended to run the same
+  `site.static_files` scan used in `schedule.html`/`teams-card.html` and
+  emit both the YAML resources and the files into one shared `<ul
+  class="resource-list">` per session, in that order.
+- **Verified all three states**: a session with both resources and files
+  (Day 1, which already has real ones — SGCI/Deliverables/README
+  Template plus the real `FacultyHack_Gateways26_Poster_Template.pptx`)
+  renders both together under one `<h3>`; a session with files but zero
+  YAML resources (temporarily tested on Day 3, "Fri, August 7," which
+  has neither `resources:` nor `_data` metadata) now correctly appears
+  in "Session Materials" for the first time, then correctly disappears
+  again once the test file was removed and the site rebuilt — confirming
+  the `has_session_files` check drives visibility correctly in both
+  directions, not just when adding.
+- `assets/files/schedule/README.md` updated to remove the now-false
+  "files added here do not cross-list" claim.
 
 ### Content edits (2026-07-30)
 

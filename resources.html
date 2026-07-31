@@ -24,7 +24,15 @@ description: >-
 
     {% assign session_materials = "" | split: "" %}
     {% for session in site.data.schedule.virtual_sessions %}
-      {% if session.resources %}
+      {% assign session_slug = session.date | slugify %}
+      {% assign session_dir = "/assets/files/schedule/" | append: session_slug | append: "/" %}
+      {% assign has_session_files = false %}
+      {% for file in site.static_files %}
+        {% if file.path contains session_dir %}
+          {% assign has_session_files = true %}
+        {% endif %}
+      {% endfor %}
+      {% if session.resources or has_session_files %}
         {% assign session_materials = session_materials | push: session %}
       {% endif %}
     {% endfor %}
@@ -62,9 +70,21 @@ description: >-
       <p>Links and files shared for specific virtual training sessions &mdash; see the <a href="{{ '/schedule/' | relative_url }}">Schedule page</a> for full session details.</p>
       {% for session in session_materials %}
       <h3>{{ session.date }}</h3>
+      {% assign session_slug = session.date | slugify %}
+      {% assign session_dir = "/assets/files/schedule/" | append: session_slug | append: "/" %}
+      {% assign session_files = "" | split: "" %}
+      {% for file in site.static_files %}
+        {% if file.path contains session_dir %}
+          {% assign session_files = session_files | push: file %}
+        {% endif %}
+      {% endfor %}
+      {% assign session_files = session_files | sort: "name" %}
       <ul class="resource-list">
         {% for resource in session.resources %}
         {% include resource-item.html resource=resource default_icon="solid:link" %}
+        {% endfor %}
+        {% for file in session_files %}
+        {% include session-file-item.html file=file %}
         {% endfor %}
       </ul>
       {% endfor %}
