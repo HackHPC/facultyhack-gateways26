@@ -1,0 +1,167 @@
+# Institutions affiliated with FacultyHack@Gateways 2026 participants
+# (mentee/mentor/organizer institutions), shown as markers on the
+# community map on index.html. Coordinates were geocoded via the
+# Nominatim/OpenStreetMap API (https://nominatim.openstreetmap.org),
+# not estimated by hand — each query and its resolved OSM display_name
+# were logged during the one-time geocoding pass (not checked into the
+# repo) for verification. Most resolve to the actual campus/site; a
+# few (Mississippi Valley State University, Southern University A&M
+# College, Omnibond, Science Gateways Community Institute) fell back to
+# city-center coordinates when the specific institution wasn't a
+# separately-mapped point in OpenStreetMap.
+#
+# "Southern University A&M College" / "Omnibond" / "Science Gateways
+# Community Institute" here represent merged duplicate entries from
+# across _data/mentors.yml, _data/organizers.yml, _data/teams.yml, and
+# _data/sponsors.yml (see PICKUP_AND_GO.md "Community map" for which
+# alternate names/spellings were merged into which).
+#
+# icon: every entry here already had a real fetched favicon vendored
+# under _includes/icons/favicons/ from earlier work this session (each
+# mentor/mentee/organizer/sponsor already links to these same domains) —
+# reused as-is via the same "custom:favicons/<domain-slug>" schema used
+# everywhere else in this project, no new fetches needed. Rendered into
+# the map popups at build time (index.html captures each org's
+# icon.html output into the embedded JSON), since the popups are built
+# by client-side JS and can't call the Liquid icon.html include directly.
+
+- name: Albany State University
+  city: Albany
+  region: Georgia
+  url: https://asurams.edu
+  lat: 31.5678798
+  lng: -84.1405794
+  icon: "custom:favicons/asurams-edu"
+- name: Austin Community College
+  city: Austin
+  region: Texas
+  url: https://austincc.edu
+  lat: 30.2365326
+  lng: -97.7040212
+  icon: "custom:favicons/austincc-edu"
+- name: Austin Peay State University
+  city: Clarksville
+  region: Tennessee
+  url: https://apsu.edu
+  lat: 36.5342965
+  lng: -87.3543085
+  icon: "custom:favicons/apsu-edu"
+- name: Clark Atlanta University
+  city: Atlanta
+  region: Georgia
+  url: https://cau.edu
+  lat: 33.7501248
+  lng: -84.411589
+  icon: "custom:favicons/cau-edu"
+- name: Eindhoven University of Technology
+  city: Eindhoven
+  region: North Brabant, Netherlands
+  url: https://tue.nl
+  lat: 51.4486602
+  lng: 5.4903996
+  icon: "custom:favicons/tue-nl"
+- name: Elizabeth City State University
+  city: Elizabeth City
+  region: North Carolina
+  url: https://ecsu.edu
+  lat: 36.2800894
+  lng: -76.2133643
+  icon: "custom:favicons/ecsu-edu"
+- name: Florida A&M University
+  city: Tallahassee
+  region: Florida
+  url: https://famu.edu
+  lat: 30.4227425
+  lng: -84.2875987
+  icon: "custom:favicons/famu-edu"
+- name: Hampton University
+  city: Hampton
+  region: Virginia
+  url: https://hamptonu.edu
+  lat: 37.0210096
+  lng: -76.3386255
+  icon: "custom:favicons/hamptonu-edu"
+- name: Howard University
+  city: Washington
+  region: District of Columbia
+  url: https://howard.edu
+  lat: 38.9218972
+  lng: -77.0195931
+  icon: "custom:favicons/howard-edu"
+- name: Mississippi Valley State University
+  city: Itta Bena
+  region: Mississippi
+  url: https://mvsu.edu
+  lat: 33.5112688
+  lng: -90.3426363
+  icon: "custom:favicons/mvsu-edu"
+- name: Moraine Valley Community College
+  city: Palos Hills
+  region: Illinois
+  url: https://morainevalley.edu
+  lat: 41.692682
+  lng: -87.8386466
+  icon: "custom:favicons/morainevalley-edu"
+- name: Norfolk State University
+  city: Norfolk
+  region: Virginia
+  url: https://nsu.edu
+  lat: 36.8482215
+  lng: -76.2629642
+  icon: "custom:favicons/nsu-edu"
+- name: Oak Ridge National Laboratory
+  city: Oak Ridge
+  region: Tennessee
+  url: https://ornl.gov
+  lat: 35.9301332
+  lng: -84.3119307
+  icon: "custom:favicons/ornl-gov"
+- name: Omnibond (Omnibond Systems)
+  city: Anderson
+  region: South Carolina
+  url: https://omnibond.com
+  lat: 34.5258335
+  lng: -82.652962
+  icon: "custom:favicons/omnibond-com"
+- name: Our Lady of the Lake University
+  city: San Antonio
+  region: Texas
+  url: https://ollusa.edu
+  lat: 29.4270027
+  lng: -98.5435277
+  icon: "custom:favicons/ollusa-edu"
+- name: Science Gateways Community Institute (SGX3)
+  city: San Diego
+  region: California
+  url: https://sciencegateways.org
+  lat: 32.7174202
+  lng: -117.162772
+  icon: "custom:favicons/sciencegateways-org"
+- name: Southern University A&M College
+  city: Baton Rouge
+  region: Louisiana
+  url: https://subr.edu
+  lat: 30.5258157
+  lng: -91.194946
+  icon: "custom:favicons/subr-edu"
+- name: Texas Advanced Computing Center
+  city: Austin
+  region: Texas
+  url: https://tacc.utexas.edu
+  lat: 30.3902434
+  lng: -97.7256386
+  icon: "custom:favicons/tacc-utexas-edu"
+- name: Utah Valley University
+  city: Orem
+  region: Utah
+  url: https://uvu.edu
+  lat: 40.2794106
+  lng: -111.7178868
+  icon: "custom:favicons/uvu-edu"
+- name: Voorhees University
+  city: Denmark
+  region: South Carolina
+  url: https://voorhees.edu
+  lat: 33.3058578
+  lng: -81.1285669
+  icon: "custom:favicons/voorhees-edu"

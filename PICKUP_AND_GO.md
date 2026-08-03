@@ -79,6 +79,10 @@ default.
 | `_data/organizers.yml` | Organizer records, carried over from last year's site — see "Organizers page" section below. |
 | `_data/sponsors.yml` | Sponsor records (name/url/logo, one with a nested NSF grant block) — see "Sponsors" section below. |
 | `_data/resources.yml` | 163 resource records across 11 categories — see "Resources page" section below for provenance, dedup decisions, and the icon system. |
+| `_data/affiliated_organizations.yml` | 20 institutions affiliated with mentees/mentors/organizers, geocoded via Nominatim — powers the home page community map. See "Community map" section below. |
+| `assets/vendor/leaflet/` | Self-hosted Leaflet 1.9.4 (JS/CSS/marker images/`LICENSE`) — the first vendored JS *library* in this project, only loaded on `index.html`. See "Community map" section below. |
+| `assets/js/community-map.js` | Vanilla JS, scoped to the home page only — reads `#affiliations-data` JSON, renders Leaflet markers linked to each org's URL, fetches `assets/data/us-states.geojson` for the state-border overlay. See "Community map" section below. |
+| `assets/data/us-states.geojson` | US state boundaries (52 features), the same public dataset used in Leaflet's official choropleth tutorial. Fetched at runtime by `community-map.js`, not embedded inline. See "Community map" section below. |
 | `assets/fontawesome/` | Self-hosted Font Awesome Free 7.3.1 (`css/fontawesome.min.css` + `solid.min.css` + `brands.min.css`, `webfonts/fa-solid-900.woff2` + `fa-brands-400.woff2`, `LICENSE.txt`). See "Icon system" section below — this replaced the old `_includes/icons/*.svg` hand-drawn icons (all but one). |
 | `_includes/icon.html` | Shared icon-render partial used by `person-card.html` and `resources.html` — takes an `icon` param (`"style:name"`), renders a Font Awesome `<i>` or, for `"custom:..."` values, an inline SVG include. See "Icon system" section below. |
 | `_includes/titleize.html` | Shared partial, takes a `text` param — underscores → spaces, first letter of each word capitalized, rest of each word untouched (deliberately not Liquid's `capitalize` filter, which lowercases the remainder). Used for auto-linked file names on `teams-card.html`, `schedule.html`, and `resources.html`. See "Underscore-delimited filenames" in "Teams page". |
@@ -656,6 +660,242 @@ for screen reader users." If a logo ever becomes the *only* thing
 conveying information not stated elsewhere on the page, that reasoning
 breaks and it needs real alt text instead — check before reusing this
 pattern somewhere new.
+
+## Community map (home page, added 2026-08-03)
+
+By request — "create an interactive map of the locations the affiliated
+organizations are from... Have the markers link to the urls of the
+organizations. Add the map to the front page of the site above the
+dandelion section." The user supplied a 20-row table (org, city,
+state/region, url) directly in the request. This is the first JS
+*library* dependency in the project — everything else JS-related so far
+has been hand-written vanilla JS with zero dependencies (see "Resources
+page" for why JS was justified there in the first place); rolling a
+pannable/zoomable tile map by hand isn't realistic, so vendoring a small
+library was the right call here specifically, not a precedent for
+reaching for libraries generally.
+
+- **Data**: `_data/affiliated_organizations.yml`, 20 entries (name, city,
+  region, url, lat, lng). The user's table gave city/state, not
+  coordinates — **geocoded via the Nominatim/OpenStreetMap API**
+  (`nominatim.openstreetmap.org`, free, no API key, rate-limited to 1
+  req/sec with a proper User-Agent header per their usage policy), not
+  estimated by hand. Queried `"<org name>, <city>, <state>"` first to
+  land on the actual campus/site; fell back to just `"<city>, <state>"`
+  when the specific org wasn't its own mapped point in OpenStreetMap.
+  16 of 20 resolved to the actual institution; 4 initially fell back to
+  city-center (Mississippi Valley State University, Southern University
+  A&M College, Omnibond, Science Gateways Community Institute) — two of
+  those (Mississippi Valley State, Southern University) were recovered
+  with alternate query phrasing on a second pass and now point at the
+  real campus; Omnibond (a private company, Anderson SC) and Science
+  Gateways Community Institute (no address published on
+  sciencegateways.org — checked via `WebFetch` before accepting the
+  city-level fallback, not assumed) genuinely have no better public
+  answer, so city-center is honest rather than a guessed street address.
+  "Omnibond (Omnibond Systems)" and "Science Gateways Community
+  Institute (SGX3)" names kept exactly as the user's table gave them
+  (merged duplicate listings from across `_data/mentors.yml`,
+  `_data/organizers.yml`, `_data/sponsors.yml` — see "Community map"
+  cross-reference in the earlier org-list/table chat responses this
+  session, not written to a file).
+- **Leaflet 1.9.4, self-hosted** under `assets/vendor/leaflet/`
+  (`leaflet.js`, `leaflet.css`, marker/shadow/layers images, `LICENSE`)
+  — same "vendor it locally, don't depend on a CDN" precedent as
+  self-hosted Font Awesome, downloaded from the official `unpkg.com`
+  distribution and verified (`file`, license header check) rather than
+  trusted blindly. BSD-2-Clause, license file kept alongside the code
+  same as Font Awesome's `LICENSE.txt`. **Map tiles themselves are not
+  and cannot reasonably be self-hosted** — `community-map.js` fetches
+  live tiles from `{s}.tile.openstreetmap.org` at runtime, the standard
+  free/no-signup way to use Leaflet+OSM. Don't confuse this with the
+  "no CDN dependency" rule elsewhere in this file; the JS/CSS library is
+  vendored, the imagery data source is inherently a live service no
+  matter what.
+- **Only loaded on the home page**, not site-wide: `index.html` sets
+  `needs_leaflet: true` in its front matter, and `_layouts/default.html`
+  conditionally includes `leaflet.css` in `<head>` only when
+  `page.needs_leaflet` is set — `leaflet.js` and the new
+  `assets/js/community-map.js` are `<script defer>` tags at the bottom
+  of `index.html` itself, same page-scoping convention already used for
+  `resources.js`/`deliverables.js`/`teams.js`. Verified 0 references to
+  "leaflet" on any of the other 6 pages' built HTML.
+- **`assets/js/community-map.js`**: reads organization data from a
+  `<script type="application/json" id="affiliations-data">{{
+  site.data.affiliated_organizations | jsonify }}</script>` tag embedded
+  in `index.html` (so `_data/affiliated_organizations.yml` stays the one
+  source of truth, not duplicated into a hand-written JS array), builds
+  a `L.marker` per org with a popup built via `document.createElement`
+  (not string-concatenated HTML) so org names containing `&` (Florida
+  A&M University, etc.) can't cause any malformed-HTML edge case, links
+  each popup's org name to its real URL (`target="_blank" rel="noopener
+  noreferrer"`), and calls `fitBounds` on the full marker group so the
+  initial view frames every marker rather than defaulting to some
+  arbitrary center/zoom. `scrollWheelZoom: false` so the embedded map
+  doesn't hijack the page's own scroll.
+- **Marker icon path set explicitly** via a `data-marker-path` attribute
+  on `#affiliations-map` (Jekyll-rendered with `| relative_url`, so it's
+  correct under the `/facultyhack-gateways26/` baseurl) rather than
+  relying on Leaflet's own stylesheet-scanning auto-detection, which is
+  known to be unreliable for non-CDN, self-hosted installs.
+- **A real CSS conflict was checked for, not just assumed fine**: this
+  site's global reset sets `img { max-width: 100%; height: auto;
+  display: block; }` (`assets/css/style.css`), which is a well-known
+  cause of broken/misaligned Leaflet tiles elsewhere on the web. Checked
+  `leaflet.css` directly before relying on it — it already ships
+  `.leaflet-container img { max-width: none !important; ... }` etc.,
+  specifically to defend against exactly this scenario (the file's own
+  comment cites the identical Firefox bug), so no extra override was
+  needed in this project's stylesheet. Documented here so a future
+  "why does the map look broken" investigation starts from "check
+  whether Leaflet's own defensive CSS actually loaded" rather than
+  re-discovering this same conflict from scratch.
+- **No-JS fallback**: a `<noscript>` block renders the same 20
+  organizations as a plain `<ul>` of links (looped from
+  `site.data.affiliated_organizations` directly, not from the JS data),
+  and a second `<noscript><style>` hides the empty `#affiliations-map`
+  div so a JS-disabled visitor doesn't see an empty bordered box sitting
+  above the fallback list.
+- **A real bug caught before it shipped**: this project's `.gitignore`
+  had a bare `vendor/` entry (intended for Ruby Bundler's `vendor/bundle`
+  cache dir) which, per git's gitignore matching rules, silently matches
+  a directory named "vendor" at *any* depth — including the brand-new
+  `assets/vendor/leaflet/`. Caught by checking `git status
+  --untracked-files=all` after adding the vendor files and finding
+  Leaflet's own files absent from the listing entirely, not just by
+  reading the ignore file and assuming it was fine. Fixed by anchoring
+  it to the repo root: `vendor/` → `/vendor/`. **`_config.yml`'s
+  `exclude:` list has an identical-looking bare `vendor` entry but did
+  NOT need the same fix** — Jekyll's `exclude` paths are matched as
+  literal root-relative paths, not gitignore-style glob-anywhere
+  patterns, so it only ever pointed at a root-level `vendor/` that
+  doesn't exist in this repo; confirmed by the build already having
+  correctly copied every file under `assets/vendor/leaflet/` into
+  `_site/` before this was even investigated. Worth remembering the
+  two systems (`.gitignore` vs. Jekyll `exclude:`) use different
+  matching rules for what looks like the identical line.
+- **Verified**: build succeeds; the embedded JSON parses to exactly 20
+  objects with every `lat`/`lng` in valid range and every `url`
+  well-formed; the map section renders in the correct position (after
+  "Overview", before "Why the Dandelion?", confirmed by comparing byte
+  offsets of each section's heading id in the built HTML); Leaflet is
+  linked only on `index.html` and nowhere else; all 8 vendored Leaflet
+  files (`leaflet.js`, `leaflet.css`, 5 images, `LICENSE`) exist in the
+  built `_site/`; `node --check` confirms `community-map.js` is
+  syntactically valid; full structural check (tag balance, duplicate
+  ids, heading order) passes across all pages. **Not yet checked**: this
+  is another feature that has never been opened in a real browser (see
+  "First real-browser bug report" above) — the actual pan/zoom/marker/
+  popup interaction, tile loading over the network, and mobile touch
+  behavior are all unverified beyond "the static HTML/CSS/JS are each
+  individually well-formed and the known img-reset conflict is
+  defended against." Worth a real-browser check before this goes live,
+  more so than most other features in this file given how much of
+  Leaflet's actual behavior (as opposed to markup) can't be verified
+  by reading HTML.
+
+### Popup icons added (2026-08-03)
+
+By request — "add the icons for the affiliated organizations to the
+information cards." All 20 organizations already had a real fetched
+favicon vendored under `_includes/icons/favicons/` from earlier work
+this session (every mentor/mentee/organizer/sponsor already links to
+these same domains) — **no new favicons were fetched**, just wired the
+existing ones in via the same `"custom:favicons/<domain-slug>"` schema
+used everywhere else. Verified all 20 slugs resolve to a real,
+non-trivial file before wiring anything in (`wc -c` on each), not
+assumed from the name alone.
+
+- **The hard part wasn't fetching icons, it was rendering them from
+  client-side JS.** `_includes/icon.html` is a Liquid include — it only
+  runs at Jekyll build time, and the map's popups are built by
+  `community-map.js` at runtime, so the JS can't call it directly. Fix:
+  `index.html` now builds the `#affiliations-data` JSON **by hand**
+  instead of via a single `{{ ... | jsonify }}` call — loops
+  `site.data.affiliated_organizations`, captures each org's `{% include
+  icon.html icon=org.icon %}` output into a `{% capture %}`, and emits
+  each field individually (`{{ org.name | jsonify }}`, etc., so string
+  escaping is still handled correctly) inside hand-written `{ ... }`
+  JSON syntax. `org.icon` in the resulting JSON is pre-rendered HTML
+  (an inline `<svg>` with a base64-embedded PNG, same as every other
+  icon in this project), not a filename or icon key.
+- **`community-map.js` injects that HTML via `innerHTML`** on a wrapper
+  `<span class="community-map__popup-icon">` inside the popup's link —
+  the one deliberate exception to the rest of that file's
+  `document.createElement`/`textContent` approach (used specifically to
+  avoid HTML-injection risk from data values). Safe here because
+  `org.icon` is fully build-time-generated from this project's own
+  trusted icon pipeline, never from user input.
+- **The `<noscript>` fallback list got the same icon treatment** too,
+  via a plain `{% include icon.html icon=org.icon %}` directly in
+  Liquid (no JSON round-trip needed there, unlike the JS path).
+- **Verified**: the embedded JSON still parses as valid JSON with
+  exactly 20 objects; every object's `icon` field contains real SVG
+  markup (spot-checked one, and confirmed zero objects have a
+  missing/empty icon); "Florida A&M University" (a name containing `&`)
+  round-trips correctly through `jsonify` with its real ~60KB vector
+  favicon intact; the `<noscript>` fallback list shows all 20 icons;
+  `node --check` confirms `community-map.js` is still syntactically
+  valid after the innerHTML change; full structural check (tag balance,
+  duplicate ids, heading order) passes across all pages. Visual
+  rendering (icon size/alignment inside the actual Leaflet popup
+  bubble) is unverified — same real-browser caveat as the map feature
+  itself, above.
+
+### Scoped to the US + state borders (2026-08-03)
+
+By request — "scope the map down to the united states and include
+state border lines."
+
+- **Initial view now fits a fixed continental-US bounding box**
+  (`L.latLngBounds([24.396308, -125], [49.384358, -66.93457])`) instead
+  of fitting bounds to every marker. The previous behavior zoomed out to
+  a transatlantic view on load because Eindhoven University of
+  Technology (Netherlands) was one of the 20 markers, dragging the
+  auto-fit bounds across the Atlantic. **The Eindhoven marker itself
+  was not removed** — only the request was to scope the *map's default
+  view*, not drop an affiliated organization from the data; a user can
+  still pan/zoom out to reach it manually.
+- **US state borders**: added `assets/data/us-states.geojson` (52
+  features — all 50 states + DC + Puerto Rico), the same well-known
+  public dataset used in Leaflet's own official "Interactive Choropleth
+  Map" tutorial (originally from the PublicaMundi MappingAPI project) —
+  not hand-drawn or approximated. Verified as real, well-formed GeoJSON
+  before using it: confirmed `FeatureCollection` type, exactly 52
+  features, and spot-checked California's geometry (a real `Polygon`
+  with actual ring coordinates, not a stub). Rendered via
+  `L.geoJSON(...).addTo(map)` in `community-map.js`, fetched at runtime
+  via the browser's `fetch()` API (not embedded inline like the org
+  data — this file is ~87KB of coordinate data, too large to justify
+  bloating the page's own HTML the way the ~few-KB org JSON was).
+  Styled as thin (`weight: 1`), no-fill (`fillOpacity: 0`) outlines in
+  `#767268` — **deliberately the same hex as this site's own
+  `--color-border-strong` CSS variable**, kept as a plain hex in the JS
+  (can't reference a CSS custom property from a Leaflet vector-layer
+  style object) with a comment noting the match so it doesn't drift
+  silently if the CSS variable ever changes. `interactive: false` so
+  the border lines don't intercept clicks meant for markers/tiles
+  underneath them.
+- **Graceful degradation**: if the GeoJSON fetch fails (network issue,
+  file missing, etc.), a `.catch()` silently no-ops — the map still
+  shows tiles, markers, and popups without the border overlay rather
+  than breaking entirely.
+- **Cleaned up dead code while making this change**: the old
+  `map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15))` call
+  at the end of the file was now unreachable/conflicting (it would have
+  immediately overridden the new US-bounds fit as soon as it ran, since
+  it ran after all markers were added) — removed it, and changed the
+  marker-building loop from `.map()` (whose return value was only ever
+  used by that now-removed line) to a plain `.forEach()`, rather than
+  leaving an unused variable or a `void markers;` no-op statement.
+- **Verified**: `assets/data/us-states.geojson` exists in the built
+  `_site/` with all 52 features intact; `data-states-url` renders with
+  the correct baseurl-aware path; `node --check` confirms
+  `community-map.js` is still syntactically valid; full structural
+  check passes across all pages. Actual on-screen behavior (initial
+  zoom level, border-line rendering, whether the US bounding box looks
+  right at various viewport sizes) is unverified — same real-browser
+  caveat as the rest of this feature.
 
 ## Organizers page
 
