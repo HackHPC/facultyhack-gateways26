@@ -27,7 +27,7 @@ virtual_sessions:
     resources:
       - name: "Slide Deck"
         url: "https://docs.google.com/presentation/d/1YQB_ANXMQlBK7-bgOTiSi9qTDFA9gPr-Cib6OozhucQ/edit?usp=sharing"
-        icon: "custom:favicons/docs-google-com"
+        icon: "custom:favicons/docs-google-com-presentation"
         description: "Slides for the Day 1 SGX3 Overview training."
       - name: "Science Gateways Community Institute (SGCI)"
         url: "https://sciencegateways.org"

@@ -933,12 +933,27 @@ every other resource icon — not the generic `solid:link` default.
 **"Slide Deck" resource added to Day 1 (2026-07-31, by request)** — a
 Google Slides link (`docs.google.com/presentation/d/...`), inserted
 first in Day 1's `resources:` list (ahead of SGCI) since it's the
-literal training material for that session, not a supporting link.
-Reused the same `custom:favicons/docs-google-com` icon already fetched
-for the Travel Support Application resource above — same domain
-(`docs.google.com`), no need to fetch a second favicon for a different
-path under it. Day 1 now has five resources, in render order: Slide
-Deck, SGCI, Travel Support Application, Deliverables, README Template.
+literal training material for that session, not a supporting link. Day 1
+now has five resources, in render order: Slide Deck, SGCI, Travel
+Support Application, Deliverables, README Template.
+
+**Icon corrected the same day, by request ("The slide deck should have
+a Google Presentations icon")**: initially reused
+`custom:favicons/docs-google-com` (the favicon already fetched for the
+Travel Support Application Google *Form* resource) on the assumption
+that same domain = same icon. Wrong — Google's apps under
+`docs.google.com` each declare their own `<link rel="shortcut icon">`
+per app (Forms vs. Slides vs. Docs all differ), confirmed by actually
+`curl`-ing the presentation URL's HTML rather than assuming: it declares
+`https://ssl.gstatic.com/docs/presentations/images/favicon-2026-v2.ico`,
+a distinct orange/yellow "presentation screen" icon, not the Forms one.
+Fetched properly as `_includes/icons/favicons/docs-google-com-presentation.svg`
+(same fetch pipeline, domain-slug naming extended with the app path
+segment since the bare domain slug was already taken by the Forms
+favicon) and **visually confirmed by decoding and viewing the actual
+icon** before wiring it in, not just checking it decoded to *some* valid
+image — worth remembering generally: two URLs sharing a domain does not
+mean they share a favicon.
 
 ## Deliverables page
 
