@@ -9,6 +9,10 @@
 # columns — deduplicated to one link rather than showing the same URL
 # twice.
 #
+# Entries are kept sorted alphabetically by mentee first name (source
+# order, not rendered via a Liquid sort) — same convention as
+# _data/mentors.yml being kept sorted by last name in the file itself.
+#
 # `mentor_name` is looked up against `site.data.mentors` at render time
 # (teams.html) to reuse that mentor's existing affiliation/link/photo
 # rather than duplicating it here — all 11 mentors now have a profile on
@@ -28,29 +32,6 @@
 # both link to the same URL/icon.
 
 - mentee:
-    name: "Antigone Anthony"
-    affiliation: "Southern University A&M College"
-    affiliation_url: "https://www.subr.edu/"
-    affiliation_icon: "custom:favicons/subr-edu"
-    target_course: "Anatomy and Physiology Lab 221LB"
-  mentor_name: "Ahmad Al-Omari"
-
-- mentee:
-    name: "Yohn Parra Bautista"
-    affiliation: "Florida A&M University"
-    affiliation_url: "https://www.famu.edu/"
-    affiliation_icon: "custom:favicons/famu-edu"
-    target_course: "Machine Learning Essentials"
-    links:
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/yohn-jairo-parra-bautista-810954389/"
-        icon: "brands:linkedin"
-      - label: "Personal Website"
-        url: "https://yohn-scholar-web-34116.lovable.app/"
-        icon: "custom:favicons/yohn-scholar-web-34116-lovable-app"
-  mentor_name: "Felicia Doswell"
-
-- mentee:
     name: "Agbeli Ameko"
     affiliation: "Howard University"
     affiliation_url: "https://howard.edu/"
@@ -66,70 +47,12 @@
   mentor_name: "Mohamed Elbakary"
 
 - mentee:
-    name: "Joseph Aneke"
-    affiliation: "Hampton University"
-    affiliation_url: "https://www.hamptonu.edu/"
-    affiliation_icon: "custom:favicons/hamptonu-edu"
-    target_course: "Python Programming CSC 291"
-    links:
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/joseph-aneke-27891066/"
-        icon: "brands:linkedin"
-  mentor_name: "Sabrina Perry"
-
-- mentee:
-    name: "Kristine Christensen"
-    affiliation: "Moraine Valley Community College"
-    affiliation_url: "https://www.morainevalley.edu/"
-    affiliation_icon: "custom:favicons/morainevalley-edu"
-    target_course: "CIS 117: Internet Technologies"
-    links:
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/kristinechristensen/"
-        icon: "brands:linkedin"
-      - label: "CAEEPNC"
-        url: "http://caeepnc.org/"
-        icon: "custom:favicons/caeepnc-org"
-  mentor_name: "John Holmen"
-
-- mentee:
-    name: "Tanganiika Johnson"
-    affiliation: "Southern University and A&M College"
+    name: "Antigone Anthony"
+    affiliation: "Southern University A&M College"
     affiliation_url: "https://www.subr.edu/"
     affiliation_icon: "custom:favicons/subr-edu"
-    target_course: "Plant Physiology"
-    links:
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/tanganika-johnson-phd-8767a41a"
-        icon: "brands:linkedin"
-  mentor_name: "Mohammed Elmellouki"
-
-- mentee:
-    name: "Joshua Gbadebo"
-    affiliation: "Voorhees University"
-    affiliation_url: "https://www.voorhees.edu/"
-    affiliation_icon: "custom:favicons/voorhees-edu"
-    target_course: "Design and Analysis of Algorithms CMP 411"
-    links:
-      - label: "Instagram"
-        url: "https://www.instagram.com/gestureb"
-        icon: "brands:instagram"
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/joshua-gbadebo-619b51128/"
-        icon: "brands:linkedin"
-  mentor_name: "Olabisi Ojo"
-
-- mentee:
-    name: "Oyebade Oyerinde"
-    affiliation: "Clark Atlanta University"
-    affiliation_url: "https://www.cau.edu/"
-    affiliation_icon: "custom:favicons/cau-edu"
-    target_course: "CPAD 504: Economics for Public Administrators"
-    links:
-      - label: "LinkedIn"
-        url: "https://www.linkedin.com/in/oyebade-oyerinde-121a4b207"
-        icon: "brands:linkedin"
-  mentor_name: "Elijah MacCarthy"
+    target_course: "Anatomy and Physiology Lab 221LB"
+  mentor_name: "Ahmad Al-Omari"
 
 - mentee:
     name: "Cheryl Swanier"
@@ -147,6 +70,48 @@
   mentor_name: "Anas AlSobeh"
 
 - mentee:
+    name: "Joseph Aneke"
+    affiliation: "Hampton University"
+    affiliation_url: "https://www.hamptonu.edu/"
+    affiliation_icon: "custom:favicons/hamptonu-edu"
+    target_course: "Python Programming CSC 291"
+    links:
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/joseph-aneke-27891066/"
+        icon: "brands:linkedin"
+  mentor_name: "Sabrina Perry"
+
+- mentee:
+    name: "Joshua Gbadebo"
+    affiliation: "Voorhees University"
+    affiliation_url: "https://www.voorhees.edu/"
+    affiliation_icon: "custom:favicons/voorhees-edu"
+    target_course: "Design and Analysis of Algorithms CMP 411"
+    links:
+      - label: "Instagram"
+        url: "https://www.instagram.com/gestureb"
+        icon: "brands:instagram"
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/joshua-gbadebo-619b51128/"
+        icon: "brands:linkedin"
+  mentor_name: "Olabisi Ojo"
+
+- mentee:
+    name: "Kristine Christensen"
+    affiliation: "Moraine Valley Community College"
+    affiliation_url: "https://www.morainevalley.edu/"
+    affiliation_icon: "custom:favicons/morainevalley-edu"
+    target_course: "CIS 117: Internet Technologies"
+    links:
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/kristinechristensen/"
+        icon: "brands:linkedin"
+      - label: "CAEEPNC"
+        url: "http://caeepnc.org/"
+        icon: "custom:favicons/caeepnc-org"
+  mentor_name: "John Holmen"
+
+- mentee:
     name: "Mary Beals"
     affiliation: "Southern University A&M College"
     affiliation_url: "https://www.subr.edu/"
@@ -160,3 +125,57 @@
         url: "https://github.com/DrMBea/FacultyHack25?tab=readme-ov-file"
         icon: "brands:github"
   mentor_name: "Subil Abraham"
+
+- mentee:
+    name: "Oyebade Oyerinde"
+    affiliation: "Clark Atlanta University"
+    affiliation_url: "https://www.cau.edu/"
+    affiliation_icon: "custom:favicons/cau-edu"
+    target_course: "CPAD 504: Economics for Public Administrators"
+    links:
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/oyebade-oyerinde-121a4b207"
+        icon: "brands:linkedin"
+  mentor_name: "Elijah MacCarthy"
+
+- mentee:
+    name: "Tanganiika Johnson"
+    affiliation: "Southern University and A&M College"
+    affiliation_url: "https://www.subr.edu/"
+    affiliation_icon: "custom:favicons/subr-edu"
+    target_course: "Plant Physiology"
+    links:
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/tanganika-johnson-phd-8767a41a"
+        icon: "brands:linkedin"
+  mentor_name: "Mohammed Elmellouki"
+
+#- mentee:
+#    name: "Vivek Shandilya"
+#    affiliation: "Bowie State University"
+#    affiliation_url: "https://www.bowiestate.edu/"
+#    affiliation_icon: "custom:favicons/bowiestate-edu"
+#    target_course: "Pattern Recognition COSC750"
+#    links:
+#      - label: "Facebook"
+#        url: "https://www.facebook.com/sop.ideas.9"
+#        icon: "brands:facebook"
+#      - label: "SOPSS"
+#        url: "https://www.sopss.org"
+#        icon: "custom:favicons/sopss-org"
+#  mentor_name: "Sajida Faiyaz"
+
+- mentee:
+    name: "Yohn Parra Bautista"
+    affiliation: "Florida A&M University"
+    affiliation_url: "https://www.famu.edu/"
+    affiliation_icon: "custom:favicons/famu-edu"
+    target_course: "Machine Learning Essentials"
+    links:
+      - label: "LinkedIn"
+        url: "https://www.linkedin.com/in/yohn-jairo-parra-bautista-810954389/"
+        icon: "brands:linkedin"
+      - label: "Personal Website"
+        url: "https://yohn-scholar-web-34116.lovable.app/"
+        icon: "custom:favicons/yohn-scholar-web-34116-lovable-app"
+  mentor_name: "Felicia Doswell"
