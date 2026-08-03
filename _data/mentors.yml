@@ -105,26 +105,35 @@
   affiliation: "Norfolk State University"
   affiliation_url: "https://www.nsu.edu/"
   affiliation_icon: "custom:favicons/nsu-edu"
-  specialty: ["Information Assurance", "Human-Computer Interaction"]
+  specialty: ["Cybersecurity", "Artificial Intelligence"]
   photo: "assets/images/mentors/Felicia-Doswell.jpg"
   history:
     - year: 2022
       role: "Faculty Participant"
   bio: >-
-    Dr. Felicia Doswell is an Associate Professor in the Department of
-    Computer Science at Norfolk State University, which she joined in 2005
-    after serving as an Assistant Professor at Virginia State University.
-    She holds a B.S. from Norfolk State University, an M.S. from Georgia
-    Tech, and a Ph.D. from Virginia Tech, all in computer science. Her
-    research interests include information assurance, networking, and
-    human-computer interaction, with work spanning cloud computing
-    security, forensic analysis of mobile devices, and usable security
-    solutions that protect user privacy. Dr. Doswell was Norfolk State's
-    first certified online instructor and has been recognized repeatedly
-    for her teaching, including the Distinguished Exemplary Teaching
-    Faculty award (2010-2011), the 2012 Award for Innovative Excellence in
-    Teaching, Learning and Technology, and the 2013 Computer Science
-    Teacher of the Year honor.
+    Dr. Felicia Doswell is an Associate Professor of Computer Science at
+    Norfolk State University and former Interim Chair of the Department
+    of Computer Science. She earned a Ph.D., M.S., and B.S. in Computer
+    Science from Virginia Tech, Georgia Tech, and Norfolk State
+    University, respectively. Dr. Doswell brings more than three decades
+    of combined academic and industry experience to computing education
+    and research. Prior to joining academia, she held technical
+    positions with AT&T Bell Laboratories, Tekelec, and Nortel,
+    contributing to software engineering and network systems. Her
+    research interests include cybersecurity, artificial intelligence,
+    high-performance computing, and computing education. She has
+    secured funding from the National Science Foundation and industry
+    partners, including Lockheed Martin, Apple, Google, and Micron
+    Technology, to support workforce development efforts and student
+    research. Dr. Doswell is committed to mentoring undergraduate and
+    graduate students, advising numerous theses and capstone projects in
+    cybersecurity, artificial intelligence, secure software development,
+    and cloud computing. Her leadership has contributed to ABET
+    accreditation efforts, curriculum innovation, development of
+    accelerated degree programs, expansion of research infrastructure,
+    and service to the broader computing education community through
+    active involvement in professional organizations and conference
+    board membership.
   links:
     - label: "Staff Profile"
       url: "https://www.nsu.edu/Academics/Faculty-and-Academic-Divisions/Schools-and-Colleges/College-of-Science-Engineering-and-Technology/Departments/Computer-Science/Faculty-and-Staff/Felicia-Doswell"

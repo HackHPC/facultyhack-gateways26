@@ -528,7 +528,7 @@ earlier in this same conversation (not re-derived or re-guessed), and
 recreated the empty `assets/files/teams/vivek-shandilya/` directory with
 a fresh `.gitkeep`. Inserted in the correct alphabetical position per
 the "sort by mentee first name" convention below (**"Vivek" sorts
-between "Tanganiika" and "Yohn"**) rather than appended at the end,
+between "Tanganika" and "Yohn"**) rather than appended at the end,
 since the sort convention was already in place by the time this
 happened. Both previously-orphaned favicons were already present on
 disk, so no re-fetch was needed — reused as-is.
@@ -548,7 +548,7 @@ already used for `_data/mentors.yml`, which is kept sorted by last name
 in the file rather than sorted at render time. Alphabetical order (11
 pairings, after Vivek's later restoration above): Agbeli Ameko, Antigone
 Anthony, Cheryl Swanier, Joseph Aneke, Joshua Gbadebo, Kristine
-Christensen, Mary Beals, Oyebade Oyerinde, Tanganiika Johnson, Vivek
+Christensen, Mary Beals, Oyebade Oyerinde, Tanganika Johnson, Vivek
 Shandilya, Yohn Parra Bautista. Added a line to the file's header
 comment documenting this convention, so a future entry gets inserted in
 the right place instead of just appended.
