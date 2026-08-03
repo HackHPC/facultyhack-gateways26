@@ -49,6 +49,10 @@ virtual_sessions:
     announcements: "Day 1 recap, deliverables overview, and initial curriculum scoping."
     training: "NAIRR (Dr. Oyebade Oyerinde) & AI Deconstruction Intro: Deep dive into the National Artificial Intelligence Research Resource (NAIRR) Pilot Portal and introducing AI deconstruction methods."
     resources:
+      - name: "Course Goals Slide Deck"
+        url: "https://docs.google.com/presentation/d/1DMsv7JH1u9RGOlyo0nXebsESEMC6gXSJUrGXaL8UsSg/edit?usp=drive_link"
+        icon: "custom:favicons/docs-google-com-presentation"
+        description: "Course goals slides for this session."
       - name: "NAIRR Pilot Portal"
         url: "https://nairrpilot.org"
         icon: "custom:favicons/nairrpilot-org"

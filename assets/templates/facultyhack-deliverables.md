@@ -56,7 +56,7 @@ your classroom.
 
 Upload all your final materials to a public GitHub repository you
 create for the hackathon. Submit your repository URL to Je'aime Powell:
-jeaime@omnibond.com. Your submission must include:
+jeaime@omnibond.com. Your GitHub repo must include:
 
 - README.md (filled out using the provided template:
   <https://hackhpc.github.io/facultyhack-gateways26/assets/templates/facultyhack-readme-template.md>)

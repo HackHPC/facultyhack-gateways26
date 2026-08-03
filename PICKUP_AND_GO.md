@@ -955,6 +955,30 @@ icon** before wiring it in, not just checking it decoded to *some* valid
 image — worth remembering generally: two URLs sharing a domain does not
 mean they share a favicon.
 
+**"Course Goals Slide Deck" added to Day 2 (2026-07-31, by request)** —
+a second Google Slides link
+(`docs.google.com/presentation/d/1DMsv7JH1u9RGOlyo0nXebsESEMC6gXSJUrGXaL8UsSg/...`),
+inserted first in Day 2's (`Wed, August 5`) `resources:` list, ahead of
+the existing NAIRR Pilot Portal entry. Reused
+`custom:favicons/docs-google-com-presentation` as-is this time — but
+only after re-confirming via `curl` that *this specific* presentation
+URL serves the same Slides favicon before assuming so, rather than
+repeating the earlier same-domain assumption that turned out wrong for
+Forms vs. Slides. **Placement note**: the user asked for this on "the
+2nd session," which is Day 2 (NAIRR & AI Deconstruction Intro) — the
+deck's own title, "Course Goals," textually matches Day 3's training
+topic instead (`Fri, August 7`, "Course Goals & AI Deconstruction"), but
+the explicit instruction was followed as given rather than "corrected"
+to Day 3, since there was no way to confirm which one was actually
+intended and the user may have a reason (e.g. previewing next week's
+material early). The resource's `description` was deliberately written
+generically ("Course goals slides for this session") rather than reusing
+Day 3's training blurb text, since that blurb describes Day 3's content
+and there's no confirmation this specific deck covers the same material.
+If this placement turns out to be wrong, it's a one-line move to Day 3's
+`resources:` list, same as the Science Gateways Resource Catalog moves
+earlier in this file.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
