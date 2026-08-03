@@ -928,9 +928,17 @@ deliverable's second paragraph (above), now also on Day 1's schedule
 card and its Session Materials cross-listing. Got a real fetched favicon,
 `_includes/icons/favicons/docs-google-com.svg` (`docs.google.com`, the
 domain of the `/forms/d/e/.../viewform` URL), same fetch pipeline as
-every other resource icon — not the generic `solid:link` default. Day 1
-now has four resources: SGCI, Travel Support Application, Deliverables,
-README Template (order they render in).
+every other resource icon — not the generic `solid:link` default.
+
+**"Slide Deck" resource added to Day 1 (2026-07-31, by request)** — a
+Google Slides link (`docs.google.com/presentation/d/...`), inserted
+first in Day 1's `resources:` list (ahead of SGCI) since it's the
+literal training material for that session, not a supporting link.
+Reused the same `custom:favicons/docs-google-com` icon already fetched
+for the Travel Support Application resource above — same domain
+(`docs.google.com`), no need to fetch a second favicon for a different
+path under it. Day 1 now has five resources, in render order: Slide
+Deck, SGCI, Travel Support Application, Deliverables, README Template.
 
 ## Deliverables page
 
