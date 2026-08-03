@@ -78,21 +78,6 @@
   mentor_name: "Sabrina Perry"
 
 - mentee:
-    name: "Vivek Shandilya"
-    affiliation: "Bowie State University"
-    affiliation_url: "https://www.bowiestate.edu/"
-    affiliation_icon: "custom:favicons/bowiestate-edu"
-    target_course: "Pattern Recognition COSC750"
-    links:
-      - label: "Facebook"
-        url: "https://www.facebook.com/sop.ideas.9"
-        icon: "brands:facebook"
-      - label: "SOPSS"
-        url: "https://www.sopss.org"
-        icon: "custom:favicons/sopss-org"
-  mentor_name: "Sajida Faiyaz"
-
-- mentee:
     name: "Kristine Christensen"
     affiliation: "Moraine Valley Community College"
     affiliation_url: "https://www.morainevalley.edu/"

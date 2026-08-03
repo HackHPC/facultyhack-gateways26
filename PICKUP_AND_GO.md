@@ -70,7 +70,7 @@ default.
 | `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards, each with a share button. A shared `#share-menu` popup (X, Facebook, LinkedIn, Email, Copy Link) sits at the end of the page, driven by `assets/js/resources.js`. |
 | `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name (now with `id="{{ name | slugify }}"` on the card `<li>` for deep-linking — see "Teams page"), linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
 | `_includes/teams-card.html` | Team-pairing card partial — takes a `pairing` param, looks up `pairing.mentor_name` against `site.data.mentors` to reuse that mentor's existing profile data rather than duplicating it. Also scans `site.static_files` for that mentee's `assets/files/teams/<slug>/` directory and auto-renders a "Files" list. See "Teams page" section below. |
-| `_data/teams.yml` | 11 mentee/mentor pairings — see "Teams page" section below for provenance and the privacy rules applied. |
+| `_data/teams.yml` | 10 mentee/mentor pairings (originally 11, see "Vivek Shandilya removed" in "Teams page") — see "Teams page" section below for provenance and the privacy rules applied. |
 | `assets/files/teams/<mentee-slug>/` | One directory per mentee, drop a file in and rebuild — no YAML editing needed. Each holds only a `.gitkeep` until a real file is added. See `assets/files/teams/README.md` and "Teams page" below. |
 | `assets/files/schedule/<session-slug>/` | Same pattern, one directory per virtual session (slug = session date, slugified). See `assets/files/schedule/README.md` and "Auto-linked per-session files" in "Schedule page" below. |
 | `assets/js/teams.js` | Vanilla JS, scoped to the Teams page only — live search filter + jump-to-team smooth scroll, same pattern as `resources.js`. See "Teams page" section. |
@@ -224,8 +224,10 @@ clean after adding them).
 ## Teams page
 
 `teams.html` + `_data/teams.yml` (added 2026-07-30), from a pasted
-mentee/mentor pairing spreadsheet — 11 pairings, each mentee bringing HPC/
-AI into a specific course, paired with a mentor.
+mentee/mentor pairing spreadsheet — originally 11 pairings, each mentee
+bringing HPC/AI into a specific course, paired with a mentor; **10 as of
+2026-07-31**, Vivek Shandilya removed by request (see "Vivek Shandilya
+removed" below).
 
 **Both mentee and mentor email columns were dropped entirely** (personal
 gmail/hotmail addresses for mentees, institutional emails for mentors) —
@@ -495,6 +497,35 @@ letter capitalized — used by both `_includes/teams-card.html` and
 - Both `assets/files/teams/README.md` and `assets/files/schedule/
   README.md` updated to document the underscore convention and the
   case-preservation behavior for anyone adding files later.
+
+### Vivek Shandilya removed (2026-07-31)
+
+By request — "remove Vivek Shandilya from the teams." Deleted his entire
+pairing entry (mentee info, target course, LinkedIn/SOPSS links) from
+`_data/teams.yml`, along with his now-orphaned
+`assets/files/teams/vivek-shandilya/` directory (held nothing but a
+`.gitkeep`, safe to delete outright). Down to 10 pairings.
+
+- **His mentor, Sajida Faiyaz, was left untouched** in `_data/mentors.yml`
+  — she's an independent mentor profile shown on the Mentors page, not
+  derived from `teams.yml`; removing a pairing doesn't cascade to
+  removing the mentor. She simply has no pairing on the Teams page now.
+- **Two favicons fetched specifically for Vivek's entry are now
+  orphaned but were deliberately left in place**, not deleted:
+  `_includes/icons/favicons/sopss-org.svg` (his "SOPSS" link) and
+  `_includes/icons/favicons/bowiestate-edu.svg` (Bowie State University,
+  his affiliation). Confirmed via grep that nothing else references
+  either file. Left alone rather than cleaned up since deleting unused
+  static assets wasn't part of the request and they're harmless sitting
+  unused — flagging here so a future cleanup pass knows why they're
+  there and unreferenced, rather than assuming it's a bug.
+- **No template changes needed** — `teams.html`/`teams-card.html` render
+  from `site.data.teams` directly with no hardcoded pairing count
+  anywhere in the HTML, so removing one entry from the YAML was
+  sufficient. Verified: 10 `.teams-card` elements render (was 11), the
+  jump-to-team `<select>` has 10 mentee options + the placeholder,
+  "Vivek Shandilya" doesn't appear anywhere in the built Teams page, and
+  Sajida Faiyaz still appears on the Mentors page as expected.
 
 ## Nav/hero/footer redesign
 
