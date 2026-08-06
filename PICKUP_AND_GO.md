@@ -1545,6 +1545,54 @@ highlights present in the built HTML under Wed, August 5 specifically
 (not leaking into an adjacent day), `open` attribute absent, and the
 heading-hierarchy + structural checks still pass across all pages.
 
+### Pre-session added to Fri, August 7 (2026-08-06)
+
+By request ("add a pre-session that starts at 5:00pm ET on 8/7/26 That
+will focus on ACCESS-CI and NAIRR account creation support") — this
+lines up with Day 2's own recap text, which already mentioned Dr. Linda
+Hayden scheduling this exact troubleshooting session in response to
+ACCESS account registration hurdles some participants hit.
+
+- **New optional `pre_session:` block** per `virtual_sessions` entry,
+  for an extra block of time before the standard 6:00 PM ET start —
+  distinct from `announcements`/`training` (the standard flow) and
+  `recap` (past-tense write-up). Fields: `time` (required display
+  string) and `focus` (required one-liner). Schema documented in the
+  file's header comment, same convention as `resources:`/`recap:`
+  above it. Only Fri, August 7 has one; omitted everywhere else, same
+  "don't add an empty block" rule used throughout this file.
+- **Duration assumed as 5:00–6:00 PM ET**: the user only specified a
+  5:00 PM ET start time. Since the standard block already starts at
+  6:00 PM, a 5:00–6:00 PM pre-session runs naturally up to it with no
+  gap or overlap — flagged here as an assumption, not confirmed with
+  the user.
+- **Rendered in `schedule.html`** as a new conditional
+  `.schedule-block__event` — "Pre-Session" `<h3>` with its own time
+  span, positioned first in the card body (before "Announcements &
+  Mentor Time"), only when `session.pre_session` is present.
+- **Card header time range now dynamic**: previously hardcoded to
+  `6:00&ndash;8:00 PM ET` for every card. Now computed per-session —
+  when `pre_session` is present, the header instead shows from the
+  pre-session's start time through 8:00 PM ET (e.g. "5:00&ndash;8:00 PM
+  ET" for Aug 7), so the collapsed card's visible time range doesn't
+  quietly omit the earlier block.
+- **Bug caught before finalizing**: first draft split
+  `session.pre_session.time` on the literal string `"&ndash;"` to pull
+  out the start time, but the YAML data actually stores a literal "–"
+  (en-dash) character, not the HTML entity string — verified via
+  `python3 -c "print(repr(line))"` against the actual file bytes rather
+  than assuming. Would have produced a broken concatenated string like
+  "5:00–6:00 PM ET&ndash;8:00 PM ET". Fixed by splitting on the literal
+  "–" character while still appending the HTML entity "&ndash;" for the
+  template's own hardcoded-entity output convention.
+- **Verified**: "Pre-Session" heading, "5:00" / "6:00" times, and the
+  "ACCESS-CI and NAIRR account creation support" focus text all present
+  under Fri, August 7 only. Header time range confirmed via a full
+  regex sweep across all 6 virtual sessions: "5:00&ndash;8:00 PM ET" for
+  Aug 7, "6:00&ndash;8:00 PM ET" for the other 5. Full structural check
+  (tag balance, duplicate ids, heading-hierarchy skips) passes across
+  all pages.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by

@@ -44,11 +44,16 @@ description: >-
           {% endif %}
         {% endfor %}
         {% assign session_files = session_files | sort: "name" %}
+        {% assign session_time = "6:00&ndash;8:00 PM ET" %}
+        {% if session.pre_session %}
+          {% assign pre_session_start = session.pre_session.time | split: "–" | first %}
+          {% assign session_time = pre_session_start | append: "&ndash;8:00 PM ET" %}
+        {% endif %}
         <details class="schedule-block" open>
           <summary class="schedule-block__summary">
             <span class="schedule-block__datetime">
               <span class="schedule-block__date">{{ session.date }}</span>
-              <span class="schedule-block__time">6:00&ndash;8:00 PM ET</span>
+              <span class="schedule-block__time">{{ session_time }}</span>
             </span>
             <span class="schedule-block__actions">
               <a class="button button--primary button--small" href="https://us06web.zoom.us/launch/jc/83982578799">
@@ -59,6 +64,15 @@ description: >-
             </span>
           </summary>
           <div class="schedule-block__body">
+            {% if session.pre_session %}
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">
+                Pre-Session
+                <span class="schedule-block__event-time">{{ session.pre_session.time }}</span>
+              </h3>
+              <p>{{ session.pre_session.focus }}</p>
+            </div>
+            {% endif %}
             <div class="schedule-block__event">
               <h3 class="schedule-block__event-name">
                 Announcements &amp; Mentor Time

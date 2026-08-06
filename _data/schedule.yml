@@ -28,6 +28,15 @@
 # paragraph), `highlights` (optional list of `label`/`text` pairs,
 # rendered as a bolded-label list under a "Session Highlights"
 # sub-heading).
+#
+# Each entry may also optionally add a `pre_session:` block for an extra
+# block of time before the standard 6:00 PM ET start — used for optional
+# drop-in support/office-hours sessions, not part of the standard
+# Announcements/Training flow. Fields: `time` (required, a display
+# string, e.g. "5:00–6:00 PM ET") and `focus` (required, one line on
+# what it covers). When present, the card's header time range also
+# switches from the default "6:00–8:00 PM ET" to start at the
+# pre-session's start time instead.
 
 virtual_sessions:
   - date: "Mon, August 3"
@@ -95,6 +104,9 @@ virtual_sessions:
         icon: "custom:favicons/nairrpilot-org"
         description: "The National Artificial Intelligence Research Resource pilot portal managed by SGX3 for the NSF to share computing and AI resources across the research community."
   - date: "Fri, August 7"
+    pre_session:
+      time: "5:00–6:00 PM ET"
+      focus: "ACCESS-CI and NAIRR account creation support."
     announcements: "Weekend prep, addressing technical hurdles, and progress review."
     training: "Course Goals & AI Deconstruction: Defining specific curriculum modules, actionable goals, and continuing AI deconstruction frameworks."
   - date: "Mon, August 10"
