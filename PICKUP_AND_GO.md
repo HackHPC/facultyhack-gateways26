@@ -1593,6 +1593,108 @@ ACCESS account registration hurdles some participants hit.
   (tag balance, duplicate ids, heading-hierarchy skips) passes across
   all pages.
 
+### 8 resources added to Wed, August 5 (2026-08-06)
+
+By request — a spreadsheet of 8 links with two description columns
+("original" and a "classroom-focused description for faculty"). Used
+the **classroom-focused column** for each `description:`, since these
+resources live on a faculty-facing program site and that column is
+written for exactly this audience, while the "original" column mostly
+just labels what the link is.
+
+- Added to `_data/schedule.yml`'s existing `resources:` list for Wed,
+  August 5 (alongside the pre-existing Course Goals Slide Deck and
+  NAIRR Pilot Portal entries): Google NotebookLM, ACCESS CloudBank
+  Allocations, Jetstream2 Cloud Portal, NAIRR Pilot Education Call,
+  ACCESS-CI Website, ACCESS-CI About, DesignSafe-CI, and Microsoft
+  MakeCode for micro:bit.
+- **Icons reused existing favicons** for 5 of the 8 (same domain
+  already fetched for another resource elsewhere on the site, real
+  favicon, not a guess): `access-ci-org` (both the ACCESS-CI Website
+  and About entries — same domain), `allocations-access-ci-org`,
+  `jetstream-cloud-org`, `nairrpilot-org` (both the Pilot Portal and
+  the new Education Call entry), and `designsafe-ci-org`.
+- **2 new favicons fetched** for domains not previously in the icon
+  set, `_includes/icons/favicons/{slug}.svg`, same base64-data-URI
+  wrapper pipeline as the original 95 (see "Resource icons sourced
+  from real favicons" above) — run as a one-off Python script from the
+  scratchpad, not checked into the repo:
+  - `makecode-microbit-org.svg`: fetched cleanly, `<link rel="icon">`
+    on the live page pointed to a real PNG on `cdn.makecode.com`.
+  - `notebook-google-com.svg`: the URL the user gave,
+    `notebook.google.com`, requires sign-in and only serves a Google
+    login redirect with no real favicon — fetching `/favicon.ico`
+    there returned Google's generic auth-page icon, not NotebookLM's.
+    Rather than use that generic icon, fetched the real NotebookLM
+    mark from Google's public marketing page
+    (`notebooklm.google/_/static/branding/.../favicon.svg`, a genuine
+    vector NotebookLM logo) and stored it under the
+    `notebook-google-com` slug to match the URL actually given —
+    verified this is the real product icon, not assumed.
+- **Verified**: all 8 resource names present in the built HTML inside
+  the Wed, August 5 card specifically (not leaking into an adjacent
+  session), and cross-listed correctly into the "Session Materials"
+  section of `resources.html` (shared logic, no template changes
+  needed — see "Per-session resources" above). Full structural check
+  (tag balance, duplicate ids, heading-hierarchy skips) passes across
+  all pages.
+
+### Split "Announcements & Mentor Time" into two real segments (2026-08-06)
+
+By request — a table giving the actual 6:00-6:30/6:30-7:00/7:00-8:00 PM
+ET agenda for all 6 virtual sessions. Previously each session only had
+two content fields, `announcements` (rendered as one combined
+"Announcements & Mentor Time" block, 6:00-7:00) and `training`
+(7:00-8:00) — the *card* granularity didn't match the "Standard Daily
+Flow" table lower on the same page, which has always broken that same
+hour into two named 30-minute segments, "Announcements" and "Mentor
+Time".
+
+- **New required core field, `mentor_time`**, added to all 6
+  `virtual_sessions` entries in `_data/schedule.yml` alongside the
+  existing `announcements`/`training`. Header comment updated to
+  document all three as the core per-segment fields (they'd never
+  been explicitly documented before — only the optional
+  `resources`/`recap`/`pre_session` blocks were).
+- **`schedule.html`** now renders three `.schedule-block__event`s
+  instead of two: "Announcements" (6:00-6:30 PM), "Mentor Time"
+  (6:30-7:00 PM), "Training" (7:00-8:00 PM) — replacing the old
+  combined "Announcements & Mentor Time" (6:00-7:00 PM) and "Training
+  Focus" (7:00-8:00 PM) headings. Purely a template/data change, no
+  CSS changes needed (reuses the existing `.schedule-block__event`
+  styling three times instead of twice).
+- **All 6 sessions' `announcements`/`training` text was replaced**
+  (not just `mentor_time` added) with the content from the table,
+  since the new text is more specific/accurate than the old
+  forward-looking placeholder copy it replaces — including presenter
+  attribution ("— Charlie Dey", "— Je'aime Powell and Linda Hayden")
+  that wasn't there before. This applies to Days 1 and 2 as well, even
+  though they already happened and have their own `recap:` block —
+  the agenda fields and the recap serve different purposes (planned
+  agenda vs. after-the-fact write-up) and both now coexist.
+- **One typo fixed on sight, not blind transcription**: the source
+  table said "Course Goals 1-side/2-mins" for Aug 5's training slot —
+  "1-side" is almost certainly a typo for "1-slide" (a one-slide,
+  two-minute pitch format is a common and sensible session format;
+  "1-side" isn't). Rendered as "Course Goals (1-slide, 2-minute
+  pitch)". Flagging this one since it's an inferred correction, not a
+  verified one (unlike the "Jeaime" → "Je'aime" fix earlier, which was
+  checked against `organizers.yml`).
+- **One entry preserved verbatim despite looking unusual**: Aug 12's
+  announcements slot, "Quantium — Kristine Christensen" — kept exactly
+  as given rather than "corrected" to "Quantum," since it's ambiguous
+  (could be a product/company name) and there's no way to verify it
+  from data already in this repo. Worth double-checking with the user
+  if it turns out to be a typo.
+- **Verified**: for each of the 6 dates, all three segment texts
+  present inside that date's card specifically (not leaking into an
+  adjacent session) — confirmed via a per-date substring search over
+  the built HTML sliced between consecutive date headings. Old
+  combined headings ("Announcements &amp; Mentor Time", "Training
+  Focus") confirmed absent from the built output. Full structural
+  check (tag balance, duplicate ids, heading-hierarchy skips) passes
+  across all pages.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
@@ -2207,20 +2309,100 @@ before you touch Ruby/Gemfile on this machine again:
    auto-builder (which is what actually requires the ancient `github-pages`
    gem pin in the first place).
 
-**Net effect: this repo is *not yet* wired to auto-deploy.** GitHub's
-default Pages auto-builder would still try to use its own legacy Jekyll 3.9
-pipeline server-side regardless of this repo's Gemfile. For that to behave
-predictably (pick up `jekyll-seo-tag`/`jekyll-sitemap`, actually build
-`mentors.html`, etc.), either:
-- **switch the repo's Pages source to "GitHub Actions"** (Settings → Pages
-  → Build and deployment → Source) and add a workflow using
-  `actions/jekyll-build-pages` + `actions/deploy-pages` (not yet written —
-  next thing to do), or
-- go back to the `github-pages` gem for the *deployed* build only, while
-  local dev keeps using plain Jekyll.
+**Update (2026-08-06): this is now resolved** — see "GitHub Pages
+deployment" below for the full fix and the ongoing runner-scheduling
+issue found while verifying it. The repo's Pages source is switched to
+"GitHub Actions" and `.github/workflows/pages.yml` builds with this
+repo's own Gemfile (`jekyll ~> 4.4`), not the legacy gem.
 
-If continuing, ask the user which Pages source model they want before
-writing a workflow file.
+## GitHub Pages deployment
+
+### The fix (2026-08-06)
+
+User reported "the github actions pages build and deployment failed."
+Root cause, confirmed via `gh run view <id>` logs and `gh api
+repos/.../pages`: the repo's Pages `build_type` was `"legacy"`, which
+runs GitHub's own `actions/jekyll-build-pages@v1` Docker action — that
+image bundles the `github-pages` gem, pinned to **Jekyll 3.10.0**, and
+cannot satisfy this repo's `Gemfile` (`jekyll ~> 4.4.1`,
+`jekyll-seo-tag ~> 2.9`, `jekyll-sass-converter ~> 3.1`). Log showed:
+`The following gems are missing... The github-pages gem can't satisfy
+your Gemfile's dependencies.` — matches the "Toolchain" section above,
+which already explains *why* this repo can't go back to the
+`github-pages` gem for local dev (Ruby version conflicts).
+
+- **Fix**: added `.github/workflows/pages.yml` — a standard
+  checkout → `ruby/setup-ruby@v1` (Ruby 3.3) → `bundle install` →
+  `bundle exec jekyll build` → `upload-pages-artifact` →
+  `deploy-pages` workflow, building with this repo's actual Gemfile
+  instead of GitHub's bundled one.
+- **Got explicit two-part user authorization via AskUserQuestion**
+  before touching anything: (1) create the workflow file — yes; (2)
+  switch the live repo's Pages `build_type` from `"legacy"` to
+  `"workflow"` — user chose "have Claude change it via API." Ran
+  `gh api -X PUT repos/HackHPC/facultyhack-gateways26/pages -f
+  build_type=workflow` (this build_type change is a **repo Settings
+  change**, not a code change — no PR/commit represents it; if
+  reverting for any reason, it must be flipped back the same way).
+- Committed + pushed `pages.yml` (`51c9eb0`).
+
+### The complication found while verifying it: runner-scheduling delays, not Jekyll version
+
+The fix above is believed correct — every time the new workflow's
+`build` job has actually gotten a runner, it has **succeeded cleanly**
+(Ruby setup, `bundle install`, `jekyll build`, artifact upload, all
+green, under a minute). But verifying full end-to-end deploys has been
+blocked by a separate, GitHub-side problem:
+
+- Multiple runs in a row — both our new custom workflow **and**
+  GitHub's own legacy `pages-build-deployment` pipeline (checked
+  *before* the `build_type` switch too) — have had some job in the
+  run sit in `queued`/`pending` with **zero runner ever assigned**,
+  for 15+ minutes, before the whole run is marked `failure`/cancelled.
+  Confirmed via `gh api repos/.../actions/runs/<id>/jobs`: the stuck
+  job shows `"runner_id": 0, "runner_name": ""` the entire time.
+  - Sometimes it's the *first* job (`build`) that never starts (our
+    workflow, runs `31123867406`, `31123894323`).
+  - Sometimes it's the *second* job (`deploy`, or the legacy
+    pipeline's `report-build-status`/`deploy`) that never starts,
+    even though `build` just succeeded seconds earlier (legacy run
+    `31118866337`; our workflow runs `31124951100`, `31125517295`).
+- **This rules out the Jekyll-version fix as the actual blocker**: the
+  legacy Jekyll-3.10 pipeline's `build` job *did* succeed on its own
+  merits in run `31118866337` (with a gem-mismatch warning, silently
+  falling back to its own bundled Jekyll 3.10 instead of erroring
+  outright) — it was `deploy` that got stuck with no runner, on the
+  *same* shared `ubuntu-latest` runner pool our custom workflow also
+  uses. Both Jekyll versions build fine; only *job scheduling* is
+  failing, intermittently, for whichever job happens to be second (or
+  occasionally first) in the queue.
+- One `gh api repos/.../pages` check mid-investigation showed
+  `"status": "errored"` — this reflects the **last known deploy
+  attempt's outcome**, not a config problem; it was still `"status":
+  "errored"` even right after the correct `build_type: "workflow"`
+  fix, simply because every attempted deploy since then has stalled
+  on the scheduling issue above before it could report success.
+- **Given this evidence, the user was asked (via AskUserQuestion)
+  whether to still pin the project to Jekyll 3.10 as originally
+  requested, since it wouldn't address the actual blocker.** They
+  chose to hold off — keep the current Jekyll 4.4 + custom-workflow
+  setup (which builds correctly) and just wait out the scheduling
+  delay rather than take on the real cost of a 3.10 downgrade (Gemfile
+  rewrite around the `github-pages` gem, re-verifying every Liquid/
+  plugin behavior against an older Jekyll) for something very unlikely
+  to fix it.
+- **As of this writing, this is unresolved and being watched in the
+  background** (`gh run watch <id>`) rather than polled — treat any
+  claim of "it's deployed" as unverified until a `deploy` job actually
+  shows `runner_name` populated and completes with `conclusion:
+  success`. If you're picking this up fresh: `gh run list --limit 5`
+  to see current state; if still stuck, this looks like a transient
+  GitHub Actions capacity/scheduling issue on their end (nothing found
+  in this repo's config explains job-scheduling delays), so the most
+  likely fix is simply time, not another configuration change. Don't
+  re-diagnose Jekyll/Gemfile issues again without first checking
+  whether a `build` job has actually gotten a runner and failed *on
+  its own merits* — so far, every one that got a runner has passed.
 
 ## Local dev environment set up on this machine
 

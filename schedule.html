@@ -75,14 +75,21 @@ description: >-
             {% endif %}
             <div class="schedule-block__event">
               <h3 class="schedule-block__event-name">
-                Announcements &amp; Mentor Time
-                <span class="schedule-block__event-time">6:00&ndash;7:00 PM</span>
+                Announcements
+                <span class="schedule-block__event-time">6:00&ndash;6:30 PM</span>
               </h3>
               <p>{{ session.announcements }}</p>
             </div>
             <div class="schedule-block__event">
               <h3 class="schedule-block__event-name">
-                Training Focus
+                Mentor Time
+                <span class="schedule-block__event-time">6:30&ndash;7:00 PM</span>
+              </h3>
+              <p>{{ session.mentor_time }}</p>
+            </div>
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">
+                Training
                 <span class="schedule-block__event-time">7:00&ndash;8:00 PM</span>
               </h3>
               <p>{{ session.training }}</p>

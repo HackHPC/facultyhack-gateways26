@@ -3,6 +3,11 @@
 # Gateways 2026 conference in D.C. (Sept 23-25), and a reusable
 # breakdown of how each virtual session's 6-8 PM ET block is structured.
 #
+# Each virtual_sessions entry has three required core fields, one per
+# 30/30/60-minute segment of the standard 6-8 PM ET block (matching the
+# `daily_flow` breakdown below): `announcements` (6:00-6:30 PM),
+# `mentor_time` (6:30-7:00 PM), and `training` (7:00-8:00 PM).
+#
 # Each entry under virtual_sessions may optionally add a `resources:`
 # list once materials exist for that session (slides, a recording, a
 # PDF handout, a linked article, etc.) — omit the key entirely for
@@ -40,8 +45,9 @@
 
 virtual_sessions:
   - date: "Mon, August 3"
-    announcements: "Kickoff, honorarium expectations, and mentor intros."
-    training: "SGX3 Overview: Introduction to the Science Gateways Center of Excellence (SGX3) and computing environments."
+    announcements: "Welcome & Introductions"
+    mentor_time: "Logistics"
+    training: "Mentoring Tips & Next Steps — Je'aime Powell and Linda Hayden"
     recap:
       title: "Session 1 Recap: Kickoff, Program Expectations, and SGX3 Overview (August 3, 2026)"
       intro: "The 5th Annual FacultyHack@Gateways 2026 officially launched with a virtual kickoff session that brought together organizers, technical mentors, and faculty participants from across the country."
@@ -76,8 +82,9 @@ virtual_sessions:
         icon: "solid:file-lines"
         description: "Template for your final GitHub repository's README.md."
   - date: "Wed, August 5"
-    announcements: "Day 1 recap, deliverables overview, and initial curriculum scoping."
-    training: "NAIRR (Dr. Oyebade Oyerinde) & AI Deconstruction Intro: Deep dive into the National Artificial Intelligence Research Resource (NAIRR) Pilot Portal and introducing AI deconstruction methods."
+    announcements: "NAIRR — Dr. Oyebade Oyerinde"
+    mentor_time: "Breakout rooms (1-on-1)"
+    training: "Course Goals (1-slide, 2-minute pitch) and AI Deconstruction Deep Dive — Charlie Dey"
     recap:
       title: "Session 2 Recap: NAIRR Allocations, Cloud Resources, and Google Notebook (August 5, 2026)"
       intro: "The second virtual session of FacultyHack@Gateways 2026 provided participants with critical pathways to acquire high-performance computing (HPC) and artificial intelligence (AI) allocations for their classrooms."
@@ -103,23 +110,58 @@ virtual_sessions:
         url: "https://nairrpilot.org"
         icon: "custom:favicons/nairrpilot-org"
         description: "The National Artificial Intelligence Research Resource pilot portal managed by SGX3 for the NSF to share computing and AI resources across the research community."
+      - name: "Google NotebookLM"
+        url: "https://notebook.google.com"
+        icon: "custom:favicons/notebook-google-com"
+        description: "AI-powered \"personal research assistant\" that lets faculty and students build notebooks from course readings, then ask grounded questions, generate summaries, and create study materials; integrates with Google Classroom for class-specific notebooks and assignments."
+      - name: "ACCESS CloudBank Allocations"
+        url: "https://allocations.access-ci.org/resources/cloudbank.access-ci.org"
+        icon: "custom:favicons/allocations-access-ci-org"
+        description: "ACCESS portal page where instructors request CloudBank Classroom or other cloud credits, enabling JupyterHub-based computing environments for courses (Python, R, data science, cloud/HPC exercises). Useful for provisioning hands-on computing for a class."
+      - name: "Jetstream2 Cloud Portal"
+        url: "https://jetstream-cloud.org/index.html"
+        icon: "custom:favicons/jetstream-cloud-org"
+        description: "Main entry point for Jetstream2, a research and education-focused cloud platform where faculty can deploy VMs, JupyterHub, containers, and other environments to support computational labs, online demonstrations, and classroom projects."
+      - name: "NAIRR Pilot Education Call"
+        url: "https://nairrpilot.org/opportunities/education-call"
+        icon: "custom:favicons/nairrpilot-org"
+        description: "Information and application page for NAIRR Pilot education-focused opportunities, where faculty can propose courses or training activities that use national AI and data resources to support classroom instruction and curriculum development."
+      - name: "ACCESS-CI Website"
+        url: "https://access-ci.org/"
+        icon: "custom:favicons/access-ci-org"
+        description: "Gateway to national cyberinfrastructure resources and services (including training, allocations, and classroom-oriented platforms like CloudBank and Jetstream2), useful for faculty to discover and connect students to HPC and cloud resources in courses."
+      - name: "ACCESS-CI About"
+        url: "https://access-ci.org/about/"
+        icon: "custom:favicons/access-ci-org"
+        description: "Overview of the ACCESS program's mission and services; helps faculty understand how to leverage ACCESS for course-related computing, training, and student access to national research infrastructure."
+      - name: "DesignSafe-CI"
+        url: "https://www.designsafe-ci.org/"
+        icon: "custom:favicons/designsafe-ci-org"
+        description: "Web-based platform providing data, tools, and simulation capabilities for natural hazards engineering; faculty can use it to bring real research data and analysis tools into civil/structural engineering courses and project-based learning."
+      - name: "Microsoft MakeCode for micro:bit"
+        url: "https://makecode.microbit.org/#"
+        icon: "custom:favicons/makecode-microbit-org"
+        description: "Browser-based block and JavaScript coding environment for the BBC micro:bit; enables faculty to run introductory programming, electronics, and STEM activities with students using interactive simulations or physical micro:bits in the classroom."
   - date: "Fri, August 7"
     pre_session:
       time: "5:00–6:00 PM ET"
       focus: "ACCESS-CI and NAIRR account creation support."
-    announcements: "Weekend prep, addressing technical hurdles, and progress review."
-    training: "Course Goals & AI Deconstruction: Defining specific curriculum modules, actionable goals, and continuing AI deconstruction frameworks."
+    announcements: "Breakout rooms (group)"
+    mentor_time: "Breakout rooms (3 groups)"
+    training: "AI Deconstruction Deep Dive — Charlie Dey"
   - date: "Mon, August 10"
-    announcements: "Week 2 kickoff and highlighting successful module ideas."
-    training: "Gateways Central & AI Deconstruction: Led by returning faculty hackers. Practical insights, tool applications, and applying AI deconstruction to curriculum building."
+    announcements: "Science Gateways Catalog Overview — Dr. Tanganika Johnson, Dr. Cheryl Swanier, & Dr. Mary Beals"
+    mentor_time: "Breakout rooms (3 groups)"
+    training: "AI Deconstruction Deep Dive — Charlie Dey"
     resources:
       - name: "Science Gateways Resource Catalog"
         url: "https://sciencegateways.org/resources/browse"
         icon: "custom:favicons/sciencegateways-org"
         description: "The Science Gateway Catalog is a collection of gateways and gateway-building technologies that offer a searchable way for developers and users to find existing resources."
   - date: "Wed, August 12"
-    announcements: "Reminders for final deliverables and D.C. travel logistics."
-    training: "AI Deconstruction Deep Dive: Advanced AI deconstruction workflows and a dedicated working sprint to integrate these concepts into course materials."
+    announcements: "Quantium — Kristine Christensen"
+    mentor_time: "Breakout rooms (1-on-1)"
+    training: "AI Deconstruction Deep Dive — Charlie Dey"
     resources:
       - name: "Deliverables"
         url: "https://hackhpc.github.io/facultyhack-gateways26/deliverables/"
@@ -130,8 +172,9 @@ virtual_sessions:
         icon: "solid:file-lines"
         description: "Template for your final GitHub repository's README.md."
   - date: "Fri, August 14"
-    announcements: "Final wrap-up and next steps for Gateways 2026 in D.C."
-    training: "Status Updates: First draft of posters, reviewing the GitHub repository structure, and finalizing deliverables."
+    announcements: "Breakout rooms (group)"
+    mentor_time: "Breakout rooms (3 groups)"
+    training: "Draft Poster Presentation and Closing"
     resources:
       - name: "Deliverables"
         url: "https://hackhpc.github.io/facultyhack-gateways26/deliverables/"
