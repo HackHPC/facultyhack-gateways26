@@ -1695,6 +1695,33 @@ Time".
   check (tag balance, duplicate ids, heading-hierarchy skips) passes
   across all pages.
 
+**Mon, August 10's `announcements` updated again (2026-08-06)**, same
+day — by request, from the placeholder "Alumni FacultyHack: Jetstream2
+Overview" text to the real presenter list: "Science Gateways Catalog
+Overview — Dr. Tanganika Johnson, Dr. Cheryl Swanier, & Dr. Mary
+Beals." **Spelling caught and corrected before writing**: the request
+spelled it "Tanjanika," but `_data/teams.yml` (fixed earlier this same
+session, see "Tanganiika → Tanganika" elsewhere in this file) already
+has the verified correct spelling "Tanganika Johnson" — grepped
+`teams.yml` to confirm before typing it, rather than transcribing the
+request verbatim. Verified: new text present under Mon, August 10
+specifically, old "Alumni FacultyHack" text gone site-wide, structural
+check passes.
+
+**Science Gateways Catalog resource added to Mon, August 10 (2026-08-06)**,
+by request, tying a link to that day's new "Science Gateways Catalog
+Overview" announcement topic above. Reused the existing "Science
+Gateways Catalog" entry verbatim from `_data/resources.yml` (name,
+`catalog.sciencegateways.org` URL, `catalog-sciencegateways-org`
+favicon, description) rather than writing a new one — noticed while
+checking that this is a **different, real site** from the
+`sciencegateways.org/resources/browse` "Science Gateways Resource
+Catalog" resource already on this same card (added earlier this
+session), so both now appear, distinctly named, not a duplicate.
+Verified: both resource names/links present under Mon, August 10 only,
+cross-lists correctly into `resources.html`'s Session Materials
+section, structural check passes.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by

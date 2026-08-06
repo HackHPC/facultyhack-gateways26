@@ -154,6 +154,10 @@ virtual_sessions:
     mentor_time: "Breakout rooms (3 groups)"
     training: "AI Deconstruction Deep Dive — Charlie Dey"
     resources:
+      - name: "Science Gateways Catalog"
+        url: "https://catalog.sciencegateways.org"
+        icon: "custom:favicons/catalog-sciencegateways-org"
+        description: "Searchable directory of Science Gateways across many scientific disciplines. Useful for discovering existing gateways and classroom examples."
       - name: "Science Gateways Resource Catalog"
         url: "https://sciencegateways.org/resources/browse"
         icon: "custom:favicons/sciencegateways-org"
