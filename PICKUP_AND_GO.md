@@ -1,15 +1,26 @@
 # Pickup & Go — FacultyHack@Gateways 2026 site
 
-Handoff notes for continuing this work in a new session. Originally written
-2026-07-16; updated repeatedly through 2026-07-21. Major work since the
-first version: Mentors + Organizers pages, a full WCAG 2.2 AA audit, a
-user-supplied 5-color brand palette replacing the original blue/green
-scheme, a **Resources page** (163 links across 11 categories, with live
-search + jump-to-category + per-resource icons), and a long iterative
-header/hero redesign (dark tab-style nav in a brand green, brand-brown
-footer, several rounds of logo file swaps between watermark and upfront
-placements). The "Logo & brand palette" and "Resources page" sections
-below are the ones most likely to matter if you're picking this up cold.
+Handoff notes for continuing this work in a new session. Originally
+written 2026-07-16, updated after essentially every change since —
+most recently 2026-08-06. This file is long; the dated `###`
+subsections under each page's `##` section are the append-only history,
+newest last, so within any section the bottom is the current state.
+
+Rough shape of the work so far, oldest to newest: the original
+blue/green site → a full WCAG 2.2 AA audit + a user-supplied 5-color
+brand palette → Mentors + Organizers pages → a header/hero/footer
+redesign → a self-hosted Font Awesome icon system replacing hand-drawn
+SVGs → a Resources page (163→171 links across 11 categories, live
+search + jump-to-category + real per-resource favicons) → a Schedule
+page (collapsible timeline cards, per-session resources/files, and,
+most recently, collapsible per-session "recaps") → a Deliverables page
+(with a downloadable PDF/Markdown export and a README-template dialog)
+→ a Teams page (mentee/mentor pairings, search + jump-to-team, per-team
+share links, auto-linked per-mentee files) → an interactive Leaflet
+community map on the home page (20 affiliated organizations, US-scoped,
+state borders, real favicon markers). If you're picking this up cold,
+skim the `##` headers below top to bottom before diving into any one
+section — the order roughly matches the order things were built.
 
 ## What this is
 
@@ -28,29 +39,30 @@ by `_data/resources.yml`). Mentors and Organizers share one card partial,
 
 ## Git status — read this before committing anything
 
-One commit already exists (`5e9d76e "wcag 2 aa inital reconfigure"`,
-2026-07-16), made by the user, containing the original site: `.gitignore`,
-`Gemfile`/`Gemfile.lock`, `_config.yml`, `_layouts/default.html`,
-`assets/css/style.css`, `index.html`, and the previous version of this file.
+**Don't trust a snapshot in this file — commit history has moved many
+times since this project started, including commits made by the user
+directly (not through this assistant) in the background mid-session.**
+Run `git log --oneline -10` and `git status --short --untracked-files=all`
+fresh at the start of any session before assuming anything about what's
+saved vs. not. As of the last time this section was touched
+(2026-08-06), `git log` showed the user had made several commits on
+their own initiative covering everything through the Teams-page/
+schedule-file work, and the working tree had further uncommitted
+changes on top of that (community map, session recaps, mentor bio
+update, the Tanganika spelling fix) — but treat that as an example of
+the *pattern*, not a current fact by the time you're reading this.
 
-**Since that commit, the working tree has further changes that are NOT
-committed:**
-- Modified: `PICKUP_AND_GO.md`, `_config.yml`, `_layouts/default.html`,
-  `assets/css/style.css`, `index.html`
-- New, untracked: `_data/` (mentors.yml, sponsors.yml, organizers.yml,
-  resources.yml), `_includes/` (`person-card.html`, `site-logo.html` —
-  the old `icons/` SVG directory is gone, see "Icon system" below),
-  `assets/images/` (`mentors/`, `organizers/`, `sponsors/`, `branding/` —
-  5 files including `dandelion.png`), `assets/fontawesome/`
-  (self-hosted Font Awesome Free), `assets/js/resources.js`,
-  `mentors.html`, `organizers.html`, `resources.html`
-
-Run `git status --short` to confirm before assuming anything is saved.
-Nothing has been pushed to `HackHPC/facultyhack-gateways26` — this is all
-local. Worth deciding whether the binary image files should really go into
-git directly or via Git LFS before committing — none are huge individually
-(the largest logo file is ~1.1MB) but it's worth a conscious choice, not a
-default.
+Nothing has been confirmed pushed to the `HackHPC/facultyhack-gateways26`
+remote — check `git log origin/main..HEAD` (or equivalent) rather than
+assuming local commits made it out. Two real .gitignore/exclude bugs
+were found and fixed this project (both documented in their own
+sections): a bare `vendor/` line in `.gitignore` was silently swallowing
+the new `assets/vendor/leaflet/` directory (fixed by anchoring it to
+`/vendor/`), and it's worth double-checking `git status
+--untracked-files=all` after adding any new top-level-sounding directory
+name, not just trusting the default `git status` output, since
+directory-level ignores can hide entire feature's worth of files
+silently.
 
 ## Files
 
@@ -1282,6 +1294,77 @@ If this placement turns out to be wrong, it's a one-line move to Day 3's
 `resources:` list, same as the Science Gateways Resource Catalog moves
 earlier in this file.
 
+### Session recaps (2026-08-05)
+
+New optional `recap:` block per `virtual_sessions` entry, for write-ups
+of what actually happened once a session has taken place — separate
+from `announcements`/`training` (forward-looking, written ahead of
+time) and `resources`/files (links/materials). By request, Day 1's
+`recap` was added verbatim from a pasted write-up: `title`, an `intro`
+paragraph, and four `highlights` (label + text pairs, rendered as a
+bolded-label list under a new "Session Highlights" sub-heading).
+
+- **Schema documented in the file's header comment**, same convention
+  as the `resources:` schema right above it — `title` required, `intro`
+  and `highlights` optional. Omit `recap:` entirely for sessions that
+  haven't happened yet (Days 2–6 don't have one), same "don't add an
+  empty block" rule already used for `resources:`.
+- **Rendered in `schedule.html`** as a new `.schedule-block__event`
+  sibling, positioned after "Training Focus" and before "Resources"/
+  "Files" — narrative content grouped with the other descriptive
+  fields, ahead of the link-list sections. This introduces the
+  project's **first `<h4>`** ("Session Highlights", nested under the
+  block's own `<h3>`) — checked the heading-hierarchy validator handles
+  a new depth correctly (h3→h4, not a skip) rather than assuming.
+- **One small correction applied, not blind copy-paste**: the pasted
+  text said "Jeaime Powell" (no apostrophe) twice; changed to "Je'aime
+  Powell" to match the organizer's actual name as spelled everywhere
+  else on this site (`_data/organizers.yml`, `deliverables.html`) —
+  verified against `organizers.yml` before changing it, not assumed.
+- **Deliberately not cross-listed into "Session Materials"** on
+  `resources.html` — that section is specifically a list of links/files
+  (`resources:` + auto-linked directory files), and a recap is prose,
+  not a resource. `resources.html`'s `session_materials` logic (checks
+  `session.resources` or has-files) is untouched by this change.
+- **Verified**: recap title/intro/all 4 highlights render correctly
+  inside Day 1's card and nowhere else; zero occurrences of "Session
+  Recap"/"Session Highlights" on `resources.html`; the heading-hierarchy
+  check (extended for this change to actually track heading depth and
+  flag skips, not just count occurrences) passes with no skips across
+  every page; full structural check (tag balance, duplicate ids) passes.
+
+**Collapsed by default (same day, by request — "have the summary of the
+sections collapsed")**: the recap body (intro + highlights) is now
+wrapped in its own nested `<details class="schedule-block__recap">`
+(no `open` attribute), inside the always-visible "Session Recap" `<h3>`
+— the heading stays visible so the card's section list still reads
+consistently ("Announcements & Mentor Time", "Training Focus", "Session
+Recap", "Resources", "Files"), but the actual recap text starts
+collapsed. The recap's own `title` field is what's used as the
+`<summary>` trigger text, so a collapsed card still shows *which*
+recap it is before expanding. Same native zero-JS collapsible pattern
+already used for the outer schedule cards and the Event Branding
+dropdown on the Resources page — no new JS. Verified: the built HTML's
+`<details class="schedule-block__recap">` has no `open` attribute, all
+4 highlights are still present inside it (collapsed ≠ removed), and the
+heading-hierarchy + structural checks still pass.
+
+**Day 2 recap added (2026-08-06)**, same schema/pattern as Day 1 — a
+6-item `highlights` list this time (Google Notebook Showcase, NAIRR
+Pilot Portal & Classroom Allocations, the ACCESS/NAIRR relationship,
+proposal requirements, ACCESS account troubleshooting, mentor
+breakouts). Two small copy-edits applied while transcribing, not blind
+paste: "Jeaime Powell" → "Je'aime Powell" again (same verified
+correction as Day 1), and "This allow participants" → "This allows
+participants" (subject-verb agreement) — substance/facts unchanged
+either time, spelling/grammar only. Collapsed by default from the
+start, same as Day 1 (this was added after the collapse-by-default
+change above, so there was no separate always-open version of Day 2 to
+fix). Verified the same way as Day 2's own build: title/intro/all 6
+highlights present in the built HTML under Wed, August 5 specifically
+(not leaking into an adjacent day), `open` attribute absent, and the
+heading-hierarchy + structural checks still pass across all pages.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
@@ -2096,142 +2179,127 @@ single biggest remaining risk before calling any of this "done."
 
 ## Verification status
 
-**A real `jekyll build` succeeds** (Jekyll 4.4.1, Homebrew Ruby 4.0.6) for
-all seven pages. Output in `_site/`: `index.html`, `schedule/index.html`,
-`deliverables/index.html`, `mentors/index.html`, `team/index.html`,
-`organizers/index.html`, `resources/index.html`, `assets/css/style.css`,
-`assets/js/resources.js`, `sitemap.xml`, `robots.txt`, and every image
-under `assets/images/` — no stray files. `baseurl` applies correctly
-everywhere, including inside every inline `style="--*-logo: url(...)"`
-custom property.
+*(Refreshed 2026-08-06 — the two sections below had gone stale; the
+project has grown a lot since they were first written. Older
+per-feature verification detail lives throughout this file under each
+feature's own dated section — this is just the rolled-up summary.)*
 
-**`jekyll serve` verified working** via `curl` smoke tests early on
-(HTTP 200 on homepage, mentors page, CSS asset). Organizers and Resources
-were verified via build-output inspection instead of re-curling, but
-Organizers uses the identical `person-card.html` partial already proven
-to work, and Resources' toolbar was checked structurally (dropdown/heading
-sync, resource count, no leaked contact data) rather than by an actual
-browser interaction test.
+**A real `jekyll build` succeeds** (Jekyll 4.4.1, Homebrew Ruby 4.0.6)
+for all **seven** pages: Home, Schedule, Deliverables, Mentors, Teams,
+Organizers, Resources. `baseurl` applies correctly everywhere, including
+every inline `style="--*-logo: url(...)"` custom property and every
+`data-*-path`/`data-*-url` attribute added for the community map.
+
+**Real-browser testing has now actually happened** — the user ran the
+live `jekyll serve --livereload` instance in both Safari and Chrome and
+reported a visual bug (duplicated deliverable numbers, missing card
+borders in Chrome only). Diagnosed as a stale Chrome cache rather than a
+real CSS bug (confirmed by the user after a hard refresh), fixed
+regardless by adding a cache-busting `?v={{ site.time | date: '%s' }}`
+query string to `style.css`'s `<link>` — see "First real-browser bug
+report" in "Local dev environment" above. This is the *only* real-browser
+interaction this project has had; everything else below is still
+structural/mathematical verification only, same caveat as before.
 
 Static analysis has been run after essentially every change in this
-project: `_config.yml`/`_data/*.yml` parse as valid YAML; rendered HTML
-has balanced/correctly-nested tags (Python's `html.parser`, void elements
-including SVG `rect`/`path`/`text`/`circle` accounted for); heading
-hierarchy has no skips on any page; no duplicate `id`s anywhere; no
-unguarded `outline: none` outside the intentional `main` case. Color
-changes were additionally verified with a small Python script computing
-actual WCAG contrast ratios for every new pairing, not eyeballed — see
-"Nav/hero/footer redesign" for the numbers.
+project, not just at checkpoints: `_config.yml`/`_data/*.yml` parse as
+valid YAML; rendered HTML has balanced/correctly-nested tags (Python's
+`html.parser`, void elements including SVG `rect`/`path`/`text`/`circle`
+accounted for); heading hierarchy has no skips on any page (extended
+during the session-recap work to actually track depth, not just count
+tags, once the project's first `<h4>` existed); no duplicate `id`s
+anywhere; no unguarded `outline: none` outside the intentional `main`
+case. Color changes were verified with WCAG contrast math, not
+eyeballed. New this session: a `fontTools`-based check that decodes the
+vendored solid webfont directly to confirm an icon's codepoint is a real
+glyph (not just a name-to-codepoint mapping in the CSS) — stronger than
+the earlier occurrence-count heuristic, used for the Teams/Schedule file
+icons and the Deliverables PDF icons.
 
-**Still not done:** no page has ever been opened in an actual browser
-window, across this entire project. Mobile-first reflow, 400% zoom
-behavior, real screen-reader output, and — especially relevant now given
-how much logo/color iteration happened by verbal description only — actual
-visual correctness of the header/hero/footer/Overview redesign are
-completely unverified by eye. This is the single biggest gap before
-calling this done. **The Font Awesome icon swap is in the same boat**: the
-build succeeds and every `icon:` value was confirmed to resolve to a real
-Font Awesome Free glyph name (checked against the package's own
-`metadata/icons.yml`) and render as `fa-{style} fa-{name}` in the built
-HTML, but nobody has actually looked at whether the glyphs look right at
-their rendered size next to the mentor/organizer/resource text — that's
-worth a first look before this goes live. **Same for the 117 real-favicon
-resource icons**: every one was confirmed to decode as a valid image
-(spot-checked with Pillow) and every embedded `<image>` tag was confirmed
-present in the built HTML, but a resource list mixing 117 different
-sites' own full-color favicons (arbitrary shapes, resolutions, visual
-weights) next to Font Awesome's uniform monochrome glyphs on the ~15
-category-default entries is exactly the kind of thing that needs an
-actual look, not just a build check — this is the biggest visual-risk
-item added this session. **Same caveat applies to the Schedule page's
-timeline cards**: the whole layout hinges on native `<details>`/
-`<summary>` disclosure behavior, which has never been used anywhere else
-in this project and has never been clicked in a real browser — the HTML
-is spec-valid and the CSS math (chevron rotation, focus ring, hover/hover-
-within, the white-card-on-ivory-section contrast bug already found and
-fixed once) all check out structurally, but nobody has actually opened
-and closed a card by hand yet.
+**Current data snapshot** (so the next session doesn't have to
+re-derive it): 11 mentors (10 with a photo; missing: Mohammed
+Elmellouki), 10 active team pairings (Vivek Shandilya's entry exists in
+`_data/teams.yml` but is commented out — the user explicitly chose to
+leave it that way after I flagged the discrepancy, see "Teams page"),
+171 resources across 11 categories, 20 affiliated organizations on the
+home page community map.
+
+**Still not done, biggest-risk-first:**
+- **The community map has never been opened in a real browser** — the
+  single largest unverified feature in the project right now. Tiles,
+  markers, popups (including the newly-added icons), the US-bounds
+  scoping, and the state-border GeoJSON overlay are all structurally
+  verified (valid JSON/GeoJSON, correct file paths, no build errors) but
+  none of it has actually been watched render or interacted with. See
+  "Community map" section for the full feature history.
+- **Session recap `<details>` disclosure behavior** (Days 1–2 so far) —
+  same native-`<details>` pattern already used for the outer schedule
+  cards, but the specific nested collapse/expand interaction (summary
+  showing the recap title, chevron-free) hasn't been clicked by hand.
+- No page has ever been opened in a real browser *except* the one Chrome/
+  Safari check above, which was itself prompted by a user-reported bug,
+  not a deliberate QA pass. Mobile-first reflow, 400% zoom, real
+  screen-reader output, and keyboard-only navigation across all 7 pages
+  remain unverified by eye.
+- The Font Awesome icon swap, the ~120 real-favicon resource/mentor/team
+  icons, and the Schedule page's `<details>` timeline cards are all still
+  in the same "structurally correct, never visually confirmed" state
+  described in earlier revisions of this section — nothing has changed
+  about those since, just deprioritized below the map given how much
+  bigger and more interactive it is.
 
 ## To continue in a new session
 
 1. **Open all seven pages in a real browser** (`bundle exec jekyll serve
-   --livereload`) — this hasn't happened even once yet, and matters more
-   than usual right now. On the Schedule page specifically: click through
-   a few `<details>` cards to confirm expand/collapse feels right, and
-   confirm the nested "Join Zoom" link inside `<summary>` doesn't do
-   anything visually janky when clicked (documented as "harmless either
-   way" but never actually watched happen). Elsewhere:
-   - The header/hero/footer/Overview logo and color redesign was all done
-     from written descriptions of the source files, never seen rendered.
-     Confirm it actually looks right before assuming it does.
-   - Mobile-first layout at narrow widths, then the `40em`/`48em`
-     breakpoints
-   - 400% browser zoom — no horizontal scroll, content reflows
-   - Keyboard-only pass: skip link, nav tabs (including `aria-current`
-     styling), the Resources search box + jump dropdown, all card links
-     on every directory page, focus ring visibility throughout (note the
-     header/footer use a different-colored ring than the rest of the page
-     — confirm both are actually visible, not just mathematically ≥3:1)
-   - A contrast-checker browser extension against live rendered colors
-2. **Decide the GitHub Pages deployment model** (see "Toolchain" section)
-   — nothing is wired to auto-deploy yet.
-3. **Decide when to commit.** Working tree has uncommitted changes on top
-   of the one existing commit — see "Git status" section at the top.
-4. **Verify the flagged data uncertainties** with the actual people before
-   this goes to production:
-   - Mentors: AlSobeh's inferred affiliation, Elmellouki's Scholar-profile
-     institution mismatch (see "Mentors page" section)
-   - Organizers: Je'aime Powell's affiliation/bio contradiction (see
-     "Organizers page" section)
-5. **Get photos for the remaining 2 mentors** (Mohammed Elmellouki, Sajida
-   Faiyaz) — same rule as the other 8: only with confirmed permission for
-   that specific image, never auto-scraped. See "Mentor photos" section.
-6. **Decide whether to fix or accept** John Holmen's duplicate "2025 —
-   Mentor" line and the thin/unverified LinkedIn-only specialty tags
-   (Faiyaz, Ojo, Perry) — both are documented above, neither is a bug.
-7. Both no-URL resource entries are resolved now: NCAR Explorer Series got
-   its real URL (`https://edec.ucar.edu/public/ncar-explorer-series`), and
-   Northwestern State University was removed from `_data/resources.yml`
-   entirely by request rather than ever getting a URL.
-8. **All 7 originally-dead-domain resources are now resolved.** Of the
-   original 7 found while fetching resource-icon favicons:
-   `projecteureka.org` → `projecteureka.ai`, `blackinhpc.org` → replaced
-   outright with "Black in AI" (`https://www.blackinai.org/`),
-   `hpccampus.com`'s "HPC Campus" entry removed outright, `hpc-ed.org` →
-   `https://hpc-ed.github.io`, `sc.ed.gov` → DOE CSGF now points to
-   `https://www.krellinst.org/csgf/`, `acmhpdc.org` → HPDC now points to
-   `https://hpdc.sci.utah.edu`, and the `ippdps.org` typo → IEEE IPDPS now
-   points to the correct `https://www.ipdps.org`. See "Resource icons
-   sourced from real favicons" in the "Icon system" section for the full
-   history and which of these got a fetched favicon vs. reused/kept an
-   existing icon (PEARC, `https://pearc.acm.org/`, is Cloudflare-blocked
-   the same as `acm.org` and reuses the `custom:acm` icon instead).
-9. **A full link-check of all 165 resources** (DNS + live GET, done in
-   response to "check for other dead links in resources") found more
-   issues beyond the 7 above, **not yet fixed**:
-   - `lab.github.com` ("Introduction to GitHub") — dead, GitHub Learning
-     Lab was retired years ago.
-   - `sc.supercomputing.org` (SC Conference) — resolves to `1.2.3.4`, a
-     placeholder/documentation IP, not a real host. Looks like a broken
-     DNS record on their end.
-   - 7 pages that 404 even though the parent site is confirmed alive
-     (org restructured their site, page moved/removed):
-     `access-ci.org/campus-champions`, `access-ci.org/news/careers/`,
-     `access-ci.org/events/`, `carcc.org/jobs-and-careers/`,
-     `www.nasa.gov/seeds/`, `www.nsf.gov/fellowships/`,
-     `www.nsf.gov/od/oia/reu/`. None of these were guessed at or fixed —
-     each needs either a real corrected URL or a decision to remove it,
-     same as the pattern followed for the 7 dead domains above.
-   - **False positives, not real problems**: `hprc.tamu.edu` and both
-     `siam.org` conference pages 403 from automated fetches
-     (Cloudflare/WAF) but are fine for real visitors — same pattern as
-     `acm.org`/`pearc.acm.org`. `hackhpc.org`'s HTTPS was timing out
-     during the check but plain HTTP returned 200 instantly and it was
-     fetched successfully earlier in the same session (its favicon is
-     already vendored) — looks like a flaky HTTPS listener on their end
-     at that moment, not a dead link; worth a quick recheck before
-     treating it as anything more than transient.
-10. Not yet built: any pages beyond Home/Mentors/Organizers/Resources.
+   --livereload`), with the community map as the top priority — see
+   "Verification status" above for why. After that, the same general
+   pass that's been outstanding for a while: mobile-first reflow, 400%
+   zoom, keyboard-only navigation (skip link, nav `aria-current`
+   styling, both toolbar search+jump pairs on Resources/Teams, every
+   card link, focus ring visibility), and a contrast-checker extension
+   against live rendered colors.
+2. **Decide the GitHub Pages deployment model** (see "Toolchain"
+   section) — nothing is wired to auto-deploy yet.
+3. **Decide when to commit / push.** The user has been committing
+   periodically in the background throughout this session (see `git
+   log`) — don't assume the working tree is the only unsaved state, but
+   also don't assume everything visible in a build is already committed.
+   Check `git status` fresh each session rather than trusting this file's
+   memory of it.
+4. **Decide the Vivek Shandilya situation.** His pairing is commented
+   out in `_data/teams.yml` (not deleted) — the user's explicit call
+   after I raised it as a discrepancy. Worth a check-in before this goes
+   live: intentional-and-permanent, or a placeholder for something still
+   being resolved off-site?
+5. **Get a photo for Mohammed Elmellouki**, the one remaining mentor
+   without one — same rule as everyone else's: only with confirmed
+   permission for that specific image, never auto-scraped. See "Mentor
+   photos" section.
+6. **Verify the flagged data uncertainties** with the actual people
+   before this goes to production: AlSobeh's inferred affiliation,
+   Elmellouki's Scholar-profile institution mismatch (see "Mentors
+   page"); Je'aime Powell's affiliation/bio contradiction (see
+   "Organizers page").
+7. **Session recaps are 2 of 6 virtual sessions done** (Aug 3, Aug 5).
+   Days 3–6 (Aug 7, 10, 12, 14) will presumably get the same treatment
+   as they happen — same `recap:` schema, same collapsed-by-default
+   `<details>` pattern, documented in `_data/schedule.yml`'s header
+   comment.
+8. **Resource link-check follow-ups, still not fixed** (found during a
+   full DNS+GET pass over all resources, see "Resources page" for full
+   history): `lab.github.com` (dead, GitHub Learning Lab retired) and
+   `sc.supercomputing.org` (resolves to a placeholder IP) are genuinely
+   broken; 7 more pages 404 even though their parent sites are alive
+   (`access-ci.org/campus-champions`, `access-ci.org/news/careers/`,
+   `access-ci.org/events/`, `carcc.org/jobs-and-careers/`,
+   `www.nasa.gov/seeds/`, `www.nsf.gov/fellowships/`,
+   `www.nsf.gov/od/oia/reu/`) and need either a corrected URL or removal
+   — none of these were guessed at. `hprc.tamu.edu` and both `siam.org`
+   pages 403 from automated checks but are fine for real visitors
+   (Cloudflare/WAF false positive, same as `acm.org`).
+9. **Decide whether to fix or accept** John Holmen's duplicate
+   "2025 — Mentor" history line and the thin LinkedIn-only specialty
+   tags on a few mentors — documented, neither is a bug.
     (A real favicon now exists — `favicon.ico` + `favicon.png`, both
     user-supplied — linked from `_layouts/default.html`, replacing the
     old deliberately-blank `data:,` placeholder.)

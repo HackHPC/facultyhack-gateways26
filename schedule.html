@@ -73,6 +73,27 @@ description: >-
               </h3>
               <p>{{ session.training }}</p>
             </div>
+            {% if session.recap %}
+            <div class="schedule-block__event">
+              <h3 class="schedule-block__event-name">Session Recap</h3>
+              <details class="schedule-block__recap">
+                <summary class="schedule-block__recap-summary">{{ session.recap.title }}</summary>
+                <div class="schedule-block__recap-body">
+                  {% if session.recap.intro %}
+                  <p>{{ session.recap.intro }}</p>
+                  {% endif %}
+                  {% if session.recap.highlights %}
+                  <h4 class="schedule-block__recap-highlights-heading">Session Highlights</h4>
+                  <ul class="schedule-block__recap-highlights">
+                    {% for item in session.recap.highlights %}
+                    <li><strong>{{ item.label }}:</strong> {{ item.text }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </details>
+            </div>
+            {% endif %}
             {% if session.resources %}
             <div class="schedule-block__event">
               <h3 class="schedule-block__event-name">Resources</h3>

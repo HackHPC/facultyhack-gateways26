@@ -19,11 +19,32 @@
 #     add one), "solid:file-pdf" for an uploaded PDF, or any Font Awesome
 #     "brands:<name>" / "solid:<name>" icon.
 #   - description (optional): shown under the link if present.
+#
+# Each entry may also optionally add a `recap:` block once the session
+# has actually happened — a write-up of what was covered, shown as a
+# "Session Recap" block on the card. Omit entirely for sessions that
+# haven't happened yet, same "don't add an empty one" rule as
+# `resources:`. Fields: `title` (required), `intro` (optional lead
+# paragraph), `highlights` (optional list of `label`/`text` pairs,
+# rendered as a bolded-label list under a "Session Highlights"
+# sub-heading).
 
 virtual_sessions:
   - date: "Mon, August 3"
     announcements: "Kickoff, honorarium expectations, and mentor intros."
     training: "SGX3 Overview: Introduction to the Science Gateways Center of Excellence (SGX3) and computing environments."
+    recap:
+      title: "Session 1 Recap: Kickoff, Program Expectations, and SGX3 Overview (August 3, 2026)"
+      intro: "The 5th Annual FacultyHack@Gateways 2026 officially launched with a virtual kickoff session that brought together organizers, technical mentors, and faculty participants from across the country."
+      highlights:
+        - label: "Welcome & Introductions"
+          text: "Organizers Je'aime Powell, Dr. Linda Hayden, and Charlie Dey welcomed the cohort. Participants and mentors introduced themselves, sharing their diverse academic backgrounds, research interests, and preliminary plans for course modifications."
+        - label: "SGX3 Center of Excellence Overview"
+          text: "Dr. Hayden presented on the mission of SGX3, detailing how science gateways serve as vital full-stack bridges connecting researchers, educators, and students with advanced cyberinfrastructure and high-performance computing (HPC) resources."
+        - label: "Deliverables & Honorarium Guidelines"
+          text: "Je'aime Powell outlined the seven key deliverables required for participants to earn their $500 honorarium. These include Gateways 2026 conference registration, a travel support application, a bio/headshot, a Gateways poster, a GitHub project repository, a short blog post, and a NAIRR education account."
+        - label: "Mentor-Mentee Pairings & Breakouts"
+          text: "After reviewing expectations, participants broke out into dedicated virtual rooms with their assigned technical mentors. Teams established their preferred communication channels and began collaborating on their Course Goals slides ahead of Wednesday's training."
     resources:
       - name: "Slide Deck"
         url: "https://docs.google.com/presentation/d/1YQB_ANXMQlBK7-bgOTiSi9qTDFA9gPr-Cib6OozhucQ/edit?usp=sharing"
@@ -48,6 +69,22 @@ virtual_sessions:
   - date: "Wed, August 5"
     announcements: "Day 1 recap, deliverables overview, and initial curriculum scoping."
     training: "NAIRR (Dr. Oyebade Oyerinde) & AI Deconstruction Intro: Deep dive into the National Artificial Intelligence Research Resource (NAIRR) Pilot Portal and introducing AI deconstruction methods."
+    recap:
+      title: "Session 2 Recap: NAIRR Allocations, Cloud Resources, and Google Notebook (August 5, 2026)"
+      intro: "The second virtual session of FacultyHack@Gateways 2026 provided participants with critical pathways to acquire high-performance computing (HPC) and artificial intelligence (AI) allocations for their classrooms."
+      highlights:
+        - label: "The Google Notebook Showcase"
+          text: "Organizer Je'aime Powell kicked off the session by demonstrating a powerful workflow utilizing Google's newly updated notebook tool (formerly known as NotebookLM). He showed how dropping session transcripts, meeting chats, and program slides into a dedicated notebook builds a highly targeted, scoped Retrieval-Augmented Generation (RAG) assistant. This allows participants to instantly query program details, deliverables, and lecture materials."
+        - label: "NAIRR Pilot Portal & Classroom Allocations"
+          text: "Dr. Oyebade Oyerinde (Clark Atlanta University, 2026 NSF NAIRR AI Education Fellow) led an in-depth training on the National Artificial Intelligence Research Resource (NAIRR) Pilot. He highlighted key educational resource providers including Jetstream2 (which offers JupyterHub interfaces and virtual GPU instances like NVIDIA A100s) and CloudBank (offering customized, lightweight JupyterHub environments featuring Python, R, and C++). Dr. Oyerinde shared his personal success deploying a customized CloudBank hub for CAU undergraduate students over the summer."
+        - label: "The ACCESS and NAIRR Connection"
+          text: "Guest expert Agbeli Ameko provided an essential structural overview. He explained that ACCESS-CI is a national consortium of supercomputing centers pooling hardware resources, while NAIRR is a specialized, NSF-supported subset explicitly dedicated to democratizing national AI training, tools, and research."
+        - label: "Proposal Requirements & Scoping"
+          text: "Instructors learned how to write a successful NAIRR Classroom Allocation proposal. Requirements include a registered ACCESS ID, an NSF-style CV, and a 3-page Main Document detailing course logistics, per-student GPU/CPU compute estimates, storage requests, and team preparedness. Dr. Oyerinde noted that failing to properly scope per-student resources is the most common stumbling block during the 1-month review process."
+        - label: "ACCESS Account Troubleshooting"
+          text: "Some participants, such as Kristine Christensen, ran into registration hurdles due to unrecognized institutional domains when creating ACCESS accounts. To resolve these roadblocks, Dr. Linda Hayden scheduled a dedicated ACCESS and NAIRR troubleshooting work session on Friday, August 7 at 5:00 PM Eastern."
+        - label: "Mentor Collaboration & Course Goals"
+          text: "The session concluded with participants transitioning into virtual breakout rooms with their technical mentors. Teams spent the final block refining their Course Goals slides and preparing for active curriculum adaptation."
     resources:
       - name: "Course Goals Slide Deck"
         url: "https://docs.google.com/presentation/d/1DMsv7JH1u9RGOlyo0nXebsESEMC6gXSJUrGXaL8UsSg/edit?usp=drive_link"

@@ -1220,6 +1220,38 @@ svg.mentor-card__link-icon {
   color: #495057;
 }
 
+.schedule-block__recap-summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-link);
+}
+
+.schedule-block__recap-summary::-webkit-details-marker {
+  display: none;
+}
+
+.schedule-block__recap[open] .schedule-block__recap-summary {
+  margin-bottom: var(--space-2);
+}
+
+.schedule-block__recap-body p:first-child {
+  margin-top: 0;
+}
+
+.schedule-block__recap-highlights-heading {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: 1rem;
+}
+
+.schedule-block__recap-highlights {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.schedule-block__recap-highlights li + li {
+  margin-top: 0.5rem;
+}
+
 /* --------------------------------------------------------------------------
    Deliverables
    -------------------------------------------------------------------------- */
