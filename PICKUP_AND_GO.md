@@ -515,6 +515,186 @@ letter capitalized — used by both `_includes/teams-card.html` and
   README.md` updated to document the underscore convention and the
   case-preservation behavior for anyone adding files later.
 
+### Image files render as thumbnails on Teams (2026-08-06)
+
+By request — "display any image files added to the teams folder on the
+teams page as a thumbnail." Previously every file type in a mentee's
+`assets/files/teams/<slug>/` directory — including images — rendered
+identically: a generic icon + filename link in the "Files" list. Now
+split into two groups at scan time in `_includes/teams-card.html`:
+`.jpg`/`.jpeg`/`.png`/`.gif`/`.webp`/`.svg` go into `mentee_images`, and
+everything else stays in `mentee_files`. **Scoped to the Teams page
+only**, per the request — `schedule.html`'s equivalent per-session file
+feature (and its shared `_includes/session-file-item.html` partial)
+was deliberately left untouched.
+
+- **New "Photos" section**, rendered above "Files" when
+  `mentee_images.size > 0` — a flex-wrap grid of 4.5rem square
+  thumbnails (`object-fit: cover`, so non-square screenshots crop
+  instead of distorting), each wrapped in a link to the full-size
+  original and given a titleized `alt` (reusing the same
+  `_includes/titleize.html` partial already used for file link text —
+  `Initial_Course_Goals.png` → alt text "Initial Course Goals for
+  \<Mentee Name\>", not the raw filename). `loading="lazy"` since a
+  card with several mentees' photos could otherwise load a lot of
+  full-resolution images upfront.
+- **"Files" list simplified**: since images are now handled separately,
+  the `{% case file_ext %}` icon-mapping in the Files loop dropped its
+  image branch — down to just `.pdf` → file-pdf, `.ppt`/`.pptx` →
+  file-powerpoint, else → file-lines. The Teams and Schedule pages'
+  file-icon logic have now genuinely diverged (Schedule's still handles
+  images inline via `solid:file-image`) — intentional, not drift, since
+  only Teams got the thumbnail treatment.
+- **Real data already existed to test against**: 8 of the 11 mentees
+  (Agbeli Ameko, Antigone Anthony, Joseph Aneke, Kristine Christensen,
+  Mary Beals, Oyebade Oyerinde, Tanganika Johnson, Yohn Parra Bautista)
+  already had a real `Initial_Course_Goals.png` +
+  `Initial_Course_Goals.pdf` pair sitting in their directories before
+  this feature existed, dropped in by the user outside this
+  conversation. This is presumably exactly what motivated the request.
+  Verified every one of those 8 PNGs actually decodes as a real image
+  (Pillow, not just checked-by-extension) before trusting them —
+  7 are 3000×1688 screenshots, one (Yohn Parra Bautista) is 960×540 —
+  and confirmed all 8 mentees' cards render both the thumbnail and the
+  PDF file link correctly in the built HTML.
+- **Also tested synthetically** with a temporary generated JPEG + a
+  temporary PDF dropped into a mentee directory with no prior files
+  (Antigone Anthony, before discovering she already had real files
+  too), confirming the image/file split works from a clean slate, not
+  just when files happen to already be present — then removed the
+  synthetic test files and rebuilt clean.
+- **Verified**: full structural check (tag balance, duplicate ids,
+  heading order) passes across all pages; the Photos section never
+  appears for a mentee with zero images; the Files section never
+  duplicates an image that's already shown as a thumbnail.
+
+**Moved to the mentor column, shown at full size (same day, by
+request — "put the images on the right section under the mentors,
+display the image")**: the `.teams-card__photos` block moved from
+inside `.teams-card__mentee` (left column) to inside
+`.teams-card__mentor` (right column), rendered last, after the
+mentor's name/affiliation. **Also changed from a small cropped
+thumbnail to a full-width, uncropped display**: `.teams-card__photo`
+went from a fixed `4.5rem` square with `object-fit: cover` (which
+cropped the wide 3000×1688 course-goals screenshots down to an
+unreadable sliver) to `width: 100%; height: auto` with no cropping —
+`.teams-card__photo-grid` changed from `flex-wrap` row to a `flex-
+direction: column` stack to match (multiple photos now stack instead
+of wrapping side by side). Still wrapped in a link to the full-size
+original. Verified all 8 mentees with real photos (same set as above)
+render the image inside `.teams-card__mentor`, after the mentor info,
+not before it — checked via string position in the built HTML, not
+just presence.
+
+### Course details extracted from each mentee's PDF (2026-08-06)
+
+By request — "use the initial_course_goals pdf in the team folders
+where available to update the team members Target Course, add the
+Target course Number, Anticipated Enrollment, and Project Goals."
+Read all 8 `Initial_Course_Goals.pdf` files that existed under
+`assets/files/teams/<slug>/` (via the same PDF-reading path used to
+review any PDF in this project — actually read each one, not inferred
+from the filename) and transcribed three new optional `mentee` fields
+into `_data/teams.yml`: `target_course_number`, `anticipated_enrollment`,
+and `project_goals` (a plain list, rendered as bullets). Documented in
+the file's header comment. The 3 mentees without a PDF (Cheryl Swanier,
+Joshua Gbadebo, and Vivek Shandilya's commented-out entry) simply don't
+have these fields — same "only add data where it exists" rule used
+everywhere else in this project.
+
+- **`target_course` itself was also updated for several mentees, not
+  just supplemented** — the PDFs are each mentee's own, filled out
+  during the program, and several genuinely disagree with the original
+  pasted-spreadsheet value from when the Teams page was first built:
+  Tanganika Johnson ("Plant Physiology" → "Environmental Science"),
+  Yohn Parra Bautista ("Machine Learning Essentials" → "Artificial
+  Intelligence"), Kristine Christensen ("CIS 117: Internet
+  Technologies" → "IoT Fundamentals (no prereqs)"), plus smaller
+  title-wording changes for Agbeli Ameko, Antigone Anthony, Oyebade
+  Oyerinde, and Mary Beals (course number split out of the combined
+  string into its own field for the latter two). Treated the PDF as
+  the more current source in every case, per the request's own framing
+  ("use the... pdf... to update... Target Course").
+- **`target_course_number` rendered inline** next to Target Course in
+  parentheses (e.g. "Ecology (404B)") rather than as a fourth separate
+  labeled row — reads closer to how the source PDFs themselves display
+  it, and avoids stacking near-identical `.teams-card__course` rows.
+  `anticipated_enrollment` did get its own row, and `project_goals` its
+  own labeled bulleted list, both new `.teams-card__course`-family
+  elements.
+- **One deliberate non-fix**: Oyebade Oyerinde's PDF goal 4 reads
+  "Construct alternative policy options to remedy a market failure
+  through problem." — visibly cut off mid-sentence in the source
+  slide. Transcribed exactly as written rather than guessing a
+  completion (a first draft added "problem-solving," caught and
+  reverted before finalizing) — same "don't guess" rule as everywhere
+  else in this project, applied even to an obviously-incomplete
+  sentence in someone else's source material.
+- **Two other small corrections while transcribing, not blind
+  copy-paste**: Joseph Aneke's PDF says "Introduction to Python
+  Programing" (missing an "m") — corrected to "Programming". Yohn
+  Parra Bautista's PDF header spells his name "Yohn Jairo Parra" (no
+  "Bautista") — kept the existing `teams.yml` name as-is
+  (`Yohn Parra Bautista`) rather than truncating it to match the
+  slide, since the fuller name is already used consistently elsewhere
+  on the site (LinkedIn link text, `id`/slug) and the slide omitting a
+  surname isn't evidence it should be dropped everywhere.
+- **Verified**: YAML parses correctly (`yaml.safe_load`) with the
+  expected field values for all 8 mentees and confirmed absent for the
+  3 without a PDF; built HTML shows target course + course number +
+  enrollment + all project-goal bullets correctly for a spot-checked
+  entry (Oyebade Oyerinde) and confirms the two PDF-less mentees show
+  no empty "Anticipated Enrollment"/"Project Goals" sections; full
+  structural check (tag balance, duplicate ids, heading order) passes
+  across all pages.
+
+### Oyebade's GitHub repo added, then given its own field (2026-08-06)
+
+Two requests in quick succession. First: "add this github repo to
+Oyabade's team links" —
+`https://github.com/ooyerind/FacultyHack-Gateways26` added as a third
+entry in his `links:` list (same pattern as Mary Beals' repo link,
+which still lives in her generic `links:` list, untouched). Second,
+immediately after: "the link should be under a header as 'Project
+Repo'" — moved out of `links:` (which has no per-item label, just an
+unlabeled icon+text list) into a **new dedicated `mentee.project_repo`
+field**, rendered as its own `.teams-card__course`-style row with a
+"Project Repo" label, right after "Project Goals" and before the
+generic links list. Link text is the URL with `https://` stripped
+(`| remove: "https://"`) so it reads as `github.com/ooyerind/
+FacultyHack-Gateways26` rather than the full scheme-prefixed URL.
+
+- **Documented as a general schema field**, not a one-off — the header
+  comment now describes `project_repo` as available to any mentee, not
+  just Oyebade, so a future repo link goes straight into this field
+  instead of back into `links:`. **Deliberately did not retroactively
+  move Mary Beals' existing GitHub repo link** out of her `links:` list
+  to match — out of scope for what was asked, and worth an explicit
+  follow-up ask before touching a second mentee's data on the same
+  pattern change.
+- **Verified**: built HTML shows the "Project Repo" label, GitHub icon,
+  and correctly-stripped link text in the right position (after Project
+  Goals, before the LinkedIn-only `links:` list) for Oyebade Oyerinde;
+  full structural check (tag balance, duplicate ids) passes across all
+  pages.
+
+### Generic links got a "Links" header too (2026-08-06)
+
+Follow-up to the "Project Repo" header above, same day — "the other
+team links should be under a header named Links." The generic
+`mentee.links` list (LinkedIn, personal sites, etc.) had never had a
+label of its own, unlike every other section on the card by this
+point (Target Course, Anticipated Enrollment, Project Goals, Project
+Repo, Files, Photos). Added a `<p class="teams-card__course-label">
+Links</p>` immediately before the existing `<ul class="mentor-card__
+links">`, reusing the same label class already used for "Target
+Course"/"Anticipated Enrollment"/"Project Repo" rather than inventing
+a new one — visually identical styling, just labeling a section that
+was previously unlabeled. Correctly conditional on `mentee.links`
+already existing (Antigone Anthony has none, so she gets no "Links"
+header — verified in the built HTML, not just assumed from the
+`{% if %}` guard). Full structural check passes across all pages.
+
 ### Vivek Shandilya removed, then re-added (2026-07-31)
 
 Removed by request ("remove Vivek Shandilya from the teams"), then

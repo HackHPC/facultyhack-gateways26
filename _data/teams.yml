@@ -30,13 +30,36 @@
 # "Southern University and A&M College" are the same institution (subr.edu)
 # spelled two ways in the source spreadsheet — left as originally entered,
 # both link to the same URL/icon.
+#
+# mentee.target_course_number / anticipated_enrollment / project_goals
+# (all optional): sourced from each mentee's own "Initial_Course_Goals.pdf"
+# under assets/files/teams/<mentee-slug>/, where one exists — filled out
+# by the mentee themselves during the program, so `target_course` was
+# also updated to match that PDF wherever it differed from the original
+# pasted spreadsheet (several did — see PICKUP_AND_GO.md "Teams page" for
+# which ones and why the PDF was treated as the more current source).
+# Only 8 of 11 mentees have a PDF; the rest simply don't have these three
+# fields. `project_goals` is a plain list of strings, rendered as a
+# bulleted list.
+#
+# mentee.project_repo (optional): a single GitHub repo URL, rendered
+# under its own "Project Repo" label — separate from the generic
+# `links:` list below, which has no per-item label of its own. Only
+# Oyebade Oyerinde has one so far; add the same field to any other
+# mentee once their repo exists rather than putting it in `links:`.
 
 - mentee:
     name: "Agbeli Ameko"
     affiliation: "Howard University"
     affiliation_url: "https://howard.edu/"
     affiliation_icon: "custom:favicons/howard-edu"
-    target_course: "Introduction to an Open Source Future"
+    target_course: "Intro to Open Source Future: Decolonizing Technology & Data Sovereignty"
+    target_course_number: "TBD"
+    anticipated_enrollment: "15-25"
+    project_goals:
+      - "Understand local open-source tools, OS, automations, and ethical computing vs digital colonialism"
+      - "Tour of useful open source data skills via JupyterLab, Metabase, Python for EJ analysis"
+      - "Critical analysis of big tech power and building confidence to utilize open source solutions"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/agbeli-a-03aa101/"
@@ -51,7 +74,13 @@
     affiliation: "Southern University A&M College"
     affiliation_url: "https://www.subr.edu/"
     affiliation_icon: "custom:favicons/subr-edu"
-    target_course: "Anatomy and Physiology Lab 221LB"
+    target_course: "Anatomy & Physiology"
+    target_course_number: "SBIO 221B"
+    anticipated_enrollment: "25"
+    project_goals:
+      - "Integrate science gateway resources into teaching and research activities"
+      - "Expand student access to computing tools, data, and hands-on learning"
+      - "Provide faculty and students with training and technical support"
   mentor_name: "Ahmad Al-Omari"
 
 - mentee:
@@ -74,7 +103,12 @@
     affiliation: "Hampton University"
     affiliation_url: "https://www.hamptonu.edu/"
     affiliation_icon: "custom:favicons/hamptonu-edu"
-    target_course: "Python Programming CSC 291"
+    target_course: "Introduction to Python Programming"
+    target_course_number: "CSC 291"
+    anticipated_enrollment: "22-30 (Spring 2027)"
+    project_goals:
+      - "Improve Intro to Programming with HPC Perspectives"
+      - "Explore resources e.g. data sets with a view to produce reproducible projects"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/joseph-aneke-27891066/"
@@ -101,7 +135,15 @@
     affiliation: "Moraine Valley Community College"
     affiliation_url: "https://www.morainevalley.edu/"
     affiliation_icon: "custom:favicons/morainevalley-edu"
-    target_course: "CIS 117: Internet Technologies"
+    target_course: "IoT Fundamentals (no prereqs)"
+    target_course_number: "LAN 120.300 (Freshman/Sophomore)"
+    anticipated_enrollment: "24"
+    project_goals:
+      - "Introduce entry-level IoT students to science gateways, public datasets, Jetstream 2, Jupyter notebooks, cloud computing, and HPC resources"
+      - "Develop foundational notebook and visualization skills through scaffolded activities designed for students with no prior Python or HPC experience"
+      - "Help students run prepared code, modify selected variables, visualize authentic IoT and industrial data, and interpret the results"
+      - "Introduce AI-assisted anomaly detection, cybersecurity, and critical infrastructure applications in an approachable manner"
+      - "Guide students in transferring these skills to a sensor-based final project in which they collect, analyze, visualize, and report on their own data"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/kristinechristensen/"
@@ -116,7 +158,13 @@
     affiliation: "Southern University A&M College"
     affiliation_url: "https://www.subr.edu/"
     affiliation_icon: "custom:favicons/subr-edu"
-    target_course: "Ecology 404B"
+    target_course: "Ecology"
+    target_course_number: "404B"
+    anticipated_enrollment: "15"
+    project_goals:
+      - "Use Jetstream2 through ACCESS as the primary Science Gateway resource for Ecology students to explore Louisiana ecological, environmental, and climate-related datasets"
+      - "Build a scaffolded CURE workflow using Jetstream2, Jupyter notebooks, and ecological datasets to guide students through research questions, data analysis, visualization, and interpretation"
+      - "Create an accessible implementation plan using Cornell Virtual Workshop and HPC Carpentry tutorials to support student onboarding, reproducibility, and low-bandwidth backup options"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/marykbeals"
@@ -131,7 +179,15 @@
     affiliation: "Clark Atlanta University"
     affiliation_url: "https://www.cau.edu/"
     affiliation_icon: "custom:favicons/cau-edu"
-    target_course: "CPAD 504: Economics for Public Administrators"
+    target_course: "Economics and Data Science for Public Administrators"
+    target_course_number: "CPAD 504"
+    anticipated_enrollment: "20"
+    project_goals:
+      - "Identify and explain the principles and concepts of microeconomics, macroeconomics, and data science that are applicable in decision-making by organizations"
+      - "Analyze economic data using software programs and programming languages, such as R, Python, and Excel in Jetstream2 and CloudBank Hubs"
+      - "Communicate through storytelling about data visualizations in R and/or Python"
+      - "Construct alternative policy options to remedy a market failure through problem"
+    project_repo: "https://github.com/ooyerind/FacultyHack-Gateways26"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/oyebade-oyerinde-121a4b207"
@@ -143,7 +199,14 @@
     affiliation: "Southern University and A&M College"
     affiliation_url: "https://www.subr.edu/"
     affiliation_icon: "custom:favicons/subr-edu"
-    target_course: "Plant Physiology"
+    target_course: "Environmental Science"
+    target_course_number: "271"
+    anticipated_enrollment: "10-15"
+    project_goals:
+      - "Integrate an accessible science gateway and authentic South Louisiana datasets from Designsafe into the 16-week 271 course"
+      - "Develop four scaffolded gateway activities using Jupyter Notebook that move students from data discovery and visualization to interpretation"
+      - "Support the Jaguar Environmental Resilience CURE on urban heat, tree canopy, stormwater, water quality, soil, or biodiversity by using JetStream 2 through ACCESS"
+      - "Create a reproducible workflow that ends with a research report, accessible poster, and community-facing environmental product"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/tanganika-johnson-phd-8767a41a"
@@ -170,7 +233,12 @@
     affiliation: "Florida A&M University"
     affiliation_url: "https://www.famu.edu/"
     affiliation_icon: "custom:favicons/famu-edu"
-    target_course: "Machine Learning Essentials"
+    target_course: "Artificial Intelligence"
+    target_course_number: "CAP-4620"
+    anticipated_enrollment: "10"
+    project_goals:
+      - "Explore LLMs that can be tested and used by my students in HPC systems"
+      - "Explore datasets with environments that can be used on gateways"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/yohn-jairo-parra-bautista-810954389/"

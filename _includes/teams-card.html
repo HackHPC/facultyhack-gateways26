@@ -7,12 +7,20 @@
 
 {% assign mentee_slug = include.pairing.mentee.name | slugify %}
 {% assign mentee_dir = "/assets/files/teams/" | append: mentee_slug | append: "/" %}
+{% assign mentee_images = "" | split: "" %}
 {% assign mentee_files = "" | split: "" %}
 {% for file in site.static_files %}
   {% if file.path contains mentee_dir %}
-    {% assign mentee_files = mentee_files | push: file %}
+    {% assign file_ext = file.extname | downcase %}
+    {% case file_ext %}
+      {% when ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" %}
+        {% assign mentee_images = mentee_images | push: file %}
+      {% else %}
+        {% assign mentee_files = mentee_files | push: file %}
+    {% endcase %}
   {% endif %}
 {% endfor %}
+{% assign mentee_images = mentee_images | sort: "name" %}
 {% assign mentee_files = mentee_files | sort: "name" %}
 
 <li class="teams-card" id="{{ mentee_slug }}">
@@ -44,8 +52,37 @@
     <p class="teams-card__course">
       <span class="teams-card__course-label">Target Course</span>
       {{ include.pairing.mentee.target_course }}
+      {% if include.pairing.mentee.target_course_number %}
+      ({{ include.pairing.mentee.target_course_number }})
+      {% endif %}
     </p>
+    {% if include.pairing.mentee.anticipated_enrollment %}
+    <p class="teams-card__course">
+      <span class="teams-card__course-label">Anticipated Enrollment</span>
+      {{ include.pairing.mentee.anticipated_enrollment }}
+    </p>
+    {% endif %}
+    {% if include.pairing.mentee.project_goals %}
+    <div class="teams-card__project-goals">
+      <p class="teams-card__course-label">Project Goals</p>
+      <ul>
+        {% for goal in include.pairing.mentee.project_goals %}
+        <li>{{ goal }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if include.pairing.mentee.project_repo %}
+    <p class="teams-card__course">
+      <span class="teams-card__course-label">Project Repo</span>
+      <a href="{{ include.pairing.mentee.project_repo }}">
+        <i class="mentor-card__link-icon fa-brands fa-github" aria-hidden="true"></i>
+        {{ include.pairing.mentee.project_repo | remove: "https://" }}
+      </a>
+    </p>
+    {% endif %}
     {% if include.pairing.mentee.links %}
+    <p class="teams-card__course-label">Links</p>
     <ul class="mentor-card__links">
       {% for link in include.pairing.mentee.links %}
       <li>
@@ -66,8 +103,6 @@
         {% case file_ext %}
           {% when ".pdf" %}
             {% assign file_icon = "solid:file-pdf" %}
-          {% when ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg" %}
-            {% assign file_icon = "solid:file-image" %}
           {% when ".ppt", ".pptx" %}
             {% assign file_icon = "solid:file-powerpoint" %}
           {% else %}
@@ -115,6 +150,25 @@
       {% endif %}
     </p>
     {% endif %}
+    {% endif %}
+    {% if mentee_images.size > 0 %}
+    <div class="teams-card__photos">
+      <p class="teams-card__files-label">Photos</p>
+      <ul class="teams-card__photo-grid">
+        {% for file in mentee_images %}
+        <li>
+          <a href="{{ file.path | relative_url }}">
+            <img
+              class="teams-card__photo"
+              src="{{ file.path | relative_url }}"
+              alt="{% include titleize.html text=file.basename %} for {{ include.pairing.mentee.name }}"
+              loading="lazy"
+            >
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endif %}
   </div>
 </li>
