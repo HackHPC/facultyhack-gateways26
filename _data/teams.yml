@@ -88,7 +88,13 @@
     affiliation: "Voorhees University"
     affiliation_url: "https://www.voorhees.edu/"
     affiliation_icon: "custom:favicons/voorhees-edu"
-    target_course: "Intro to AI"
+    target_course: "Intro to Computing"
+    target_course_number: "CMP 224"
+    anticipated_enrollment: "12 (Fall and Spring)"
+    project_goals:
+      - "Develop foundational computing and programming skills"
+      - "Apply artificial intelligence and cloud computing responsibly using Jetstream2"
+      - "Use artificial intelligence as a learning and productivity tool"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/cherylswanier/"
@@ -120,7 +126,14 @@
     affiliation: "Voorhees University"
     affiliation_url: "https://www.voorhees.edu/"
     affiliation_icon: "custom:favicons/voorhees-edu"
-    target_course: "Design and Analysis of Algorithms CMP 411"
+    target_course: "Computer Architecture"
+    target_course_number: "CMP 411"
+    anticipated_enrollment: "15 (Fall and Spring)"
+    project_goals:
+      - "Understand the concept of Computer Architecture"
+      - "Integrate the concept and understanding of cloud architecture as it relates to traditional computer architecture"
+      - "Analyze how computer architecture principles support artificial intelligence workloads by examining the interaction between processors, memory systems, storage, parallel computing, and specialized AI hardware accelerators"
+      - "Prepare students to understand the importance of computer architecture in traditional on-prem and modern cloud computing models in IaaS, PaaS, SaaS"
     links:
       - label: "Instagram"
         url: "https://www.instagram.com/gestureb"
