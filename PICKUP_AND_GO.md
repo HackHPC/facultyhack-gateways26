@@ -1988,6 +1988,25 @@ attribution use, lowest-risk case of the three). Footer sponsor logos
 render on a white chip (`.footer-sponsors__logo-link`) so any logo's own
 color scheme stays legible against the dark footer background.
 
+**HackHPC logo swapped (2026-08-07)**: by request, `assets/images/
+sponsors/hackhpc.svg` was replaced with a newer HackHPC brand-kit
+export the user provided (found in `~/Downloads/hackhpclogo-peopleonly
+(300 x 80 px)/1.svg` — same icon, a different official export than
+what was carried over from last year's repo: horizontal wordmark
+layout with the "HackHPC" name and "Hackathons and Codeathons"
+tagline, navy/orange colorway, viewBox `224.88 x 60`). Content was
+swapped **in place at the same file path**, so `_data/sponsors.yml`
+itself needed no edit — the `logo:` reference was already correct.
+Chose this over the accompanying `1.png` raster export for format
+consistency with 3 of the other 4 sponsor logos already being SVG.
+The new aspect ratio (3.75:1) fits comfortably inside the existing
+`.footer-sponsors__logo` sizing (`height: 2rem; max-width: 8rem`) —
+no CSS changes needed. Verified the file is well-formed XML and that
+the built `index.html`'s `<img>` reference is unchanged. **Not yet
+checked in a real browser** — worth a quick visual look at the footer
+next time it's open, since this was verified structurally/by content
+match, not visually rendered.
+
 ## Resources page
 
 163 resources across 11 categories, built up over several requests — worth
