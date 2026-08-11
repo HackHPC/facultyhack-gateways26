@@ -605,6 +605,7 @@ main:focus-visible {
 .mentor-card__bio {
   margin-bottom: var(--space-3);
   font-size: 0.9375rem;
+  white-space: pre-line;
 }
 
 .mentor-card__history {

@@ -118,16 +118,45 @@
   affiliation_icon: "custom:favicons/omnibond-com"
   photo: "/assets/images/organizers/jeaime-powell.png"
   bio: >-
-    Je'aime Powell currently works as a Senior Systems Administrator and
-    Technical Research Design Analyst at the Texas Advanced Computing
-    Center (TACC) within the University of Texas at Austin. While
-    supporting high-performance computing users, he also leads hackathons,
-    STEM-based high school summer camps, and facilitates related training
-    sessions. His research in the fields of Intelligent Systems and
-    Decision Systems Support with a focus on the development of adaptive
-    IoT environmental sensors. He holds both a Master's degree in Applied
-    Mathematics with a Concentration in Remote Sensing and a Bachelor's in
-    Computer Science from Elizabeth City State University.
+    Je'aime H. Powell is a Product Analyst and Systems Analyst at Omnibond
+    Systems, where his work focuses on high-performance computing,
+    Kubernetes, research computing infrastructure, and the projectEUREKA!
+    platform. He has extensive experience supporting the deployment,
+    integration, and evaluation of cyberinfrastructure technologies across
+    academic and research environments. His current work includes the
+    Texas A&M University&ndash;San Antonio CAMSA project, where he
+    contributes to the incremental integration of Kubernetes-based
+    services, GPU resources, shared storage, authentication, and
+    traditional HPC scheduling workflows.
+
+
+    Prior to joining Omnibond, Powell worked at the Texas Advanced
+    Computing Center, where he supported HPC users, scientific software,
+    education and outreach programs, and research computing initiatives.
+    His experience spans HPC systems administration, user support,
+    software deployment, scientific programming, containers, science
+    gateways, and workforce development.
+
+
+    Powell is also an organizer and instructor with HackHPC and the
+    Science Gateways Community Institute's SGX3 programs. Since 2017, he
+    has helped design and lead hackathons, codeathons, faculty training
+    programs, and student computing institutes that introduce
+    participants to HPC, artificial intelligence, reproducible research,
+    scientific programming, and science gateways. His work emphasizes
+    practical pathways for lowering barriers to advanced computing and
+    helping institutions adopt emerging cyberinfrastructure technologies
+    incrementally.
+
+
+    His professional interests include bridging traditional HPC and
+    cloud-native computing, improving the usability of research
+    infrastructure, and developing scalable training models that help
+    students, faculty, and research teams effectively use modern
+    computational resources. He is particularly interested in
+    architectures that allow institutions to modernize existing HPC
+    environments without disrupting established scheduler-based workflows
+    while expanding access to new services and accelerator technologies.
   links:
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/jeaimehp/"
