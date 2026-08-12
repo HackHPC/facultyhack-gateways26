@@ -325,12 +325,16 @@ virtual_sessions:
         icon: "solid:file-lines"
         description: "Template for your final GitHub repository's README.md."
 
+# Each entry may optionally set `open: true` to render that card
+# expanded by default (in addition to the always-first card, which is
+# already open regardless).
 conference:
   - date: "Sept 23–25"
     event: "Gateways 2026 Conference Attendance"
     deliverables: "Faculty participate in conference sessions, workshops, and networking to fulfill honorarium requirements."
-  - date: "TBA (During Reception)"
-    event: "FacultyHack Poster Session & Awards"
+  - date: "Thu, September 24 · 2:00–3:30 PM"
+    event: "Main Poster Session"
+    open: true
     deliverables: >-
       Faculty hang printed posters (max 30"x45") prior to the event. One
       author must be present during the reception to answer questions and

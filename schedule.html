@@ -151,7 +151,7 @@ description: >-
       </p>
       <div class="schedule-timeline">
         {% for item in site.data.schedule.conference %}
-        <details class="schedule-block"{% if forloop.first %} open{% endif %}>
+        <details class="schedule-block"{% if forloop.first or item.open %} open{% endif %}>
           <summary class="schedule-block__summary">
             <span class="schedule-block__datetime">
               <span class="schedule-block__date">{{ item.date }}</span>
