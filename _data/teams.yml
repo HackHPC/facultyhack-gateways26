@@ -95,6 +95,7 @@
       - "Develop foundational computing and programming skills"
       - "Apply artificial intelligence and cloud computing responsibly using Jetstream2"
       - "Use artificial intelligence as a learning and productivity tool"
+    project_repo: "https://github.com/cswanier/FacultyHack"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/cherylswanier/"
@@ -115,6 +116,7 @@
     project_goals:
       - "Improve Intro to Programming with HPC Perspectives"
       - "Explore resources e.g. data sets with a view to produce reproducible projects"
+    project_repo: "https://github.com/Josephogo/joseph-aneke"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/joseph-aneke-27891066/"
@@ -157,6 +159,7 @@
       - "Help students run prepared code, modify selected variables, visualize authentic IoT and industrial data, and interpret the results"
       - "Introduce AI-assisted anomaly detection, cybersecurity, and critical infrastructure applications in an approachable manner"
       - "Guide students in transferring these skills to a sensor-based final project in which they collect, analyze, visualize, and report on their own data"
+    project_repo: "https://github.com/kristinechristensen/FacultyHack26"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/kristinechristensen/"
