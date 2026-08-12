@@ -40,15 +40,17 @@
     <h3 class="mentor-card__history-heading">FacultyHack History</h3>
     <ul class="mentor-card__history-list">
       {% for entry in sorted_history %}
-      {% assign archive_url = nil %}
-      {% for archive in site.data.archives %}
-        {% if archive.year == entry.year %}
-        {% assign archive_url = archive.url %}
-        {% endif %}
-      {% endfor %}
+      {% assign entry_url = entry.url %}
+      {% unless entry_url %}
+        {% for archive in site.data.archives %}
+          {% if archive.year == entry.year %}
+          {% assign entry_url = archive.url %}
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
       <li>
-        {% if archive_url %}
-        <a href="{{ archive_url }}">{{ entry.year }}</a>
+        {% if entry_url %}
+        <a href="{{ entry_url }}">{{ entry.year }}</a>
         {% else %}
         {{ entry.year }}
         {% endif %}

@@ -12,30 +12,18 @@
 # submitted directly) exists for that specific file — see the README in
 # that directory. Never populate this by downloading images from LinkedIn,
 # Facebook, or institutional staff pages without that permission.
-- name: "Subil Abraham"
-  affiliation: "Oak Ridge National Laboratory"
-  affiliation_url: "https://www.ornl.gov/"
-  affiliation_icon: "custom:favicons/ornl-gov"
-  specialty: ["Containers for HPC", "Parallel Programming"]
-  photo: "assets/images/mentors/subilA.jpg"
-  bio: >-
-    Subil Abraham is an HPC Engineer in the Operations – User Assistance
-    group of the National Center for Computational Sciences at
-    Oak Ridge National Laboratory. He holds an M.S. in Computer Science
-    from Virginia Tech, where his graduate thesis examined container
-    performance on HPC workloads and filesystems. Before his current role,
-    he interned in ORNL's Technology Integration group evaluating
-    SymphonyFS performance. His interests include containers for
-    high-performance computing, parallel programming, and HPC
-    infrastructure and performance evaluation.
-  links:
-    - label: "Staff Profile"
-      url: "https://www.ornl.gov/staff-profile/subil-abraham"
-      icon: "custom:favicons/ornl-gov"
-    - label: "ORCID"
-      url: "https://orcid.org/0000-0002-9537-7251"
-      icon: "brands:orcid"
-
+#
+# history (optional): list of past program involvement, rendered under
+# "FacultyHack History" as "<year> — <role>", every entry formatted the
+# same way regardless of event. Each entry needs `year` and `role`. By
+# default the year links to that year's FacultyHack@Gateways archive
+# site (looked up from _data/archives.yml by year) — fine for
+# straightforward FacultyHack@Gateways participation. For involvement in
+# a differently-named/branded HackHPC event (e.g. "HPC in the City") —
+# where that lookup would link to the wrong site — add an explicit `url`
+# to override it, and fold which event it was into the `role` text
+# itself (e.g. "Organizer — HPC in the City: Pandemics") rather than
+# adding a separate displayed field.
 - name: "Ahmad Al-Omari"
   affiliation: "Our Lady of the Lake University"
   affiliation_url: "https://www.ollusa.edu/"
@@ -101,6 +89,37 @@
       url: "https://www.linkedin.com/in/anas-alsobeh-b79474125/"
       icon: "brands:linkedin"
 
+- name: "Elijah MacCarthy"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
+  specialty: ["GPU Computing", "Parallel Computing"]
+  photo: "assets/images/mentors/elijah_maccarthy.jpg"
+  history:
+    - year: 2022
+      role: "Mentor"
+    - year: 2023
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. Elijah MacCarthy is an HPC Engineer in the Systems Acceptance and
+    User Environment group of the National Center for Computational
+    Sciences at Oak Ridge National Laboratory. He holds a Ph.D. in
+    Computational Science and Engineering from North Carolina A&T State
+    University. Before joining ORNL, he was an Assistant Professor of
+    Mathematics in the Division of Natural and Physical Sciences at Lane
+    College, where he served as the XSEDE Campus Champion and led GPU
+    programming and program optimization research within high-performance
+    computing environments. His research interests include GPU programming,
+    program parallelization and optimization, and infection spread
+    modeling, work that bridges applied mathematics and large-scale
+    computational science.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/elijah-maccarthy"
+      icon: "custom:favicons/ornl-gov"
+
 - name: "Felicia Doswell"
   affiliation: "Norfolk State University"
   affiliation_url: "https://www.nsu.edu/"
@@ -140,6 +159,81 @@
       icon: "custom:favicons/nsu-edu"
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/felicia-doswell-3b77701b"
+      icon: "brands:linkedin"
+
+- name: "Hector Santiago III"
+  affiliation: "Nationwide"
+  affiliation_url: "https://www.nationwide.com/"
+  affiliation_icon: "custom:favicons/nationwide-com"
+  specialty: ["Software Engineering", "HPC Workforce Development"]
+  photo: "assets/images/mentors/hector.jpeg"
+  history:
+    - year: 2022
+      url: "https://hackhpc.github.io/HPCintheCity22/"
+      role: "Student Mentor — HPC in the City: Dallas (SC22)"
+    - year: 2023
+      url: "https://hackhpc.github.io/hpcinthecity23/"
+      role: "Organizer — HPC in the City: Pandemics"
+    - year: 2023
+      role: "Mentor"
+    - year: 2024
+      role: "Mentor"
+  bio: >-
+    Hector Santiago III is a Software Engineer at Nationwide and a
+    Winston-Salem State University (WSSU) alumnus. He began his own
+    journey in the SGX3 community as a Coding Institute participant,
+    later completing two internships at Indiana University and earning
+    recognition as a Young Professional of the Year Award recipient. He
+    has since organized, mentored, and participated in numerous
+    hackathons and codeathons with HackHPC, and is currently pursuing a
+    Master's in Computer Science & Information Technology at WSSU.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/hmsiii/"
+      icon: "brands:linkedin"
+    - label: "GitHub"
+      url: "https://github.com/hectorsantiago5"
+      icon: "brands:github"
+    - label: "Twitter"
+      url: "https://twitter.com/hecsantiago3"
+      icon: "brands:x-twitter"
+- name: "John Holmen"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
+  specialty: ["High Performance Computing", "Exascale Computing"]
+  photo: "assets/images/mentors/john_holmen.jpg"
+  history:
+    - year: 2022
+      role: "Mentor"
+    - year: 2023
+      role: "Mentor"
+    - year: 2024
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Dr. John Holmen is an HPC Engineer in the System Acceptance and User
+    Environment Group of the National Center for Computational Sciences at
+    Oak Ridge National Laboratory. He holds a B.S. and M.S.E. in Computer
+    Engineering from Kettering University and a Ph.D. in Scientific
+    Computing from the University of Utah, where his dissertation research
+    under Dr. Martin Berzins focused on portable, scalable approaches for
+    preparing large legacy codes and asynchronous many-task runtime systems
+    for exascale computing. As a developer for the Uintah Computational
+    Framework, he tested performance across major systems including NSF
+    Frontera, DOE Lassen, DOE Summit, NSF Stampede2, DOE Theta, and DOE
+    Titan. Before graduate school, he worked as a Development Engineer at
+    R.W. Beckett Corporation designing embedded systems for safety-critical
+    combustion products, having started there as a Kettering co-op student.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/john-k-holmen"
+      icon: "custom:favicons/ornl-gov"
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/jholmen/"
       icon: "brands:linkedin"
 
 - name: "Mohamed Elbakary"
@@ -207,99 +301,6 @@
       url: "https://scholar.google.com/citations?user=LzFPoJ4AAAAJ&hl=fr"
       icon: "brands:google-scholar"
 
-- name: "Sajida Faiyaz"
-  affiliation: "Austin Community College"
-  affiliation_url: "https://www.austincc.edu/"
-  affiliation_icon: "custom:favicons/austincc-edu"
-  specialty: ["Software Engineering", "Databases"]
-  photo: "assets/images/mentors/sajida-faiyaz.jpg"
-  history:
-    - year: 2025
-      role: "Mentor"
-  bio: >-
-    Sajida Faiyaz, P.Eng, PMP, M.Eng, MS, is a Professor in the Information
-    Technology & Cybersecurity program at Austin Community College, where
-    she also serves as a Faculty Senator representing Computer Science and
-    IT. She teaches courses spanning SQL and relational database design,
-    Python and Java programming, and cybersecurity fundamentals, and is a
-    licensed Professional Engineer and certified Project Management
-    Professional. Students frequently note that her industry experience and
-    clear teaching style make complex technical topics approachable.
-  links:
-    - label: "LinkedIn"
-      url: "https://www.linkedin.com/in/sajida-faiyaz-p-eng-pmp-m-eng-ms-81423327/"
-      icon: "brands:linkedin"
-
-- name: "John Holmen"
-  affiliation: "Oak Ridge National Laboratory"
-  affiliation_url: "https://www.ornl.gov/"
-  affiliation_icon: "custom:favicons/ornl-gov"
-  specialty: ["High Performance Computing", "Exascale Computing"]
-  photo: "assets/images/mentors/john_holmen.jpg"
-  history:
-    - year: 2022
-      role: "Mentor"
-    - year: 2023
-      role: "Mentor"
-    - year: 2024
-      role: "Mentor"
-    - year: 2025
-      role: "Mentor"
-    - year: 2025
-      role: "Mentor"
-  bio: >-
-    Dr. John Holmen is an HPC Engineer in the System Acceptance and User
-    Environment Group of the National Center for Computational Sciences at
-    Oak Ridge National Laboratory. He holds a B.S. and M.S.E. in Computer
-    Engineering from Kettering University and a Ph.D. in Scientific
-    Computing from the University of Utah, where his dissertation research
-    under Dr. Martin Berzins focused on portable, scalable approaches for
-    preparing large legacy codes and asynchronous many-task runtime systems
-    for exascale computing. As a developer for the Uintah Computational
-    Framework, he tested performance across major systems including NSF
-    Frontera, DOE Lassen, DOE Summit, NSF Stampede2, DOE Theta, and DOE
-    Titan. Before graduate school, he worked as a Development Engineer at
-    R.W. Beckett Corporation designing embedded systems for safety-critical
-    combustion products, having started there as a Kettering co-op student.
-  links:
-    - label: "Staff Profile"
-      url: "https://www.ornl.gov/staff-profile/john-k-holmen"
-      icon: "custom:favicons/ornl-gov"
-    - label: "LinkedIn"
-      url: "https://www.linkedin.com/in/jholmen/"
-      icon: "brands:linkedin"
-
-- name: "Elijah MacCarthy"
-  affiliation: "Oak Ridge National Laboratory"
-  affiliation_url: "https://www.ornl.gov/"
-  affiliation_icon: "custom:favicons/ornl-gov"
-  specialty: ["GPU Computing", "Parallel Computing"]
-  photo: "assets/images/mentors/elijah_maccarthy.jpg"
-  history:
-    - year: 2022
-      role: "Mentor"
-    - year: 2023
-      role: "Mentor"
-    - year: 2025
-      role: "Mentor"
-  bio: >-
-    Dr. Elijah MacCarthy is an HPC Engineer in the Systems Acceptance and
-    User Environment group of the National Center for Computational
-    Sciences at Oak Ridge National Laboratory. He holds a Ph.D. in
-    Computational Science and Engineering from North Carolina A&T State
-    University. Before joining ORNL, he was an Assistant Professor of
-    Mathematics in the Division of Natural and Physical Sciences at Lane
-    College, where he served as the XSEDE Campus Champion and led GPU
-    programming and program optimization research within high-performance
-    computing environments. His research interests include GPU programming,
-    program parallelization and optimization, and infection spread
-    modeling, work that bridges applied mathematics and large-scale
-    computational science.
-  links:
-    - label: "Staff Profile"
-      url: "https://www.ornl.gov/staff-profile/elijah-maccarthy"
-      icon: "custom:favicons/ornl-gov"
-
 - name: "Olabisi Ojo"
   affiliation: "Albany State University"
   affiliation_url: "https://www.asurams.edu/"
@@ -358,3 +359,51 @@
     - label: "LinkedIn"
       url: "https://www.linkedin.com/in/sabrina-perry22"
       icon: "brands:linkedin"
+
+- name: "Sajida Faiyaz"
+  affiliation: "Austin Community College"
+  affiliation_url: "https://www.austincc.edu/"
+  affiliation_icon: "custom:favicons/austincc-edu"
+  specialty: ["Software Engineering", "Databases"]
+  photo: "assets/images/mentors/sajida-faiyaz.jpg"
+  history:
+    - year: 2025
+      role: "Mentor"
+  bio: >-
+    Sajida Faiyaz, P.Eng, PMP, M.Eng, MS, is a Professor in the Information
+    Technology & Cybersecurity program at Austin Community College, where
+    she also serves as a Faculty Senator representing Computer Science and
+    IT. She teaches courses spanning SQL and relational database design,
+    Python and Java programming, and cybersecurity fundamentals, and is a
+    licensed Professional Engineer and certified Project Management
+    Professional. Students frequently note that her industry experience and
+    clear teaching style make complex technical topics approachable.
+  links:
+    - label: "LinkedIn"
+      url: "https://www.linkedin.com/in/sajida-faiyaz-p-eng-pmp-m-eng-ms-81423327/"
+      icon: "brands:linkedin"
+
+- name: "Subil Abraham"
+  affiliation: "Oak Ridge National Laboratory"
+  affiliation_url: "https://www.ornl.gov/"
+  affiliation_icon: "custom:favicons/ornl-gov"
+  specialty: ["Containers for HPC", "Parallel Programming"]
+  photo: "assets/images/mentors/subilA.jpg"
+  bio: >-
+    Subil Abraham is an HPC Engineer in the Operations – User Assistance
+    group of the National Center for Computational Sciences at
+    Oak Ridge National Laboratory. He holds an M.S. in Computer Science
+    from Virginia Tech, where his graduate thesis examined container
+    performance on HPC workloads and filesystems. Before his current role,
+    he interned in ORNL's Technology Integration group evaluating
+    SymphonyFS performance. His interests include containers for
+    high-performance computing, parallel programming, and HPC
+    infrastructure and performance evaluation.
+  links:
+    - label: "Staff Profile"
+      url: "https://www.ornl.gov/staff-profile/subil-abraham"
+      icon: "custom:favicons/ornl-gov"
+    - label: "ORCID"
+      url: "https://orcid.org/0000-0002-9537-7251"
+      icon: "brands:orcid"
+
