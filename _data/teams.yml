@@ -136,6 +136,7 @@
       - "Integrate the concept and understanding of cloud architecture as it relates to traditional computer architecture"
       - "Analyze how computer architecture principles support artificial intelligence workloads by examining the interaction between processors, memory systems, storage, parallel computing, and specialized AI hardware accelerators"
       - "Prepare students to understand the importance of computer architecture in traditional on-prem and modern cloud computing models in IaaS, PaaS, SaaS"
+    project_repo: "https://github.com/gestureb-cpu/Course-Syllabus"
     links:
       - label: "Instagram"
         url: "https://www.instagram.com/gestureb"
@@ -223,6 +224,7 @@
       - "Develop four scaffolded gateway activities using Jupyter Notebook that move students from data discovery and visualization to interpretation"
       - "Support the Jaguar Environmental Resilience CURE on urban heat, tree canopy, stormwater, water quality, soil, or biodiversity by using JetStream 2 through ACCESS"
       - "Create a reproducible workflow that ends with a research report, accessible poster, and community-facing environmental product"
+    project_repo: "https://github.com/tanganjohnson-ai/Hackathon-26-Environmental-Science"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/tanganika-johnson-phd-8767a41a"
