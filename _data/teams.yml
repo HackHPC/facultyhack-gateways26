@@ -60,6 +60,7 @@
       - "Understand local open-source tools, OS, automations, and ethical computing vs digital colonialism"
       - "Tour of useful open source data skills via JupyterLab, Metabase, Python for EJ analysis"
       - "Critical analysis of big tech power and building confidence to utilize open source solutions"
+    project_repo: "https://github.com/TeamGhana/HUDATA500"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/agbeli-a-03aa101/"
@@ -257,6 +258,7 @@
     project_goals:
       - "Explore LLMs that can be tested and used by my students in HPC systems"
       - "Explore datasets with environments that can be used on gateways"
+    project_repo: "https://github.com/Yohnjparra/Yohn-Parra"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/yohn-jairo-parra-bautista-810954389/"
