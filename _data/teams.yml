@@ -184,6 +184,7 @@
       - "Use Jetstream2 through ACCESS as the primary Science Gateway resource for Ecology students to explore Louisiana ecological, environmental, and climate-related datasets"
       - "Build a scaffolded CURE workflow using Jetstream2, Jupyter notebooks, and ecological datasets to guide students through research questions, data analysis, visualization, and interpretation"
       - "Create an accessible implementation plan using Cornell Virtual Workshop and HPC Carpentry tutorials to support student onboarding, reproducibility, and low-bandwidth backup options"
+    project_repo: "https://github.com/DrMBea/Bayou-Ecology-CURE-2026"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/marykbeals"
