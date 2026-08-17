@@ -33,7 +33,29 @@ description: >-
         it. See "Standard Daily Flow" below for how each session's two
         hours are broken down.
       </p>
-      <div class="schedule-timeline">
+      <div class="resource-toolbar">
+        <div class="resource-toolbar__field">
+          <label for="schedule-search">Search sessions</label>
+          <input
+            type="search"
+            id="schedule-search"
+            name="q"
+            placeholder="e.g. topic, presenter, resource&hellip;"
+            autocomplete="off"
+          >
+        </div>
+        <div class="resource-toolbar__field">
+          <label for="schedule-jump">Jump to session</label>
+          <select id="schedule-jump">
+            <option value="">Choose a date&hellip;</option>
+            {% for session in site.data.schedule.virtual_sessions %}
+            <option value="{{ session.date | slugify }}">{{ session.date }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <p id="schedule-count" class="resource-toolbar__status" aria-live="polite"></p>
+      </div>
+      <div class="schedule-timeline" id="virtual-sessions-timeline">
         {% for session in site.data.schedule.virtual_sessions %}
         {% assign session_slug = session.date | slugify %}
         {% assign session_dir = "/assets/files/schedule/" | append: session_slug | append: "/" %}
@@ -49,7 +71,7 @@ description: >-
           {% assign pre_session_start = session.pre_session.time | split: "–" | first %}
           {% assign session_time = pre_session_start | append: "&ndash;8:00 PM ET" %}
         {% endif %}
-        <details class="schedule-block" open>
+        <details class="schedule-block" id="{{ session_slug }}" open>
           <summary class="schedule-block__summary">
             <span class="schedule-block__datetime">
               <span class="schedule-block__date">{{ session.date }}</span>
@@ -197,3 +219,5 @@ description: >-
     </section>
   </div>
 </section>
+
+<script src="{{ '/assets/js/schedule.js' | relative_url }}" defer></script>

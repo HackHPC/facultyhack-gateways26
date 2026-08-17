@@ -192,6 +192,88 @@ tags are derived from their existing (non-LinkedIn-sourced) bio text
 instead. If asked to refresh mentor data from LinkedIn again, don't
 re-attempt the fetch — it's blocked, not flaky.
 
+### 12th mentor added: Hector Santiago III (2026-08-13)
+
+By request, with just a LinkedIn URL and instruction to "read his
+LinkedIn to generate a bio... and extract his affiliated organization."
+**LinkedIn's own About section was truncated behind a login wall**
+(same `HTTP 999`-style block noted above, just manifesting as partial
+rather than zero content this time) — `WebFetch` on the profile only
+returned "I am a seasoned software engineer with a diverse
+background..." before cutting off, plus employer ("Nationwide"),
+location, and education years with no detail. Rather than pad out a
+bio from that fragment, searched for and found a **fuller, previously-
+published bio about him on an actual past HackHPC event site**
+(`hackhpc.github.io/hpcinthecity23/organizers.html`) — used that as the
+primary source (WSSU alumnus, started as an SGX3 Coding Institute
+participant, two Indiana University internships, Young Professional of
+the Year award, has organized/mentored for HackHPC since) rather than
+guessing from the truncated LinkedIn scrap. `affiliation` is Nationwide
+(his current employer per LinkedIn), with a freshly fetched real
+favicon (`nationwide-com.svg`). Photo (`hector.jpeg`) supplied directly
+by the user, same correct-path precedent as every other mentor photo
+(see "Mentor photos" below).
+
+- **`history` schema extended** to support events beyond plain
+  FacultyHack@Gateways participation: the existing rendering only ever
+  linked a bare `year` to that year's FacultyHack@Gateways archive
+  (looked up from `_data/archives.yml`), which breaks for a
+  differently-branded HackHPC event (Hector's history includes two
+  "HPC in the City" events, a separate event series) or two events in
+  the same year. First pass added separate `event`/`url` display
+  fields rendered as `<event name> (<year>) — <role>` — **then, by a
+  follow-up request ("format hector's FacultyHack history the same as
+  the other mentors")**, simplified back down: `url` is now just an
+  optional override for the year's link target (defaults to the
+  `archives.yml` lookup when absent, same as every other mentor), and
+  the *event name* is folded directly into the `role` text instead of
+  being a separate displayed field — e.g. `role: "Organizer — HPC in
+  the City: Pandemics"`. Every mentor's history now renders in the
+  exact same `<year> — <role>` shape regardless of `url` presence;
+  `person-card.html`'s history loop was rewritten accordingly (a single
+  branch computing one `entry_url`, not two parallel render paths).
+  Verified the other 11 mentors' existing bare `{year, role}` entries
+  render byte-for-byte unchanged after this rewrite.
+- One role text was corrected after the fact by request ("change Team
+  Mentor (Team: Jarvis Bulldog, faculty Samyono) to Mentor") — simple
+  literal edit, no other fields touched.
+
+### All 12 mentors sorted alphabetically by first name (2026-08-13)
+
+By request. Reordered `_data/mentors.yml`'s entries directly (source
+order = render order, no Liquid sort — consistent with the same
+convention already used for `_data/teams.yml`, see "Sorted by mentee
+first name" below). Order: Ahmad, Anas, Elijah, Felicia, Hector, John,
+Mohamed, Mohammed, Olabisi, Sabrina, Sajida, Subil. **This is a change
+from the file's previous convention** — the header comment used to say
+mentors.yml was "kept sorted by last name in the file itself" (see
+"Teams page" below, which still references that old convention in an
+earlier dated note) — first-name sorting now supersedes it. Verified
+via a targeted rebuild check: extracted every rendered `<h2
+class="mentor-card__name">` in document order and confirmed it matches
+the expected first-name-alphabetical list exactly, plus spot-checked
+that no bio/link/history content was dropped or duplicated in the
+reorder (every mentor's known affiliation string and a distinctive bio
+snippet each still present exactly once).
+
+### Je'aime Powell's bio rewritten, `white-space: pre-line` fix (2026-08-10)
+
+By request, replacing the old TACC-era bio with a new 4-paragraph one
+reflecting his move to Omnibond Systems. **Caught a real rendering bug
+before it shipped**: every mentor bio renders inside a single `<p
+class="mentor-card__bio">` with no CSS to preserve line breaks — a
+multi-paragraph bio's blank lines survive YAML's `>-` folded-scalar
+rules as literal `\n` characters in the string, but a browser's default
+`white-space: normal` collapses those to nothing, so the 4 paragraphs
+would have silently run together into one wall of text with no visual
+separation. Fixed by adding `white-space: pre-line` to
+`.mentor-card__bio` in `style.css` — a small, universal change (affects
+every mentor/organizer bio via the shared rule), but verified it's a
+no-op for every *other* bio on the site first, since none of the other
+11 currently contain blank lines. Verified the built HTML: Je'aime's
+bio contains exactly 6 real newline characters (3 paragraph breaks) in
+the rendered output, not escaped/stripped.
+
 ## Mentor photos
 
 When first asked to add photos, I refused to auto-download them from
@@ -754,6 +836,122 @@ the right place instead of just appended.
   is generated from the same `site.data.teams` loop, so reordering the
   source file was sufficient for both at once — no second place to
   update).
+
+### `project_repo` GitHub links filled in one mentee at a time (2026-08-06 to 2026-08-17)
+
+By request, across many separate messages ("add this github repo to
+X") — Oyebade Oyerinde already had one from earlier; every other active
+mentee got theirs added the same way: a single `project_repo:` URL,
+rendered under its own "Project Repo" label (icon + stripped-`https://`
+display text), same schema and placement as Oyebade's original. By the
+end, **all 10 active mentees have a current-year repo**: Cheryl Swanier,
+Joseph Aneke, Kristine Christensen, Joshua Gbadebo, Tanganika Johnson,
+Agbeli Ameko, Yohn Parra Bautista, Antigone Anthony, and **Mary Beals**
+(who already had an old `github.com/DrMBea/FacultyHack25` link in her
+generic `links:` list — from **last year's** program — added her real
+2026 repo as `project_repo` and left the old link in place rather than
+delete it, so both are visible). Each addition was verified individually
+(build + the specific mentee's card contains the "Project Repo" header
+and correct link + full structural check), not batched.
+
+### Course goals mass-updated from each mentee's `Updated_Course_Goals.pdf`, new `science_gateway_goal` field (2026-08-17)
+
+By request — "use the Updated_Course_Goals.pdf in each individual team
+folder to update the information." All 10 mentee folders under
+`assets/files/teams/<mentee-slug>/` had gained a second PDF beyond the
+original `Initial_Course_Goals.pdf` (documented in "Teams page — data
+provenance" above): `Updated_Course_Goals.pdf`, each mentee's revised
+poster slide from partway through the program. Read all 10, updated
+`target_course`/`target_course_number`/`anticipated_enrollment`/
+`project_goals` wherever the updated slide differed from what was
+already in `teams.yml` — most did, several substantially (full
+project-goal rewrites, not just wording tweaks).
+
+- **Two real course-number changes caught**: Joshua Gbadebo's went
+  **CMP 411 → CMP 334** (a second, independent change from the same
+  mentee earlier in the program — see the file's earlier history — this
+  isn't a typo fix, the poster genuinely now says 334). Agbeli Ameko's
+  went from a placeholder **"TBD" → "DATA 500"**.
+- **Trusted the rendered slide image over the PDF's text layer once**,
+  not blindly: Tanganika Johnson's `Updated_Course_Goals.pdf` had a text
+  layer that was stale leftover copy from the *original* slide (all 4
+  goals matched the old `Initial_Course_Goals.pdf` almost verbatim), but
+  the actual rendered slide image showed a visibly redesigned poster
+  ("FROM THE BLUFF TO THE BAYOU") with 4 different goals and a new
+  course number (`271` → `UFOR 271`). Used the image, not the text
+  extraction, since the image is what the mentee actually intended to
+  present — a real case of "verify against the rendered content, not
+  just the extracted text," which has bitten this project before (see
+  the `titleize.html` capitalize-filter bug and the Liquid whitespace
+  bug in the "Key decisions" section below).
+- **New optional field, `mentee.science_gateway_goal`** (single string,
+  not a list): about 8 of the 10 updated slides added a distinct
+  synthesized one-paragraph "Science Gateway Goal" statement, separate
+  from the bulleted `project_goals` list — didn't fit the existing
+  schema, so this is a genuinely new field, documented in `teams.yml`'s
+  header comment. Rendered in `teams-card.html` right after Project
+  Goals, under its own "Science Gateway Goal" label. Oyebade Oyerinde's
+  slide left that section blank (visibly, in red placeholder text on
+  the poster) — his entry has no `science_gateway_goal`, not an empty
+  string, matching the "don't guess / omit what's not applicable" rule
+  used throughout this file.
+- **One mentor-pairing discrepancy flagged, not silently changed**:
+  Joshua Gbadebo's updated slide lists "Mentor 1: Prof. Sajida Faiyaz,"
+  but `teams.yml`'s `mentor_name` for that pairing is still "Olabisi
+  Ojo." Mentor pairing is a separate, higher-stakes field than course
+  content (it drives the "Mentored by" half of the card and the
+  Mentors-page deep link), so this was surfaced to the user rather than
+  changed unilaterally — **still unresolved**, worth confirming before
+  assuming either name is current.
+- Several small copy-edits applied while transcribing, same "fix
+  obvious typos, don't fabricate" precedent as elsewhere in this file:
+  "Guacamoe" → "Guacamole" (Agbeli), "such BioDigital Human" → "such
+  **as** BioDigital Human" (Antigone, a missing word, not a wording
+  choice), "San Diego Supercomputing Center" → "**Supercomputer**
+  Center" elsewhere (its real name).
+- **Verified per-mentee**: after all 10 edits, ran one combined check —
+  every changed course number/enrollment string and every new/rewritten
+  goal present in the correct mentee's card specifically (sliced
+  between consecutive `id="..."` boundaries, not just "present
+  somewhere on the page" — this page's cards are dense enough that a
+  bare substring check risks a false positive from an adjacent card),
+  full structural check clean.
+
+### `science_gateway_resources` field added, then collapsed to name-only links (2026-08-17)
+
+Two follow-up requests, same day. First: **"use the below table to
+update the 'Science Gateways Resources' used for Oyebade"** — a table
+of named tools/datasets (some with URLs, some without, e.g. "Jetstream2
+— no URL given on poster") distinct from both `project_goals` and
+`science_gateway_goal` above. Added another new optional field,
+`mentee.science_gateway_resources`: a list with the *same shape* as a
+`schedule.yml` resource (`name`, `url`, `icon`, `description` — `url`
+and `icon` both optional), rendered via the same shared
+`resource-item.html` partial `schedule.yml` resources already use,
+under a new "Science Gateways Resources" label. Tools with no URL given
+on the source poster (Jetstream2, CloudBank, Claude, Codex for Oyebade)
+render as plain unlinked text — `resource-item.html` already handled
+that case, no template changes needed there. 2 new favicons fetched
+(`llm-jetstream-cloud-org.svg`, `doi-ccs-ornl-gov.svg`); reused
+`sciencegateways-org.svg` for the resource-browser link. The same
+field was reused immediately after for **Joseph Aneke** and **Yohn
+Parra Bautista** (3 resources each, fetching `cvw-cac-cornell-edu.svg`,
+`hpc-carpentry-org.svg`, and `nationalresearchplatform-org.svg`) —
+worth noting the last one required extra care: `nationalresearchplatform.org`
+redirects to `nrp.ai`, and its favicon's declared path is relative to
+the *redirected* domain, so a naive fetch against the original URL
+grabbed a 302 response body instead of the icon; re-fetched from the
+resolved `nrp.ai` URL once that was caught.
+
+**Then, by request ("collapse the science gateways links to the name
+as a hyperlink")**, simplified the rendering for just this section —
+swapped out the shared `resource-item.html` partial (icon + share
+button + description) for a plain `<ul>` of `<a href="...">{{
+resource.name }}</a>` (or bare text if no `url`), no icon, no
+description, no share button. The underlying data (`description`,
+`icon`) is untouched in `teams.yml` for all 3 mentees using this field
+— only the template changed — so nothing needs re-adding if a denser
+display is wanted again later.
 
 ## Nav/hero/footer redesign
 
@@ -1722,6 +1920,137 @@ Verified: both resource names/links present under Mon, August 10 only,
 cross-lists correctly into `resources.html`'s Session Materials
 section, structural check passes.
 
+### Pre-session added to Mon, August 10 (2026-08-07)
+
+Same `pre_session:` schema as Fri, August 7 (see above) — "AI Hands-on
+Session," 5:00–6:00 PM ET, focus text updated once by request from an
+initial placeholder ("Office Hours and AI") to the final wording ("AI
+Hands-on Session"). No schema/template changes needed, the field
+already existed.
+
+### Sessions 3–6 recaps and per-session resources added as each session actually happened (2026-08-07 to 2026-08-17)
+
+Same `recap:` schema established for Days 1–2 (see "Session recaps"
+above), continued for the rest of the program as each session took
+place — real pasted write-ups from the user each time, not generated.
+Each one followed the same verification pattern: correct session only
+(sliced between consecutive date headings, not a bare site-wide
+substring check), `<details class="schedule-block__recap">` collapsed
+by default, full structural check. Worth knowing the specific per-day
+details if picking this up:
+
+- **Session 3 (Fri, Aug 7)**: ACCESS/NAIRR troubleshooting pre-session,
+  the switch from individual to 3 disciplinary-subgroup breakout rooms,
+  and Charlie Dey's "AI Paradigms & The Data Revolution" training.
+  **18 resources added** the same day (ACCESS-CI org-request form, Duo
+  Mobile, a HackHPC example repo, 6 quantum-adjacent Google/GitHub/
+  ACCESS links, plus a first batch of quantum-computing education
+  resources) — 14 new favicons fetched, 2 left with no icon because the
+  real domain genuinely has none (`submit-nairr.xras.org`'s
+  `favicon.ico` is a real 0-byte file; `ncyte.net` 403s all automated
+  requests, confirmed with a plain `curl`, not just the fetch script).
+- **Session 4 (Mon, Aug 10)**: Science Gateways Catalog navigation tips
+  (including a real gotcha — the catalog can 403 if linked to directly
+  instead of via the Gateway Central welcome page, and it's manually
+  curated so some links point at legacy Jetstream1 instead of
+  Jetstream2), the 3 disciplinary breakout rooms' specific focus areas,
+  and Charlie Dey's data-literacy/K-means/knowledge-graph training using
+  a real Austin traffic-incident open dataset. **9 resources added**
+  same day (Gateway Central, an undergrad-built catalog-search project,
+  the HPC-Ed beta search index, Google Colab, the Austin dataset, an
+  SGX3 coding-institute repo, plus the poster template/deliverables
+  links already used elsewhere — reused `solid:file-powerpoint`/
+  `solid:list-check` for those instead of fetching a favicon for the
+  site's own pages, matching the established convention).
+- **Session 5 (Wed, Aug 12)**: a live GitHub walkthrough (including the
+  ".com → .dev on any repo URL opens a browser VS Code editor" trick),
+  Kristine Christensen's classroom quantum-computing resource roundup,
+  one-on-one mentor breakouts, and Charlie Dey's tokenization/word-
+  vector training. **27 resources added** same day — the largest single
+  batch this project has done — 13 new favicons, one real correction
+  caught before writing it: the recap said Hector Santiago III (see
+  "Mentors page" above) was a "Senior *Data* Engineer," cross-checked
+  against his own verified mentor bio/LinkedIn research already on
+  file, which says Software Engineer — corrected in the recap text
+  rather than propagated.
+- **Session 6, Fri Aug 14 (final virtual session)**: each mentee's
+  poster/course-redesign presentation, an "AI pedagogy debate" roundtable
+  (prompt-based grading, explicit AI "guardrails," the single-prompt
+  pitfall), tool pro-tips, and D.C. conference logistics. **13 more
+  resources added** the same day it happened (Perplexity, AnswerThis,
+  GitHub Education Pack, Cerebras, Mermaid.js, Napkin.ai, etc.) — one
+  has no icon (`joshj620.github.io/DBLR/` declares no favicon at all,
+  confirmed directly, not fetched-and-failed). **Several real
+  corrections caught writing the recap**, cross-checked against
+  `teams.yml` rather than transcribed as given: "Du Bois University" →
+  **Voorhees University** for Joshua Gbadebo (his actual affiliation —
+  this was a clear notetaking slip, not a spelling variant), "Antigone
+  Anthony (Biological Sciences)" → **Antigone Francis-Anthony (Southern
+  University A&M College)** (matched a department name to an actual
+  institution), plus the standing "Tanjanika → Tanganika" and "Jeaime →
+  Je'aime" corrections applied yet again, and "San Diego Supercomputing
+  Center" → its real name, **San Diego Supercomputer Center**.
+
+### Conference section: "Main Poster Session" entry added, new `open: true` field (2026-08-14/17)
+
+By request — a specific Thu, Sept 24, 2:00–3:30 PM slot for the main
+(non-FacultyHack-specific) conference-wide poster session, distinct
+from the existing "FacultyHack Poster Session & Awards" (TBA, during
+the reception) entry already there. Initial deliverables text was
+corrected once by the user directly ("the deliverable should be to
+hang and present FacultyHack posters") before being finalized.
+
+**Then, by request ("leave the Main Poster Session expanded by
+default")**: the conference-section template only ever force-opened
+the *first* `<details>` (`{% if forloop.first %}`), so a non-first card
+had no way to render `open`. Added a new optional `open: true` field to
+the `conference:` schema (documented in the header comment,
+`schedule.html`'s condition is now `{% if forloop.first or item.open
+%}`) rather than reordering the data just to exploit the
+first-card-is-open rule — reordering would've also changed the
+displayed sequence, which wasn't asked for. Verified both the
+always-first card and the new `open: true` card render with the `open`
+attribute, and that this doesn't affect the virtual-sessions timeline's
+own unconditional `open` (a separate `{% for %}` loop, untouched).
+
+### Search + "Jump to session" toolbar added (2026-08-17)
+
+By request, placed directly under the "...are broken down." paragraph
+in the Virtual Training Sessions intro, before the timeline. Same
+`.resource-toolbar` component and interaction pattern already
+established on the Teams page (`#teams-search`/`#teams-jump` in
+`teams.js`) — reused the existing CSS classes as-is, no new styles
+needed, and wrote a new `assets/js/schedule.js` mirroring `teams.js`'s
+structure rather than generalizing the two into one shared script (two
+short, independent, page-scoped files was judged simpler than a shared
+one with page-specific config).
+
+- **New `id="{{ session_slug }}"` added to each virtual session's
+  `<details class="schedule-block">`** — previously these had no `id`
+  at all, so nothing on the page could deep-link to a specific session.
+  Reused the `session_slug` variable already computed earlier in the
+  same `{% for %}` loop (for the per-session file-drop directory
+  lookup) rather than recomputing `session.date | slugify` a second
+  time.
+- **Scoped deliberately to just the virtual-sessions timeline**: the
+  Conference section below reuses the same `.schedule-block` class for
+  its own (differently-purposed) cards, so both the search's card
+  `querySelectorAll` and the `id`s needed a distinguishing scope —
+  added `id="virtual-sessions-timeline"` to that specific
+  `.schedule-timeline` div and query only inside it
+  (`#virtual-sessions-timeline .schedule-block`), leaving the
+  Conference section's own timeline/cards completely unaffected.
+- Jump-to also force-un-hides and re-opens the target card
+  (`target.hidden = false; target.setAttribute("open", "")`) before
+  scrolling — belt-and-suspenders in case a user jumps to a session
+  that's currently filtered out by an active search term, or one they'd
+  manually collapsed.
+- Verified: all 6 jump-to `<option>` values match an actual session's
+  `id` 1:1, toolbar renders in the correct position (immediately after
+  "...are broken down.", before the timeline div), full structural
+  check (including the new duplicate-`id` check, since 6 new `id`
+  attributes were added at once) passes clean.
+
 ## Deliverables page
 
 `deliverables.html` (added 2026-07-30, static content pasted directly by
@@ -2437,18 +2766,43 @@ blocked by a separate, GitHub-side problem:
   rewrite around the `github-pages` gem, re-verifying every Liquid/
   plugin behavior against an older Jekyll) for something very unlikely
   to fix it.
-- **As of this writing, this is unresolved and being watched in the
-  background** (`gh run watch <id>`) rather than polled — treat any
-  claim of "it's deployed" as unverified until a `deploy` job actually
-  shows `runner_name` populated and completes with `conclusion:
-  success`. If you're picking this up fresh: `gh run list --limit 5`
-  to see current state; if still stuck, this looks like a transient
-  GitHub Actions capacity/scheduling issue on their end (nothing found
-  in this repo's config explains job-scheduling delays), so the most
-  likely fix is simply time, not another configuration change. Don't
-  re-diagnose Jekyll/Gemfile issues again without first checking
-  whether a `build` job has actually gotten a runner and failed *on
-  its own merits* — so far, every one that got a runner has passed.
+- **Update: resolved on its own.** The runner-scheduling delay cleared
+  sometime after 2026-08-07 — every push from 2026-08-11 through
+  2026-08-14 deployed successfully in well under a minute (`gh run
+  list`), confirming this really was transient GitHub-side capacity, not
+  a real config problem, and that the Jekyll 4.4 + custom-workflow setup
+  (left as-is per the user's choice above) is correct. Don't re-diagnose
+  Jekyll/Gemfile issues here again without first checking whether a
+  `build` job actually got a runner and failed *on its own merits* — as
+  of this writing, none ever have.
+
+### A second, different failure: GitHub's own Pages deploy API returning 503s (2026-08-17)
+
+Not the same issue as above — the runner-scheduling delay was about
+jobs never getting *picked up*; this one is a job that ran immediately
+and failed fast (27 seconds) with a clean error. `gh run view <id>
+--log-failed` on the failed run showed the `build` job succeeded
+completely; only the final `deploy-pages@v4` step failed:
+```
+HttpError: No server is currently available to service your request...
+Error: Failed to create deployment (status: 503)... is githubstatus.com
+reporting a Pages outage? Please re-run the deployment at a later time.
+```
+That message is generated by GitHub's own action, not this repo's
+config — a direct 503 from GitHub's Pages deployment API itself.
+Confirmed it wasn't a one-off glitch in the log by trying
+`gh run rerun <id> --failed` twice (15 seconds apart) — **both rerun
+attempts hit the identical 503**, meaning the outage was live at the
+API level, not just in the original run. Reported this to the user
+plainly rather than attempting further config changes (there was
+nothing to fix — the workflow and build are correct), and asked how
+they wanted to handle it; they chose to just retry later rather than
+have it actively re-polled. **If this comes up again**: check
+`gh run view <id> --log-failed` first — if `build` succeeded and only
+`deploy` failed with an `HttpError`/503 pointing at githubstatus.com,
+it's the same transient outage pattern, not a regression to hunt down
+in this repo. A plain `gh run rerun <id> --failed` (or just pushing
+again) is the fix once GitHub's side recovers.
 
 ## Local dev environment set up on this machine
 
@@ -2672,13 +3026,19 @@ glyph (not just a name-to-codepoint mapping in the CSS) — stronger than
 the earlier occurrence-count heuristic, used for the Teams/Schedule file
 icons and the Deliverables PDF icons.
 
-**Current data snapshot** (so the next session doesn't have to
-re-derive it): 11 mentors (10 with a photo; missing: Mohammed
-Elmellouki), 10 active team pairings (Vivek Shandilya's entry exists in
+**Current data snapshot** (refreshed 2026-08-17, so the next session
+doesn't have to re-derive it): **12 mentors** (11 with a photo; missing:
+Mohammed Elmellouki — Hector Santiago III, added 2026-08-13, does have
+one), 10 active team pairings (Vivek Shandilya's entry exists in
 `_data/teams.yml` but is commented out — the user explicitly chose to
 leave it that way after I flagged the discrepancy, see "Teams page"),
-171 resources across 11 categories, 20 affiliated organizations on the
-home page community map.
+171 resources across 11 categories in `_data/resources.yml`, plus a
+substantial and growing number of per-session resource links in
+`_data/schedule.yml` (all 6 virtual sessions now have some, several
+with 10-27 each — see "Sessions 3–6 recaps" below), 20 affiliated
+organizations on the home page community map. **All 6 virtual sessions
+now have a `recap:`** (Aug 3, 5, 7, 10, 12, 14 — the program's full
+6-session run is complete as of 2026-08-14).
 
 **Still not done, biggest-risk-first:**
 - **The community map has never been opened in a real browser** — the
@@ -2714,14 +3074,19 @@ home page community map.
    styling, both toolbar search+jump pairs on Resources/Teams, every
    card link, focus ring visibility), and a contrast-checker extension
    against live rendered colors.
-2. **Decide the GitHub Pages deployment model** (see "Toolchain"
-   section) — nothing is wired to auto-deploy yet.
+2. ~~Decide the GitHub Pages deployment model~~ **Done (2026-08-06)** —
+   see "GitHub Pages deployment" section. Deploying successfully via
+   GitHub Actions on every push since 2026-08-11 (a transient runner-
+   scheduling delay and, separately, a one-off GitHub-side Pages-API
+   outage on 2026-08-17 both happened and resolved on their own — see
+   that section for what to check if a deploy ever fails again before
+   assuming it's a config regression).
 3. **Decide when to commit / push.** The user has been committing
-   periodically in the background throughout this session (see `git
-   log`) — don't assume the working tree is the only unsaved state, but
-   also don't assume everything visible in a build is already committed.
-   Check `git status` fresh each session rather than trusting this file's
-   memory of it.
+   periodically in the background throughout the whole project (see
+   `git log`) — don't assume the working tree is the only unsaved
+   state, but also don't assume everything visible in a build is
+   already committed. Check `git status` fresh each session rather than
+   trusting this file's memory of it.
 4. **Decide the Vivek Shandilya situation.** His pairing is commented
    out in `_data/teams.yml` (not deleted) — the user's explicit call
    after I raised it as a discrepancy. Worth a check-in before this goes
@@ -2736,11 +3101,14 @@ home page community map.
    Elmellouki's Scholar-profile institution mismatch (see "Mentors
    page"); Je'aime Powell's affiliation/bio contradiction (see
    "Organizers page").
-7. **Session recaps are 2 of 6 virtual sessions done** (Aug 3, Aug 5).
-   Days 3–6 (Aug 7, 10, 12, 14) will presumably get the same treatment
-   as they happen — same `recap:` schema, same collapsed-by-default
-   `<details>` pattern, documented in `_data/schedule.yml`'s header
-   comment.
+7. ~~Session recaps are 2 of 6 virtual sessions done~~ **Done
+   (2026-08-14)** — all 6 virtual sessions (Aug 3, 5, 7, 10, 12, 14) now
+   have a `recap:`; the program's virtual portion is complete. Remaining
+   open thread from that work: **Joshua Gbadebo's mentor pairing is
+   unresolved** — his Updated_Course_Goals.pdf lists "Prof. Sajida
+   Faiyaz" as Mentor 1, but `teams.yml`'s `mentor_name` for that pairing
+   is still "Olabisi Ojo." Flagged to the user, not changed — confirm
+   which is current before assuming either.
 8. **Resource link-check follow-ups, still not fixed** (found during a
    full DNS+GET pass over all resources, see "Resources page" for full
    history): `lab.github.com` (dead, GitHub Learning Lab retired) and
