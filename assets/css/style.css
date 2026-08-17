@@ -460,6 +460,16 @@ main:focus-visible {
   z-index: 1;
 }
 
+.overview__infographic {
+  display: block;
+  width: 100%;
+  max-width: 60rem;
+  height: auto;
+  margin-top: var(--space-4);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+
 .community-map {
   padding-block: var(--space-5);
   border-top: 1px solid var(--color-border);
