@@ -31,16 +31,34 @@
 # spelled two ways in the source spreadsheet — left as originally entered,
 # both link to the same URL/icon.
 #
-# mentee.target_course_number / anticipated_enrollment / project_goals
-# (all optional): sourced from each mentee's own "Initial_Course_Goals.pdf"
-# under assets/files/teams/<mentee-slug>/, where one exists — filled out
-# by the mentee themselves during the program, so `target_course` was
-# also updated to match that PDF wherever it differed from the original
-# pasted spreadsheet (several did — see PICKUP_AND_GO.md "Teams page" for
-# which ones and why the PDF was treated as the more current source).
-# Only 8 of 11 mentees have a PDF; the rest simply don't have these three
-# fields. `project_goals` is a plain list of strings, rendered as a
-# bulleted list.
+# mentee.target_course_number / anticipated_enrollment / project_goals /
+# science_gateway_goal (all optional): sourced from each mentee's own
+# course-goals PDF under assets/files/teams/<mentee-slug>/ — initially
+# "Initial_Course_Goals.pdf", later superseded by "Updated_Course_Goals.pdf"
+# once a mentee revised their slide (most did, partway through the
+# program) — the updated PDF is treated as the current source of truth
+# wherever the two differ, including for `target_course`/
+# `target_course_number` themselves (see PICKUP_AND_GO.md "Teams page"
+# for which fields changed between the initial and updated PDFs and why).
+# `project_goals` is a plain list of strings, rendered as a bulleted
+# list. `science_gateway_goal` is a single string — a later addition to
+# the slide template, a synthesized one-paragraph goal statement
+# distinct from the bulleted `project_goals` list, rendered under its
+# own "Science Gateway Goal" label; only present once a mentee's
+# updated PDF actually filled that section in (a few left it blank).
+# Not every mentee has a PDF at all, and not every field is filled in on
+# every PDF that exists — omit whichever of these fields aren't
+# applicable rather than guessing.
+#
+# mentee.science_gateway_resources (optional): a list of specific tools/
+# datasets/platforms a mentee is using, sourced from their own poster —
+# not from the course-goals PDF template like the fields above. Same
+# schema as a schedule.yml resource (`name`, `url`, `icon`, `description`
+# — `url` and `icon` both optional), rendered under its own "Science
+# Gateways Resources" label via the same shared `resource-item.html`
+# partial schedule.yml resources use. `url` is omitted for tools with no
+# link given on the source poster — `resource-item.html` already
+# renders those as plain unlinked text.
 #
 # mentee.project_repo (optional): a single GitHub repo URL, rendered
 # under its own "Project Repo" label — separate from the generic
@@ -54,12 +72,13 @@
     affiliation_url: "https://howard.edu/"
     affiliation_icon: "custom:favicons/howard-edu"
     target_course: "Intro to Open Source Future: Decolonizing Technology & Data Sovereignty"
-    target_course_number: "TBD"
-    anticipated_enrollment: "15-25"
+    target_course_number: "DATA 500"
+    anticipated_enrollment: "15-25 (Spring or Fall)"
     project_goals:
       - "Understand local open-source tools, OS, automations, and ethical computing vs digital colonialism"
-      - "Tour of useful open source data skills via JupyterLab, Metabase, Python for EJ analysis"
+      - "Tour of useful open source data skills via JupyterLab, Metabase, Python for Environmental Justice analysis"
       - "Critical analysis of big tech power and building confidence to utilize open source solutions"
+    science_gateway_goal: "Jetstream2 JupyterHub; VMs and Guacamole emulation."
     project_repo: "https://github.com/TeamGhana/HUDATA500"
     links:
       - label: "LinkedIn"
@@ -77,11 +96,12 @@
     affiliation_icon: "custom:favicons/subr-edu"
     target_course: "Anatomy & Physiology"
     target_course_number: "SBIO 221B"
-    anticipated_enrollment: "25"
+    anticipated_enrollment: "25 (Fall and Spring)"
     project_goals:
       - "Integrate science gateway resources into teaching and research activities"
       - "Expand student access to computing tools, data, and hands-on learning"
       - "Provide faculty and students with training and technical support"
+    science_gateway_goal: "Integrate accessible Science Gateway, computational, and AI tools such as BioDigital Human and Jupyter into the Anatomy & Physiology laboratory to improve students' understanding of complex biological concepts through visualization, data analysis, and interactive learning."
     project_repo: "https://github.com/francisantigone-bit/Antigone-s-Hackathon-2026--Anatomy-Unlocked"
   mentor_name: "Ahmad Al-Omari"
 
@@ -94,9 +114,10 @@
     target_course_number: "CMP 224"
     anticipated_enrollment: "12 (Fall and Spring)"
     project_goals:
-      - "Develop foundational computing and programming skills"
-      - "Apply artificial intelligence and cloud computing responsibly using Jetstream2"
-      - "Use artificial intelligence as a learning and productivity tool"
+      - "Increase access to computing resources with Jetstream2 virtual computing environments"
+      - "Integrate generative AI into programming instruction for code generation, debugging, explanation, and problem solving"
+      - "Develop authentic computational projects using Jetstream2 and AI that mirror real-world computing applications"
+    science_gateway_goal: "Integrate Science Gateway resources, including Jetstream2 cloud computing infrastructure and AI-enabled tools, into an introductory programming course to provide students with accessible, authentic, and scalable computing experiences that strengthen computational thinking, programming skills, and AI literacy."
     project_repo: "https://github.com/cswanier/FacultyHack"
     links:
       - label: "LinkedIn"
@@ -114,10 +135,12 @@
     affiliation_icon: "custom:favicons/hamptonu-edu"
     target_course: "Introduction to Python Programming"
     target_course_number: "CSC 291"
-    anticipated_enrollment: "22-30 (Spring 2027)"
+    anticipated_enrollment: "22-30 (Offered every Spring)"
     project_goals:
-      - "Improve Intro to Programming with HPC Perspectives"
-      - "Explore resources e.g. data sets with a view to produce reproducible projects"
+      - "Introduce students to Programming with HPC Perspectives"
+      - "Explore resources (e.g., data sets) with a view to produce reproducible projects"
+      - "Train students to integrate and visualize results from science gateway platforms"
+    science_gateway_goal: "Use classroom-friendly Gateway resources (Jetstream2, Cornell Virtual Workshop, HPC Carpentry) to experience computing beyond the desktop."
     project_repo: "https://github.com/Josephogo/joseph-aneke"
     links:
       - label: "LinkedIn"
@@ -131,13 +154,14 @@
     affiliation_url: "https://www.voorhees.edu/"
     affiliation_icon: "custom:favicons/voorhees-edu"
     target_course: "Computer Architecture"
-    target_course_number: "CMP 411"
+    target_course_number: "CMP 334"
     anticipated_enrollment: "15 (Fall and Spring)"
     project_goals:
       - "Understand the concept of Computer Architecture"
       - "Integrate the concept and understanding of cloud architecture as it relates to traditional computer architecture"
       - "Analyze how computer architecture principles support artificial intelligence workloads by examining the interaction between processors, memory systems, storage, parallel computing, and specialized AI hardware accelerators"
       - "Prepare students to understand the importance of computer architecture in traditional on-prem and modern cloud computing models in IaaS, PaaS, SaaS"
+    science_gateway_goal: "Leverage Jetstream2 to provide students with cloud-based access to real CPU, GPU, memory, storage, and networking resources, allowing them to experiment with and measure how computer architecture components affect AI workload performance."
     project_repo: "https://github.com/gestureb-cpu/Course-Syllabus"
     links:
       - label: "Instagram"
@@ -162,6 +186,7 @@
       - "Help students run prepared code, modify selected variables, visualize authentic IoT and industrial data, and interpret the results"
       - "Introduce AI-assisted anomaly detection, cybersecurity, and critical infrastructure applications in an approachable manner"
       - "Guide students in transferring these skills to a sensor-based final project in which they collect, analyze, visualize, and report on their own data"
+    science_gateway_goal: "Develop a Science Gateways-based learning experience that enables introductory community college IoT students to analyze authentic and student-generated sensor data using Jupyter notebooks and Jetstream resources, helping them understand how IoT data can be visualized, analyzed, secured, and scaled beyond a single device."
     project_repo: "https://github.com/kristinechristensen/FacultyHack26"
     links:
       - label: "LinkedIn"
@@ -179,11 +204,12 @@
     affiliation_icon: "custom:favicons/subr-edu"
     target_course: "Ecology"
     target_course_number: "404B"
-    anticipated_enrollment: "15"
+    anticipated_enrollment: "15 (Fall and Spring, as needed)"
     project_goals:
-      - "Use Jetstream2 through ACCESS as the primary Science Gateway resource for Ecology students to explore Louisiana ecological, environmental, and climate-related datasets"
-      - "Build a scaffolded CURE workflow using Jetstream2, Jupyter notebooks, and ecological datasets to guide students through research questions, data analysis, visualization, and interpretation"
-      - "Create an accessible implementation plan using Cornell Virtual Workshop and HPC Carpentry tutorials to support student onboarding, reproducibility, and low-bandwidth backup options"
+      - "Develop a beginner-friendly CURE module in Ecology 404B that guides biology majors through ecological question development, data exploration, visualization, and interpretation"
+      - "Use Louisiana-focused ecological and environmental datasets to connect course concepts to wetlands, biodiversity, climate change, water quality, and coastal change"
+      - "Build student confidence with computational ecology through guided CloudBank/Jupyter notebook activities, structured tutorials, and reflection checkpoints"
+    science_gateway_goal: "Use NAIRR CloudBank Classroom as the primary student-facing cloud workspace for Ecology students to store project files, access guided Jupyter notebook activities, and explore ecological datasets in a browser-based environment at no cost — including student access and storage through CloudBank, guided Jupyter notebook activities, Cornell Virtual Workshop onboarding tutorials, HPC Carpentry reproducible workflow support, and low-bandwidth backup datasets and worksheets."
     project_repo: "https://github.com/DrMBea/Bayou-Ecology-CURE-2026"
     links:
       - label: "LinkedIn"
@@ -201,12 +227,34 @@
     affiliation_icon: "custom:favicons/cau-edu"
     target_course: "Economics and Data Science for Public Administrators"
     target_course_number: "CPAD 504"
-    anticipated_enrollment: "20"
+    anticipated_enrollment: "20 (Fall and Spring, as needed)"
     project_goals:
-      - "Identify and explain the principles and concepts of microeconomics, macroeconomics, and data science that are applicable in decision-making by organizations"
-      - "Analyze economic data using software programs and programming languages, such as R, Python, and Excel in Jetstream2 and CloudBank Hubs"
-      - "Communicate through storytelling about data visualizations in R and/or Python"
-      - "Construct alternative policy options to remedy a market failure through problem"
+      - "Reinforce economic concepts by applying microeconomic and macroeconomic theories to practical public-sector problems"
+      - "Develop analytical skills by using equations, data, and quantitative methods to analyze economic relationships and policy choices"
+      - "Build R proficiency by using R for data analysis, computation, and graphical visualization"
+      - "Integrate AI responsibly by using LLMs such as SGX2 Gateways LLMs, Claude, and Codex to support coding, research, and problem-solving while critically evaluating AI-generated outputs"
+      - "Apply real-world data by working with authentic datasets to connect economic theory with evidence-based public policy and decision-making"
+    science_gateway_resources:
+      - name: "Jetstream2"
+        description: "Cloud-based HPC platform used for data analysis in R."
+      - name: "CloudBank"
+        description: "Cloud computing access paired with Jetstream2 for R-based data analysis."
+      - name: "SGX3/SGX2 Gateways LLMs"
+        url: "https://llm.jetstream-cloud.org/auth?redirect=%2F"
+        icon: "custom:favicons/llm-jetstream-cloud-org"
+        description: "AI tool used for generating ideas and sources."
+      - name: "Claude"
+        description: "AI tool used for generating ideas and sources."
+      - name: "Codex"
+        description: "AI tool used for generating ideas and sources."
+      - name: "ORNL Datasets"
+        url: "https://doi.ccs.ornl.gov/datasets"
+        icon: "custom:favicons/doi-ccs-ornl-gov"
+        description: "Source of datasets used in the course."
+      - name: "Science Gateways Resource Browser"
+        url: "https://sciencegateways.org/resources/browse"
+        icon: "custom:favicons/sciencegateways-org"
+        description: "Resource-browsing listing referenced on the poster."
     project_repo: "https://github.com/ooyerind/FacultyHack-Gateways26"
     links:
       - label: "LinkedIn"
@@ -220,13 +268,14 @@
     affiliation_url: "https://www.subr.edu/"
     affiliation_icon: "custom:favicons/subr-edu"
     target_course: "Environmental Science"
-    target_course_number: "271"
-    anticipated_enrollment: "10-15"
+    target_course_number: "UFOR 271"
+    anticipated_enrollment: "10-15 (Spring or Fall)"
     project_goals:
-      - "Integrate an accessible science gateway and authentic South Louisiana datasets from Designsafe into the 16-week 271 course"
-      - "Develop four scaffolded gateway activities using Jupyter Notebook that move students from data discovery and visualization to interpretation"
-      - "Support the Jaguar Environmental Resilience CURE on urban heat, tree canopy, stormwater, water quality, soil, or biodiversity by using JetStream 2 through ACCESS"
-      - "Create a reproducible workflow that ends with a research report, accessible poster, and community-facing environmental product"
+      - "Develop four scaffolded CURE activities centered on urban heat and environmental resilience in Baton Rouge and South Louisiana"
+      - "Guide students through Discovery, Visualization, Analysis, and Interpretation using gateway datasets and student-collected field data"
+      - "Use HPC Carpentry's Introduction to HPC to prepare students for shared computing, remote resources, and responsible data practices"
+      - "Produce reusable notebooks and authentic products: a research report, accessible poster, and community-facing environmental brief"
+    science_gateway_goal: "Establish ACCESS CloudBank Classroom as the managed course JupyterHub; select accessible gateways, tools, and Louisiana datasets with SGX3; provide equitable, low-barrier onboarding for 10-15 students; and sustain reproducible, reusable workflows across future semesters."
     project_repo: "https://github.com/tanganjohnson-ai/Hackathon-26-Environmental-Science"
     links:
       - label: "LinkedIn"
@@ -256,10 +305,12 @@
     affiliation_icon: "custom:favicons/famu-edu"
     target_course: "Artificial Intelligence"
     target_course_number: "CAP-4620"
-    anticipated_enrollment: "10"
+    anticipated_enrollment: "12 (Fall)"
     project_goals:
-      - "Explore LLMs that can be tested and used by my students in HPC systems"
-      - "Explore datasets with environments that can be used on gateways"
+      - "Evaluate open-weight large language models (LLMs) that students can deploy, fine-tune, and benchmark on HPC systems through science gateway interfaces"
+      - "Curate domain-relevant datasets and pre-configured computing environments (Jupyter/containerized) that can be published and reused on science gateways"
+      - "Map gateway-hosted datasets across domains (environmental, health, geospatial) to specific course modules — clustering, computer vision, NLP — creating a reusable crosswalk that shows instructors which gateway data assets support which AI competencies"
+    science_gateway_goal: "Extend access to cyberinfrastructure by using the National Research Platform (NRP) to compare unsupervised models versus Google Colab, putting students directly on the National Research Platform."
     project_repo: "https://github.com/Yohnjparra/Yohn-Parra"
     links:
       - label: "LinkedIn"
