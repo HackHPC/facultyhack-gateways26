@@ -2989,10 +2989,10 @@ single biggest remaining risk before calling any of this "done."
 
 ## Verification status
 
-*(Refreshed 2026-08-06 — the two sections below had gone stale; the
-project has grown a lot since they were first written. Older
-per-feature verification detail lives throughout this file under each
-feature's own dated section — this is just the rolled-up summary.)*
+*(Refreshed 2026-08-17 — the two sections below had gone stale again;
+the project has grown a lot since the last refresh. Older per-feature
+verification detail lives throughout this file under each feature's
+own dated section — this is just the rolled-up summary.)*
 
 **A real `jekyll build` succeeds** (Jekyll 4.4.1, Homebrew Ruby 4.0.6)
 for all **seven** pages: Home, Schedule, Deliverables, Mentors, Teams,
@@ -3048,21 +3048,31 @@ now have a `recap:`** (Aug 3, 5, 7, 10, 12, 14 — the program's full
   verified (valid JSON/GeoJSON, correct file paths, no build errors) but
   none of it has actually been watched render or interacted with. See
   "Community map" section for the full feature history.
-- **Session recap `<details>` disclosure behavior** (Days 1–2 so far) —
-  same native-`<details>` pattern already used for the outer schedule
-  cards, but the specific nested collapse/expand interaction (summary
-  showing the recap title, chevron-free) hasn't been clicked by hand.
+- **Session recap `<details>` disclosure behavior** (all 6 sessions now
+  have one) — same native-`<details>` pattern already used for the
+  outer schedule cards, but the specific nested collapse/expand
+  interaction (summary showing the recap title, chevron-free) hasn't
+  been clicked by hand.
+- **The Schedule page's new search + "Jump to session" toolbar
+  (2026-08-17) has never been used in a real browser** — typing in the
+  search box, confirming non-matching cards actually hide, picking a
+  date from the jump-to dropdown and confirming it scrolls/re-opens/
+  focuses correctly. Structurally verified only (correct markup,
+  correct `id`s, script tag present) — same caveat as the identical
+  Teams-page toolbar it's modeled on, which also has never been
+  clicked.
 - No page has ever been opened in a real browser *except* the one Chrome/
   Safari check above, which was itself prompted by a user-reported bug,
   not a deliberate QA pass. Mobile-first reflow, 400% zoom, real
   screen-reader output, and keyboard-only navigation across all 7 pages
   remain unverified by eye.
-- The Font Awesome icon swap, the ~120 real-favicon resource/mentor/team
-  icons, and the Schedule page's `<details>` timeline cards are all still
-  in the same "structurally correct, never visually confirmed" state
-  described in earlier revisions of this section — nothing has changed
-  about those since, just deprioritized below the map given how much
-  bigger and more interactive it is.
+- The Font Awesome icon swap, the ~150+ real-favicon resource/mentor/
+  team/session icons (grown substantially since Sessions 3–6's resource
+  batches), and the Schedule page's `<details>` timeline cards are all
+  still in the same "structurally correct, never visually confirmed"
+  state described in earlier revisions of this section — nothing has
+  changed about those since, just deprioritized below the map given how
+  much bigger and more interactive it is.
 
 ## To continue in a new session
 
