@@ -62,6 +62,12 @@
       {{ include.pairing.mentee.anticipated_enrollment }}
     </p>
     {% endif %}
+    {% if include.pairing.mentee.science_gateway_goal %}
+    <p class="teams-card__course">
+      <span class="teams-card__course-label">Science Gateway Goal</span>
+      {{ include.pairing.mentee.science_gateway_goal }}
+    </p>
+    {% endif %}
     {% if include.pairing.mentee.project_goals %}
     <div class="teams-card__project-goals">
       <p class="teams-card__course-label">Project Goals</p>
@@ -71,12 +77,6 @@
         {% endfor %}
       </ul>
     </div>
-    {% endif %}
-    {% if include.pairing.mentee.science_gateway_goal %}
-    <p class="teams-card__course">
-      <span class="teams-card__course-label">Science Gateway Goal</span>
-      {{ include.pairing.mentee.science_gateway_goal }}
-    </p>
     {% endif %}
     {% if include.pairing.mentee.science_gateway_resources %}
     <div class="teams-card__project-goals">
