@@ -81,12 +81,17 @@
     {% if include.pairing.mentee.science_gateway_resources %}
     <div class="teams-card__project-goals">
       <p class="teams-card__course-label">Science Gateways Resources</p>
-      <ul>
+      <ul class="mentor-card__links">
         {% for resource in include.pairing.mentee.science_gateway_resources %}
         <li>
+          {% assign resource_icon = resource.icon | default: "solid:link" %}
           {% if resource.url %}
-          <a href="{{ resource.url }}">{{ resource.name }}</a>
+          <a href="{{ resource.url }}">
+            {% include icon.html icon=resource_icon %}
+            {{ resource.name }}
+          </a>
           {% else %}
+          {% include icon.html icon=resource_icon %}
           {{ resource.name }}
           {% endif %}
         </li>
