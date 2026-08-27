@@ -139,7 +139,7 @@
       - name: "ACCESS-CI Portal"
         url: "https://access-ci.org/"
         icon: "custom:favicons/access-ci-org"
-    project_repo: "https://github.com/cswanier/FacultyHack"
+    project_repo: "https://github.com/cswanier/FacultyHack2026"
     links:
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/cherylswanier/"
