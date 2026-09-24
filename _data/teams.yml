@@ -160,9 +160,6 @@
       - label: "Revised Syllabus"
         url: "https://github.com/cswanier/FacultyHack2026/blob/main/CMP224VUSyllabus2026revised.pdf"
         icon: "solid:file-pdf"
-      - label: "Poster"
-        url: "https://github.com/cswanier/FacultyHack2026/blob/main/FacultyHack_Gateways26_Poster_Final.pdf"
-        icon: "solid:file-pdf"
   mentor_name: "Anas AlSobeh"
 
 - mentee:
@@ -195,9 +192,6 @@
         icon: "solid:file-pdf"
       - label: "Revised Syllabus"
         url: "https://github.com/Josephogo/joseph-aneke/blob/main/revised_syllabus.pdf"
-        icon: "solid:file-pdf"
-      - label: "Poster"
-        url: "https://github.com/Josephogo/joseph-aneke/blob/main/poster_final.pdf"
         icon: "solid:file-pdf"
   mentor_name: "Sabrina Perry"
 
@@ -268,6 +262,15 @@
       - label: "CAEEPNC"
         url: "http://caeepnc.org/"
         icon: "custom:favicons/caeepnc-org"
+      - label: "Initial Syllabus"
+        url: "https://github.com/kristinechristensen/FacultyHack26/blob/main/project-materials/syllabus/LAN_120_Initial_Syllabus.pdf"
+        icon: "solid:file-pdf"
+      - label: "Revised Syllabus"
+        url: "https://github.com/kristinechristensen/FacultyHack26/blob/main/project-materials/syllabus/LAN_120_Revised_Syllabus.pdf"
+        icon: "solid:file-pdf"
+      - label: "CV/Resume"
+        url: "https://github.com/kristinechristensen/FacultyHack26/blob/main/assets/Kristine-Christensen-Resume-2026.pdf"
+        icon: "solid:file-pdf"
   mentor_name: "John Holmen"
 
 - mentee:
@@ -345,9 +348,6 @@
       - label: "Revised Syllabus"
         url: "https://github.com/ooyerind/FacultyHack-Gateways26/blob/main/Revised%20Syllabus.pdf"
         icon: "solid:file-pdf"
-      - label: "Poster"
-        url: "https://github.com/ooyerind/FacultyHack-Gateways26/blob/main/FacultyHack_Gateways26_Poster_Template.pptx"
-        icon: "solid:file-powerpoint"
       - label: "CV/Resume"
         url: "https://github.com/ooyerind/FacultyHack-Gateways26/blob/main/Gateways%202026Oyebade%20Kunle%20Oyerinde_CV.pdf"
         icon: "solid:file-pdf"
@@ -377,6 +377,12 @@
       - label: "LinkedIn"
         url: "https://www.linkedin.com/in/tanganika-johnson-phd-8767a41a"
         icon: "brands:linkedin"
+      - label: "Initial Syllabus"
+        url: "https://github.com/tanganjohnson-ai/Hackathon-26-Environmental-Science/blob/main/Original%20Syllabus.pdf"
+        icon: "solid:file-pdf"
+      - label: "Revised Syllabus"
+        url: "https://github.com/tanganjohnson-ai/Hackathon-26-Environmental-Science/blob/main/Revised%20Syllabus.pdf"
+        icon: "solid:file-pdf"
   mentor_name: "Mohammed Elmellouki"
 
 #- mentee:
@@ -428,9 +434,6 @@
       - label: "Revised Syllabus"
         url: "https://github.com/Yohnjparra/Yohn-Parra/blob/main/SyllabusAI.pdf"
         icon: "solid:file-pdf"
-      - label: "Poster"
-        url: "https://github.com/Yohnjparra/Yohn-Parra/blob/main/FacultyHack_Gateways26_V5.pptx"
-        icon: "solid:file-powerpoint"
       - label: "CV/Resume"
         url: "https://github.com/Yohnjparra/Yohn-Parra/blob/main/CVYh_updated.pdf"
         icon: "solid:file-pdf"
