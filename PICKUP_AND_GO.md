@@ -1134,6 +1134,62 @@ under the new filename; verified in the built HTML that it's slide
 "1 of 15" (up from 14) and that the originals-backup folder is still
 absent from `_site/`.
 
+**Caption corrected twice, same day, by request**: the anniversary
+poster in the photo actually reads "SGX3 | SGCI 10th Anniversary" — the
+first-draft caption had mistyped it "SGX3 | SCC 10th-anniversary,"
+fixed in both `_data/gallery_captions.yml` and this section's prose
+above. Then the venue was added — the photo was taken at **The Johns
+Hopkins University Bloomberg Center in Washington, DC** — appended to
+the same caption string.
+
+**Source photo swapped for an updated version, same day, by request**
+("replace the current group photo with
+`gateways26-facultyhack-groupphoto-modified.png`"). The new source —
+also dropped directly into
+`assets/files/sgx3_facultyhack_pictures_originals/`, same as the first
+one — is a larger composite of the same group in the same spot (more
+people visible, same SGX3 | SGCI poster). Re-derived the served file at
+the **same path**,
+`assets/files/sgx3_facultyhack_pictures/00-gateways26-groupphoto.png`
+(`exif_transpose` + save, no resize needed — 1448×1086 again), so no
+caption or filename change was needed, just the image content. The
+original `gateeways26_groupphoto-mod.png` source was initially left in
+place in the originals-backup folder (harmless there, since that folder
+is excluded from the build) — **then removed by request the same day**
+(`git rm`, since it was already a tracked/committed file, not just an
+untracked one — staged, not committed, per this project's standing
+"only commit when explicitly asked" rule). Verified: structural check
+passes, and the served PNG's file size changed when the source was
+swapped (confirming the replacement actually took), while the gallery
+still shows 15 photos, not 16.
+
+### 16th photo added: full conference group shot (2026-09-25)
+
+By request — the user dropped
+`assets/files/sgx3_facultyhack_pictures_originals/Gateways26 group
+shot.png` in and described it as "a group shot of the Gateways26
+conference participants." Actually viewed it (not captioned from the
+description alone): a much larger rooftop group photo — dozens of
+attendees, not just FacultyHack's cohort — with the U.S. Capitol
+visible in the background, distinct from the smaller indoor
+FacultyHack-only photo already at `00-gateways26-groupphoto.png` (same
+event, different moment/crowd, not a duplicate).
+
+No specific position was requested this time (unlike the pinned "first"
+photo above), so it was left to sort naturally: derived the served copy
+as `assets/files/sgx3_facultyhack_pictures/gateways26-conference-groupshot.png`
+(note: the source filename had spaces and mixed case —
+`Gateways26 group shot.png` — renamed to this project's established
+hyphenated-lowercase convention for served paths, same as
+`virtual-groupshot.png`; `ImageOps.exif_transpose` + save, no resize
+needed at 1448×1086). That name's leading `g` sorts after every
+`IMG_*.jpeg` (uppercase `I` < lowercase `g` in ASCII) and before
+`virtual-groupshot.png` (`g` < `v`) — landed at position 15 of 16,
+right before the Zoom screenshot, without any explicit ordering logic.
+Caption added to `_data/gallery_captions.yml`. Verified in the built
+HTML: 16 distinct photos in the expected order, correct escaped
+caption/alt text, structural check clean.
+
 ## Nav/hero/footer redesign
 
 This went through many small iterative requests. Current end state first,
