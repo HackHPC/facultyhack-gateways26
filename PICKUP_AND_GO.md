@@ -2,7 +2,7 @@
 
 Handoff notes for continuing this work in a new session. Originally
 written 2026-07-16, updated after essentially every change since —
-most recently 2026-08-06. This file is long; the dated `###`
+most recently 2026-09-25. This file is long; the dated `###`
 subsections under each page's `##` section are the append-only history,
 newest last, so within any section the bottom is the current state.
 
@@ -18,23 +18,29 @@ most recently, collapsible per-session "recaps") → a Deliverables page
 → a Teams page (mentee/mentor pairings, search + jump-to-team, per-team
 share links, auto-linked per-mentee files) → an interactive Leaflet
 community map on the home page (20 affiliated organizations, US-scoped,
-state borders, real favicon markers). If you're picking this up cold,
-skim the `##` headers below top to bottom before diving into any one
-section — the order roughly matches the order things were built.
+state borders, real favicon markers) → a Gallery page (auto-rotating
+carousel + thumbnail grid over `assets/files/sgx3_facultyhack_pictures/`,
+auto-discovered via `site.static_files` so new photos need no template
+edits). If you're picking this up cold, skim the `##` headers below top
+to bottom before diving into any one section — the order roughly
+matches the order things were built.
 
 ## What this is
 
 A Jekyll static site for the **FacultyHack@Gateways 2026** program, built for
 deployment to GitHub Pages at `https://github.com/HackHPC/facultyhack-gateways26`
 (→ `https://hackhpc.github.io/facultyhack-gateways26`). Built mobile-first,
-targeting WCAG 2.2 AA. Seven pages exist: the homepage (`index.html`), a
+targeting WCAG 2.2 AA. Eight pages exist: the homepage (`index.html`), a
 Schedule page (`schedule.html`, driven by `_data/schedule.yml`), a
 Deliverables page (`deliverables.html`, static content, no data file), a
 Mentors directory (`mentors.html`, driven by `_data/mentors.yml`), a Teams
 page (`teams.html`, driven by `_data/teams.yml`, cross-referencing
 `_data/mentors.yml`), an Organizers page (`organizers.html`, driven by
-`_data/organizers.yml`), and a Resources page (`resources.html`, driven
-by `_data/resources.yml`). Mentors and Organizers share one card partial,
+`_data/organizers.yml`), a Resources page (`resources.html`, driven
+by `_data/resources.yml`), and a Gallery page (`gallery.html`, driven by
+a `site.static_files` scan of `assets/files/sgx3_facultyhack_pictures/`
+plus caption text in `_data/gallery_captions.yml` — see "Gallery page"
+below). Mentors and Organizers share one card partial,
 `_includes/person-card.html`.
 
 ## Git status — read this before committing anything
@@ -80,6 +86,11 @@ silently.
 | `teams.html` | Teams page — see "Teams page" section below. Search box + jump-to-team `<select>` toolbar (same shape as the Resources page's), then `site.data.teams` rendered via `_includes/teams-card.html`, which cross-references `site.data.mentors` by name and auto-lists any files under that mentee's `assets/files/teams/<slug>/` directory. A shared `#share-menu` popup sits at the end of the page, driven by `assets/js/teams.js` + `assets/js/share-menu.js`. |
 | `organizers.html` | Organizers page. Same pattern, loops `site.data.organizers` via the same `person-card.html` partial. |
 | `resources.html` | Resources page — see "Resources page" section below. Search box + jump-to-category `<select>` toolbar, then 11 category sections of resource cards, each with a share button. A shared `#share-menu` popup (X, Facebook, LinkedIn, Email, Copy Link) sits at the end of the page, driven by `assets/js/resources.js`. |
+| `gallery.html` | Gallery page — see "Gallery page" section below. Auto-rotating carousel + thumbnail grid, both driven by a `site.static_files` scan of `assets/files/sgx3_facultyhack_pictures/` — no YAML editing needed to add a photo, just drop a file in and rebuild. |
+| `_data/gallery_captions.yml` | Optional per-photo caption/alt text, keyed by filename (e.g. `IMG_3708.jpeg`, matched against Jekyll's `file.name`, **not** `file.basename` — basename strips the extension and silently breaks the lookup, see "Gallery page"). A photo with no matching key still renders, just with a generic fallback caption. |
+| `assets/files/sgx3_facultyhack_pictures/` | The 14 source photos actually served on the Gallery page — web-optimized (resized to a 2400px long edge, JPEG quality 85) copies, not the camera originals. |
+| `assets/files/sgx3_facultyhack_pictures_originals/` | Full-resolution backups of the same 14 photos, `README.md`-documented, excluded from the Jekyll build via `_config.yml`. Kept in case the web copies ever need to be re-derived at a different size — see "Gallery page". |
+| `assets/js/gallery.js` | Vanilla JS, scoped to the Gallery page only — carousel auto-rotation (pauses on hover/focus/interaction, respects `prefers-reduced-motion`), prev/next/play-pause controls, thumbnail-click-to-jump. See "Gallery page" section. |
 | `_includes/person-card.html` | Shared card partial — takes a `person` param, used by both Mentors and Organizers. Renders: photo, name (now with `id="{{ name | slugify }}"` on the card `<li>` for deep-linking — see "Teams page"), linked affiliation, `specialty` tag pills, `bio`, sorted `history` ("Experience") list, and labeled/iconed `links`. Every field is individually optional (`{% if %}`-guarded), so Organizers (no `history`/`specialty` data) renders cleanly without those sections. |
 | `_includes/teams-card.html` | Team-pairing card partial — takes a `pairing` param, looks up `pairing.mentor_name` against `site.data.mentors` to reuse that mentor's existing profile data rather than duplicating it. Also scans `site.static_files` for that mentee's `assets/files/teams/<slug>/` directory and auto-renders a "Files" list. See "Teams page" section below. |
 | `_data/teams.yml` | 11 mentee/mentor pairings, sorted by mentee first name (briefly 10 — see "Vivek Shandilya removed, then re-added" in "Teams page") — see "Teams page" section below for provenance and the privacy rules applied. |
@@ -952,6 +963,176 @@ description, no share button. The underlying data (`description`,
 `icon`) is untouched in `teams.yml` for all 3 mentees using this field
 — only the template changed — so nothing needs re-adding if a denser
 display is wanted again later.
+
+### Joshua Gbadebo's mentor corrected: Olabisi Ojo → Sajida Faiyaz (2026-09-25)
+
+Resolves the open discrepancy flagged in "To continue in a new session"
+below since 2026-08-14: `Updated_Course_Goals.pdf` said "Prof. Sajida
+Faiyaz" was his mentor, but `teams.yml`'s `mentor_name` still said
+"Olabisi Ojo." Confirmed independently while building the Gallery page
+(see below) — `IMG_3735.jpeg` shows a woman viewing Joshua Gbadebo's
+poster who the user identified directly as **Sajida Faiyaz, his
+mentor** — corroborating the PDF rather than contradicting it. Updated
+`mentor_name: "Sajida Faiyaz"` in `_data/teams.yml`; no other fields on
+either his mentee entry or her existing `_data/mentors.yml` profile
+needed changes (she was already a full mentor entry, just not linked to
+this pairing). Verified in the built `teams/index.html`: his card now
+contains "Sajida Faiyaz" and no longer contains "Olabisi Ojo."
+
+## Gallery page (added 2026-09-25)
+
+By request — "Use this path assets/files/sgx3_facultyhack_pictures to
+create a picture gallery with a rotating image carosel, and thumbnails
+page. Add the image gallery to the navigation. new image files added to
+the folder should automatically be added to the gallery." Built as one
+page with two sections (a carousel + a thumbnail grid below it, the
+latter jumping the carousel on click) rather than two separate routes —
+"thumbnails page" read as a section, not a literal second URL, to avoid
+a duplicate lightbox/carousel component for what's clearly meant to be
+one gallery experience. New "Gallery" nav link added between Teams and
+Organizers in `_layouts/default.html`.
+
+The user supplied 14 real event photos directly into
+`assets/files/sgx3_facultyhack_pictures/` (13 `IMG_*.jpeg` camera photos
+from the in-person Gateways 2026 poster session + one
+`virtual-groupshot.png` Zoom screenshot from a virtual session) —
+**every one was actually viewed** (not captioned from the filename)
+before writing alt text, same zero-fabrication rule used for mentor
+photos/bios elsewhere in this project. Most are a named
+faculty-participant standing beside their own poster; captions name
+both the person and their exact poster title, sourced by reading the
+poster text in the photo itself, not guessed. `IMG_3735.jpeg` initially
+got a generic "an attendee reviewing Joshua Gbadebo's poster" caption
+before the user corrected it — the person pictured is his mentor,
+**Sajida Faiyaz** — fixed same-day in `_data/gallery_captions.yml`.
+
+**Auto-discovery**: both the carousel and thumbnail loops in
+`gallery.html` scan `site.static_files` for any path containing
+`assets/files/sgx3_facultyhack_pictures/` with an image extension
+(`.jpg`/`.jpeg`/`.png`/`.webp`), sorted by name — same established
+pattern as `teams-card.html`'s per-mentee file scan and `schedule.html`'s
+per-session file scan. A new photo dropped into that folder needs no
+template or YAML edit to appear; it just won't have a specific caption
+in `gallery_captions.yml` until one is added (falls back to a generic
+"FacultyHack@Gateways 2026 event photo" caption instead). **Important
+scope limit, stated honestly rather than overpromised**: this project
+has no Jekyll image-processing plugin, so "automatic" only ever covers
+*discovery and display*, never resizing — a future photo dropped in at
+full camera resolution will be served at full size as-is unless resized
+by hand first (see "Image sizing" below for the one-off process used
+for the initial 14).
+
+**Image sizing**: the 14 source photos arrived as raw camera/phone
+files, 2.9–6.6MB each (~65MB total) — same "don't ship multi-MB images
+unprocessed" rule already applied to mentor portraits earlier in this
+project. Unlike portraits (downloaded copies with a source-repo backup
+elsewhere), these are the *only* copies of real event photography, so
+treated as higher-stakes: **the full-resolution originals were backed
+up to `assets/files/sgx3_facultyhack_pictures_originals/` first**
+(excluded from the Jekyll build via `_config.yml`, documented with its
+own `README.md`), and only the *served* copies in
+`assets/files/sgx3_facultyhack_pictures/` were resized (Pillow,
+`LANCZOS`, 2400px long edge, JPEG quality 85 + `optimize=True` /
+PNG `optimize=True`) — cut total gallery weight from ~65MB to ~12MB
+without touching the originals. Nothing was destroyed; the original
+files were untracked in git at the time (never committed), so a git-
+history recovery path didn't exist yet — the on-disk backup was the
+only safety net, which is why it was made before any resizing ran.
+
+**Two real bugs caught and fixed during this build, both worth
+remembering for any future `site.static_files` + `_data/*.yml`
+lookup:**
+
+- **`file.basename` strips the extension; `file.name` doesn't.**
+  `_data/gallery_captions.yml` is keyed by full filename
+  (`IMG_3708.jpeg`). First draft looked captions up by
+  `site.data.gallery_captions[file.basename]` (`"IMG_3708"`, no match)
+  and every photo silently rendered the generic fallback caption
+  instead of its real one — no build error, just wrong content. Caught
+  by grepping the built HTML for a specific mentee's name and finding
+  it missing, not by assuming the lookup worked. Fixed by switching to
+  `file.name`. Worth checking against this exact gotcha in any future
+  `site.static_files`-keyed data lookup — `teams-card.html`'s existing
+  `mentee_images`/`mentee_files` scan uses `file.basename` too, but only
+  for *display text* (titleized), never as a hash key, so it wasn't
+  affected.
+- **Unescaped caption text broke the `alt` attribute.** Captions
+  containing a literal `"` (quoted poster titles) or `&` rendered
+  straight into `alt="{{ caption }}"` with no escaping, producing
+  malformed HTML — the embedded `"` prematurely closed the attribute
+  value. Fixed by piping every caption output through `| escape`
+  (`alt="{{ caption | escape }}"`, and the visible `<p>` caption text
+  too, for consistency even though unescaped `&` is more tolerated in
+  text content than in an attribute). Caught by grepping the built
+  page's raw HTML for the actual rendered attribute, not just
+  confirming the page built without error — a `jekyll build` succeeding
+  doesn't mean the HTML it emitted is well-formed.
+
+**A third bug, caught after this section was first written, from a
+follow-up user report ("Several of the portrait photos of persons by
+their posters were rotated ccw. rotate them back")**: the original
+resize pass (`Image.open(...).save(...)`) dropped the camera's EXIF
+orientation tag — 11 of the 14 photos were shot in portrait mode with
+`Orientation: 6` (rotate 90° CW to display correctly), and Pillow does
+**not** auto-apply that tag on open, so the un-rotated raw sensor pixels
+got saved as the served copies, rendering visibly sideways. Confirmed
+via `img.getexif().get(274)` against the (untouched) backups — exactly
+the 11 portrait-mode `IMG_*.jpeg` files had `orientation=6`, the 2
+landscape photos (`IMG_3686.jpeg`, `IMG_3727.jpeg`) had `orientation=1`
+(no correction needed), matching the user's "several," not "all."
+Fixed by re-deriving the served copies from the untouched
+full-resolution backups with `PIL.ImageOps.exif_transpose()` applied
+*before* resizing — bakes the correct orientation into the pixel data
+itself rather than relying on a tag that a plain resave doesn't
+preserve. **Worth remembering for any future image-resize script in
+this project**:
+`Image.open()` alone is not orientation-safe; always run
+`ImageOps.exif_transpose()` (or explicitly preserve the EXIF blob on
+save) before treating a camera photo's raw pixel dimensions as correct.
+
+**Verified**: clean `bundle exec jekyll build`; the project's structural
+HTML check (tag balance, duplicate ids, heading-hierarchy skips) passes
+across all pages including the new one; all 14 photos and their correct
+per-photo captions (not the generic fallback) confirmed present in the
+built `gallery/index.html` by grepping the raw output; the backup folder
+confirmed absent from `_site/`; a local `jekyll serve` returns `200` for
+`/gallery/`. **Not yet done**: opened in a real browser — same
+still-unverified-by-eye caveat as most of this project, see
+"Verification status" below. The carousel's auto-rotation timing,
+pause-on-hover/focus behavior, and `prefers-reduced-motion` handling are
+all structurally present in `assets/js/gallery.js` but have never been
+watched run.
+
+### 15th photo added as a pinned "first" slide (2026-09-25)
+
+By request — "Use [a group photo] as the first photo in the gallery."
+The gallery has no manual ordering field; both loops in `gallery.html`
+sort `site.static_files` by `name`, so "first" only means "sorts first
+alphabetically." The supplied file,
+`gateeways26_groupphoto-mod.png` (a wider group shot of FacultyHack
+participants/mentors at the Gateways 2026 conference, same SGX3 | SGCI
+10th Anniversary poster visible as in `IMG_3686.jpeg`), was dropped
+directly into `assets/files/sgx3_facultyhack_pictures_originals/` — the
+*excluded* backup folder, not the served one — so on its own it
+wouldn't have appeared on the site at all, let alone first.
+
+Derived the served copy the normal way (`ImageOps.exif_transpose` — the
+source had no orientation tag, so this was a no-op here but kept for
+consistency — then saved; already under the 2400px long-edge cap at
+1448×1086, so no resizing was needed) and saved it as
+**`assets/files/sgx3_facultyhack_pictures/00-gateways26-groupphoto.png`**
+— the `00-` prefix is the actual mechanism that makes it sort first,
+ahead of every `IMG_*`/`virtual-*` name. **This is a small deviation
+from the "just drop a file in, no editing needed" story told earlier in
+this section**: dropping a new file in still requires no template
+change, but a file meant to lead the gallery specifically needs a name
+that sorts before `00-` (or a `00-`-prefixed name of its own) — a plain
+camera-default filename will land wherever it alphabetizes, not at the
+front. Documented directly in `_data/gallery_captions.yml`'s header
+comment so this doesn't have to be rediscovered later. Caption added
+under the new filename; verified in the built HTML that it's slide
+"1 of 15" (up from 14) and that the originals-backup folder is still
+absent from `_site/`.
 
 ## Nav/hero/footer redesign
 
@@ -2995,10 +3176,10 @@ verification detail lives throughout this file under each feature's
 own dated section — this is just the rolled-up summary.)*
 
 **A real `jekyll build` succeeds** (Jekyll 4.4.1, Homebrew Ruby 4.0.6)
-for all **seven** pages: Home, Schedule, Deliverables, Mentors, Teams,
-Organizers, Resources. `baseurl` applies correctly everywhere, including
-every inline `style="--*-logo: url(...)"` custom property and every
-`data-*-path`/`data-*-url` attribute added for the community map.
+for all **eight** pages: Home, Schedule, Deliverables, Mentors, Teams,
+Organizers, Resources, Gallery. `baseurl` applies correctly everywhere,
+including every inline `style="--*-logo: url(...)"` custom property and
+every `data-*-path`/`data-*-url` attribute added for the community map.
 
 **Real-browser testing has now actually happened** — the user ran the
 live `jekyll serve --livereload` instance in both Safari and Chrome and
@@ -3064,7 +3245,7 @@ now have a `recap:`** (Aug 3, 5, 7, 10, 12, 14 — the program's full
 - No page has ever been opened in a real browser *except* the one Chrome/
   Safari check above, which was itself prompted by a user-reported bug,
   not a deliberate QA pass. Mobile-first reflow, 400% zoom, real
-  screen-reader output, and keyboard-only navigation across all 7 pages
+  screen-reader output, and keyboard-only navigation across all 8 pages
   remain unverified by eye.
 - The Font Awesome icon swap, the ~150+ real-favicon resource/mentor/
   team/session icons (grown substantially since Sessions 3–6's resource
@@ -3076,12 +3257,15 @@ now have a `recap:`** (Aug 3, 5, 7, 10, 12, 14 — the program's full
 
 ## To continue in a new session
 
-1. **Open all seven pages in a real browser** (`bundle exec jekyll serve
+1. **Open all eight pages in a real browser** (`bundle exec jekyll serve
    --livereload`), with the community map as the top priority — see
-   "Verification status" above for why. After that, the same general
-   pass that's been outstanding for a while: mobile-first reflow, 400%
-   zoom, keyboard-only navigation (skip link, nav `aria-current`
-   styling, both toolbar search+jump pairs on Resources/Teams, every
+   "Verification status" above for why. The Gallery page's carousel
+   (auto-rotation timing, pause-on-hover/focus, `prefers-reduced-motion`)
+   has the same never-clicked-by-hand caveat. After that, the same
+   general pass that's been outstanding for a while: mobile-first
+   reflow, 400% zoom, keyboard-only navigation (skip link, nav
+   `aria-current` styling, both toolbar search+jump pairs on
+   Resources/Teams, every
    card link, focus ring visibility), and a contrast-checker extension
    against live rendered colors.
 2. ~~Decide the GitHub Pages deployment model~~ **Done (2026-08-06)** —
@@ -3113,12 +3297,12 @@ now have a `recap:`** (Aug 3, 5, 7, 10, 12, 14 — the program's full
    "Organizers page").
 7. ~~Session recaps are 2 of 6 virtual sessions done~~ **Done
    (2026-08-14)** — all 6 virtual sessions (Aug 3, 5, 7, 10, 12, 14) now
-   have a `recap:`; the program's virtual portion is complete. Remaining
-   open thread from that work: **Joshua Gbadebo's mentor pairing is
-   unresolved** — his Updated_Course_Goals.pdf lists "Prof. Sajida
-   Faiyaz" as Mentor 1, but `teams.yml`'s `mentor_name` for that pairing
-   is still "Olabisi Ojo." Flagged to the user, not changed — confirm
-   which is current before assuming either.
+   have a `recap:`; the program's virtual portion is complete.
+   ~~Remaining open thread from that work: Joshua Gbadebo's mentor
+   pairing is unresolved~~ **Done (2026-09-25)** — confirmed by the
+   user (independently of the PDF) that his mentor is **Sajida
+   Faiyaz**, not "Olabisi Ojo"; `teams.yml` updated, see "Joshua
+   Gbadebo's mentor corrected" under "Teams page".
 8. **Resource link-check follow-ups, still not fixed** (found during a
    full DNS+GET pass over all resources, see "Resources page" for full
    history): `lab.github.com` (dead, GitHub Learning Lab retired) and
