@@ -1,0 +1,109 @@
+---
+layout: default
+title: Photo Gallery
+description: >-
+  Photos from FacultyHack@Gateways 2026, in-person and virtual.
+---
+
+{% assign gallery_dir = "/assets/files/sgx3_facultyhack_pictures/" %}
+{% assign gallery_images = "" | split: "" %}
+{% for file in site.static_files %}
+  {% if file.path contains gallery_dir %}
+    {% assign file_ext = file.extname | downcase %}
+    {% case file_ext %}
+      {% when ".jpg", ".jpeg", ".png", ".webp" %}
+        {% assign gallery_images = gallery_images | push: file %}
+    {% endcase %}
+  {% endif %}
+{% endfor %}
+{% assign gallery_images = gallery_images | sort: "name" %}
+
+<section class="gallery" aria-labelledby="gallery-heading">
+  <div class="wrapper">
+    <div class="page-hero__top">
+      {% include site-logo.html %}
+      <div>
+        <h1 id="gallery-heading">Photo Gallery</h1>
+        <p>
+          Moments from FacultyHack@Gateways 2026 &mdash; in-person at the
+          Gateways 2026 poster session and from our virtual working
+          sessions. New photos dropped into this gallery&rsquo;s folder
+          appear here automatically.
+        </p>
+      </div>
+    </div>
+
+    {% if gallery_images.size > 0 %}
+    <div
+      class="gallery-carousel"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Event photos"
+    >
+      <div class="gallery-carousel__viewport">
+        <ul class="gallery-carousel__track" id="gallery-carousel-track">
+          {% for file in gallery_images %}
+          {% assign caption = site.data.gallery_captions[file.name] | default: "FacultyHack@Gateways 2026 event photo" %}
+          <li
+            class="gallery-carousel__slide"
+            role="group"
+            aria-roledescription="slide"
+            aria-label="{{ forloop.index }} of {{ forloop.length }}"
+            {% if forloop.first %}aria-current="true"{% endif %}
+          >
+            <img
+              src="{{ file.path | relative_url }}"
+              alt="{{ caption | escape }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            >
+            <p class="gallery-carousel__caption">{{ caption | escape }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="gallery-carousel__controls">
+        <button type="button" class="gallery-carousel__button" id="gallery-prev">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          <span class="visually-hidden">Previous photo</span>
+        </button>
+        <button type="button" class="gallery-carousel__button" id="gallery-play-pause" aria-pressed="false">
+          <i class="fa-solid fa-pause" aria-hidden="true"></i>
+          <span class="visually-hidden">Pause automatic rotation</span>
+        </button>
+        <button type="button" class="gallery-carousel__button" id="gallery-next">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          <span class="visually-hidden">Next photo</span>
+        </button>
+      </div>
+
+      <p class="visually-hidden" id="gallery-status" aria-live="polite"></p>
+    </div>
+
+    <h2 id="gallery-thumbnails-heading" class="gallery-thumbnails__heading">All Photos</h2>
+    <ul class="gallery-thumbnails" aria-labelledby="gallery-thumbnails-heading">
+      {% for file in gallery_images %}
+      {% assign caption = site.data.gallery_captions[file.name] | default: "FacultyHack@Gateways 2026 event photo" %}
+      <li>
+        <button
+          type="button"
+          class="gallery-thumbnails__button"
+          data-gallery-index="{{ forloop.index0 }}"
+        >
+          <img
+            class="gallery-thumbnails__image"
+            src="{{ file.path | relative_url }}"
+            alt="{{ caption | escape }}"
+            loading="lazy"
+          >
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No photos have been added yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+<script src="{{ '/assets/js/gallery.js' | relative_url }}" defer></script>

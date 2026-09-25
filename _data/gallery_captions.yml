@@ -1,0 +1,19 @@
+# Captions/alt text for assets/files/sgx3_facultyhack_pictures/, keyed by
+# filename. Looked up in gallery.html; any image dropped into that folder
+# without a matching entry here still appears in the gallery automatically,
+# just with a generic fallback caption (see gallery.html) instead of one of
+# these specific ones.
+IMG_3686.jpeg: "FacultyHack@Gateways 2026 team members gathered at the SGX3 | SGCI 10th-anniversary celebration"
+IMG_3708.jpeg: "Agbeli Ameko presenting his poster, \"Introduction to an Open Source Future: Decolonizing Technology & Data Sovereignty,\" at the Gateways 2026 poster session"
+IMG_3709.jpeg: "Tanganika Johnson presenting her poster, \"Mapping Urban Heat & Environmental Resilience with Science Gateways from the Bluff to the Bayou,\" at the Gateways 2026 poster session"
+IMG_3710.jpeg: "Oyebade Kunle Oyerinde presenting his poster, \"CPAD 504: Economics and Data Science for Public Administrators,\" at the Gateways 2026 poster session"
+IMG_3713.jpeg: "Dr. Mary K. Beals presenting her poster, \"Ecology 404B: Integrating AI & Science Gateways into Ecology in a Digital Age,\" at the Gateways 2026 poster session"
+IMG_3715.jpeg: "Antigone Anthony presenting her poster, \"SBIO 221LB: Integrating Science Gateways, Jupyter, and AI into Human Anatomy & Physiology I Lab,\" at the Gateways 2026 poster session"
+IMG_3718.jpeg: "Javonte Carter presenting his HackHPC@ADMI26 poster, \"Data-Grounded Generation: Combining a Python Game Engine, Structured Lore Data, and the Groq API for Alternate-Timeline Narrative\""
+IMG_3720.jpeg: "Dr. Kristine Christensen presenting her poster, \"From Sensors to Scientific Computing: Integrating Science Gateways, HPC, and AI into an Entry-Level IoT Course,\" at the Gateways 2026 poster session"
+IMG_3722.jpeg: "Charlie Dey presenting the \"Art of the Hack\" poster on the HackHPC@ADMI26 constructionist framework, at the Gateways 2026 poster session"
+IMG_3724.jpeg: "Cheryl A. Swanier presenting her poster, \"Empowering the Next Generation of Programmers: AI and Jetstream2 in Introductory Computing,\" at the Gateways 2026 poster session"
+IMG_3727.jpeg: "Attendees browsing poster boards during the Gateways 2026 poster session"
+IMG_3732.jpeg: "Yohn Jairo Parra Bautista presenting his poster, \"Integrating HPC, AI & Science Gateways into the CAP 4620 Artificial Intelligence Course,\" at the Gateways 2026 poster session"
+IMG_3735.jpeg: "Sajida Faiyaz, faculty mentor, at Joshua Gbadebo's poster, \"Computer Architecture: Integrating Cloud Architecture,\" at the Gateways 2026 poster session"
+virtual-groupshot.png: "A FacultyHack@Gateways 2026 virtual session, with faculty participants and mentors joining by video call"

@@ -64,6 +64,7 @@ exclude:
   - assets/images/mentors/README.md
   - assets/files/teams/README.md
   - assets/files/schedule/README.md
+  - assets/files/sgx3_facultyhack_pictures_originals
   - Gemfile
   - Gemfile.lock
   - node_modules
